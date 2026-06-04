@@ -3,78 +3,475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Importance of Automated Testing — Bishal Khatri</title>
   <meta name="description" content="Learn about the importance of automated testing in software development.">
-  <meta name="keywords" content="automated testing, software development, quality assurance, testing tools">
   <meta name="author" content="Bishal Khatri">
-  
-  
-  <title>The Importance of Automated Testing in Software Development</title>
-  
-  <!-- Stylesheets (you can link your own stylesheets here) -->
-  <link href="https://fonts.googleapis.com/css2?family=Golomora&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+    :root {
+      --ink:   #0d0d0d;
+      --paper: #f5f2ed;
+      --cream: #ede9e1;
+      --teal:  #2a7c6f;
+      --teal2: #1f5c52;
+      --gold:  #c8963e;
+      --mid:   #7a7068;
+      --light: #ccc8c0;
+      --white: #fff;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --ease:  cubic-bezier(.25,.46,.45,.94);
+      --accent: #2a7c6f;
+      --accent-bg: rgba(42,124,111,.07);
     }
-    .blog-title {
-      color: #333;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* noise */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 128px;
     }
-    .blog-meta {
-      color: #666;
-      font-style: italic;
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      backdrop-filter: blur(14px) saturate(1.4);
+      background: rgba(245,242,237,.88);
+      border-bottom: 1px solid rgba(0,0,0,.06);
     }
-    .blog-content {
-      line-height: 1.6;
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; }
+    .nav-logo span { color: var(--teal); }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .82rem; font-weight: 500; color: var(--mid);
+      border: 1px solid var(--light); border-radius: 999px;
+      padding: .45rem 1rem;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav-back:hover { color: var(--teal); border-color: var(--teal); background: var(--accent-bg); }
+
+    /* HERO BANNER */
+    .post-hero {
+      margin-top: 60px;
+      min-height: 52vh;
+      background: var(--ink);
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+      padding: 4rem 0 3.5rem;
+    }
+    .post-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a3530 60%, #0d0d0d 100%);
+    }
+    /* grid lines decoration */
+    .post-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(42,124,111,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42,124,111,.12) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .post-hero-inner {
+      max-width: 820px; margin: 0 auto; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .post-cat {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: #4ba898;
+      background: rgba(42,124,111,.18); border: 1px solid rgba(42,124,111,.3);
+      padding: .35rem .9rem; border-radius: 999px;
+      margin-bottom: 1.4rem;
+    }
+    .post-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1; letter-spacing: -.02em;
+      color: var(--paper); margin-bottom: 1.5rem;
+    }
+    .post-title em { font-style: italic; color: #4ba898; }
+    .post-meta {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .meta-author {
+      display: flex; align-items: center; gap: .65rem;
+    }
+    .meta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #c8963e);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: .75rem; font-weight: 700; flex-shrink: 0;
+    }
+    .meta-name { font-size: .85rem; color: rgba(245,242,237,.9); font-weight: 500; }
+    .meta-date { font-size: .78rem; color: rgba(245,242,237,.45); }
+    .meta-divider { width: 1px; height: 28px; background: rgba(255,255,255,.15); }
+    .meta-pill {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .75rem; color: rgba(245,242,237,.5);
+    }
+
+    /* READING PROGRESS BAR */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      width: 0%; z-index: 200; transition: width .1s linear;
+    }
+
+    /* LAYOUT */
+    .post-layout {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 280px;
+      gap: 4rem; padding: 4rem 2rem;
+      align-items: start;
+    }
+
+    /* ARTICLE */
+    article {}
+    .article-lead {
+      font-size: 1.18rem; color: #3a3530; line-height: 1.85;
+      font-weight: 300; margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem; border-bottom: 1px solid var(--light);
+    }
+    .article-body h2 {
+      font-family: var(--serif);
+      font-size: 1.75rem; letter-spacing: -.015em; line-height: 1.2;
+      color: var(--ink); margin: 2.8rem 0 1rem;
+      position: relative;
+    }
+    .article-body h2::before {
+      content: ''; position: absolute; left: -1.5rem; top: .2em;
+      width: 3px; height: 1.4em;
+      background: linear-gradient(180deg, var(--teal), var(--gold));
+      border-radius: 2px;
+    }
+    .article-body p { font-size: 1rem; color: #3a3530; line-height: 1.9; margin-bottom: 1.4rem; }
+    .article-body ul, .article-body ol { margin: 1rem 0 1.8rem 1.5rem; }
+    .article-body li { font-size: 1rem; color: #3a3530; line-height: 1.85; margin-bottom: .75rem; }
+    .article-body li::marker { color: var(--teal); }
+    .article-body strong { color: var(--ink); font-weight: 600; }
+
+    /* callout box */
+    .callout {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 .75rem .75rem 0;
+      padding: 1.2rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .callout p { margin: 0; color: var(--teal2); font-size: .95rem; }
+
+    /* code-style tool cards */
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.5rem 0; }
+    .tool-card {
+      background: var(--white); border: 1px solid var(--light);
+      border-radius: .9rem; padding: 1.1rem 1.2rem;
+      display: flex; align-items: flex-start; gap: .85rem;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .tool-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.07); transform: translateY(-2px); }
+    .tool-icon {
+      width: 40px; height: 40px; border-radius: .6rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .tool-icon-1 { background: #e8f5e9; color: #2e7d32; }
+    .tool-icon-2 { background: #fff3e0; color: #e65100; }
+    .tool-icon-3 { background: #e3f2fd; color: #1565c0; }
+    .tool-icon-4 { background: #fce4ec; color: #c2185b; }
+    .tool-name { font-size: .87rem; font-weight: 600; color: var(--ink); margin-bottom: .2rem; }
+    .tool-desc { font-size: .78rem; color: var(--mid); line-height: 1.5; }
+
+    /* stat highlight */
+    .stat-row { display: flex; gap: 1rem; margin: 2rem 0; }
+    .stat-box {
+      flex: 1; background: var(--white); border: 1px solid var(--light);
+      border-radius: 1rem; padding: 1.2rem; text-align: center;
+    }
+    .stat-box .num {
+      font-family: var(--serif); font-size: 2.2rem; color: var(--teal); line-height: 1;
+    }
+    .stat-box .lbl { font-size: .73rem; color: var(--mid); text-transform: uppercase; letter-spacing: .06em; margin-top: .4rem; }
+
+    /* conclusion */
+    .article-conclusion {
+      background: var(--ink); color: var(--paper);
+      border-radius: 1.25rem; padding: 2.2rem 2rem; margin-top: 3rem;
+    }
+    .article-conclusion h2 {
+      font-family: var(--serif); font-size: 1.5rem; color: var(--paper); margin-bottom: 1rem;
+    }
+    .article-conclusion h2::before { display: none; }
+    .article-conclusion p { color: rgba(245,242,237,.7); line-height: 1.85; margin-bottom: 1rem; }
+    .article-conclusion p:last-child { margin: 0; }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-card {
+      background: var(--white); border: 1px solid var(--light);
+      border-radius: 1.1rem; padding: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .sidebar-title {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 1.1rem;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: .7rem; }
+    .toc-list a {
+      font-size: .84rem; color: var(--mid); display: flex; align-items: center; gap: .5rem;
+      transition: color .2s; padding: .25rem 0;
+    }
+    .toc-list a::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--light); flex-shrink: 0; transition: background .2s;
+    }
+    .toc-list a:hover { color: var(--teal); }
+    .toc-list a:hover::before { background: var(--teal); }
+
+    .author-card { text-align: center; }
+    .author-avatar-lg {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto .75rem;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem; font-weight: 700;
+    }
+    .author-name-lg { font-weight: 600; font-size: .95rem; margin-bottom: .25rem; }
+    .author-role-lg { font-size: .78rem; color: var(--mid); margin-bottom: 1rem; }
+    .author-bio-lg { font-size: .8rem; color: #4a4540; line-height: 1.65; }
+
+    .share-btns { display: flex; gap: .6rem; }
+    .share-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: .4rem;
+      padding: .6rem; border-radius: .6rem; font-size: .75rem; font-weight: 600;
+      border: 1px solid var(--light); color: var(--mid);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .share-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .related-post {
+      display: flex; gap: .85rem; align-items: flex-start;
+      padding: .85rem 0; border-bottom: 1px solid var(--cream);
+    }
+    .related-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-thumb {
+      width: 48px; height: 48px; border-radius: .6rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .related-thumb-1 { background: linear-gradient(135deg, #6d4a1e, var(--gold)); }
+    .related-title { font-size: .82rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .related-title a:hover { color: var(--teal); }
+    .related-date { font-size: .72rem; color: var(--mid); margin-top: .25rem; }
+
+    /* BACK TO TOP */
+    #back-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 99;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--ink); color: white; border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; cursor: pointer;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .3s, transform .3s, background .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    }
+    #back-top.visible { opacity: 1; transform: none; }
+    #back-top:hover { background: var(--teal); }
+
+    /* FOOTER */
+    footer {
+      background: #080808; color: rgba(245,242,237,.4);
+      text-align: center; padding: 2rem; font-size: .78rem;
+    }
+    footer a { color: var(--teal); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      nav { padding: 1rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .stat-row { flex-direction: column; }
+      .post-hero { padding: 3rem 0 2.5rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1 class="blog-title">The Importance of Automated Testing in Software Development</h1>
-      <p class="blog-meta">Posted on March 1, 2024 by Bishal Khatri</p>
-    </header>
-    
-    <article class="blog-content">
-      <p>In today's fast-paced software development environment, the need for speed and quality is higher than ever.</p>
-      
-      <p>Software teams are constantly under pressure to deliver products faster while ensuring they are reliable, scalable, and secure. This is where automated testing plays a crucial role.</p>
-      
-      <h2>What is Automated Testing?</h2>
-      <p>Automated testing involves using specialized software tools to execute tests on a software application. These tests compare the expected outcomes with the actual outcomes and provide feedback on whether the application behaves as expected.</p>
-      
-      <h2>The Benefits of Automated Testing</h2>
-      <p>There are several benefits to incorporating automated testing into the software development process:</p>
-      <ul>
-        <li><strong>Improved Efficiency:</strong> Automated tests can be run much faster than manual tests, allowing for quicker feedback on code changes.</li>
-        <li><strong>Increased Test Coverage:</strong> Automated tests can cover a vast number of scenarios, including edge cases that might be overlooked in manual testing.</li>
-        <li><strong>Consistent Results:</strong> Automated tests produce consistent results every time they are run, eliminating human error in the testing process.</li>
-        <li><strong>Cost Savings:</strong> While there is an initial investment in setting up automated tests, in the long run, they save time and resources compared to manual testing.</li>
-      </ul>
-      
-      <h2>Popular Automated Testing Tools</h2>
-      <p>There are many tools available for automated testing, each with its own strengths and purposes. Some popular ones include:</p>
-      <ul>
-        <li><strong>Selenium:</strong> A widely used tool for automating web browsers across multiple platforms.</li>
-        <li><strong>JUnit:</strong> A testing framework for Java programming language.</li>
-        <li><strong>Pytest:</strong> A testing framework for Python.</li>
-        <li><strong>Postman:</strong> An API testing tool for RESTful web services.</li>
-      </ul>
-      
-      <h2>Conclusion</h2>
-      <p>Automated testing is no longer just a nice-to-have in software development; it is a necessity. By implementing automated testing, teams can ensure faster delivery of high-quality software, leading to greater customer satisfaction and business success.</p>
-      
-      <p>Remember, while automated testing can greatly improve the efficiency and effectiveness of testing, it should not replace manual testing entirely. A combination of both approaches is often the best strategy for ensuring software quality.</p>
-      
-      <p>Thank you for reading!</p>
-    </article>
-    
-    <footer>
-      <p>&copy; © 2024 Bishal Khatri | QA Professional</p>
-    </footer>
+
+  <div id="progress-bar"></div>
+  <button id="back-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Bishal<span>.</span></a>
+    <a class="nav-back" href="index.html#blog"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="post-hero">
+    <div class="post-hero-bg"></div>
+    <div class="post-hero-inner">
+      <div class="post-cat"><i class="fa-solid fa-robot"></i> Test Automation</div>
+      <h1 class="post-title">The Importance of <em>Automated Testing</em> in Software Development</h1>
+      <div class="post-meta">
+        <div class="meta-author">
+          <div class="meta-avatar">BK</div>
+          <div>
+            <div class="meta-name">Bishal Khatri</div>
+            <div class="meta-date">March 1, 2024</div>
+          </div>
+        </div>
+        <div class="meta-divider"></div>
+        <span class="meta-pill"><i class="fa-regular fa-clock"></i> 5 min read</span>
+        <span class="meta-pill"><i class="fa-solid fa-eye"></i> QA Engineering</span>
+      </div>
+    </div>
   </div>
+
+  <!-- CONTENT -->
+  <div class="post-layout">
+    <article>
+      <p class="article-lead">In today's fast-paced software development environment, the need for speed and quality has never been greater. Automated testing is the bridge between shipping fast and shipping right — and it's no longer optional.</p>
+
+      <div class="article-body">
+
+        <div class="stat-row">
+          <div class="stat-box"><div class="num">80%</div><div class="lbl">Faster feedback</div></div>
+          <div class="stat-box"><div class="num">3×</div><div class="lbl">More test coverage</div></div>
+          <div class="stat-box"><div class="num">60%</div><div class="lbl">Lower long-term cost</div></div>
+        </div>
+
+        <h2 id="what">What is Automated Testing?</h2>
+        <p>Automated testing uses specialized software tools to execute pre-written test scripts against an application, comparing actual outcomes against expected ones. Unlike manual testing, it runs without human intervention — making it ideal for repetitive validation tasks like regression testing, smoke tests, and CI/CD gates.</p>
+        <p>The key insight: once a test is written, running it costs virtually nothing. That economics fundamentally changes what's possible in a QA process.</p>
+
+        <div class="callout">
+          <p><strong>Think of it this way:</strong> a manual tester can run ~20 test cases per hour. A well-written automated suite can run thousands in minutes — on every commit, 24/7.</p>
+        </div>
+
+        <h2 id="benefits">The Benefits of Automated Testing</h2>
+        <p>The case for automation isn't just about speed. Here's the full picture:</p>
+        <ul>
+          <li><strong>Improved Efficiency:</strong> Automated tests run far faster than manual tests, delivering near-instant feedback on code changes so developers can fix issues while context is fresh.</li>
+          <li><strong>Increased Test Coverage:</strong> Automation makes it feasible to cover hundreds of edge cases and negative scenarios that would be impractical to test manually on every sprint.</li>
+          <li><strong>Consistent Results:</strong> Human testers get tired and make errors. Automated tests execute identically every single run — deterministic by design.</li>
+          <li><strong>Cost Savings:</strong> The upfront investment in building automation pays dividends quickly. Teams that automate typically reduce regression testing time by over 70% within 6 months.</li>
+          <li><strong>Confidence to Ship:</strong> When your CI pipeline goes green, you ship with confidence — not hope.</li>
+        </ul>
+
+        <h2 id="tools">Popular Automated Testing Tools</h2>
+        <p>The right tool depends on your stack and testing goals. Here are four I trust:</p>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon tool-icon-1"><i class="fa-solid fa-globe"></i></div>
+            <div>
+              <div class="tool-name">Selenium</div>
+              <div class="tool-desc">Industry standard for web browser automation across Chrome, Firefox, Safari & Edge.</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon tool-icon-2"><i class="fa-brands fa-java"></i></div>
+            <div>
+              <div class="tool-name">JUnit</div>
+              <div class="tool-desc">The go-to unit testing framework for Java — clean, expressive assertions and deep IDE integration.</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon tool-icon-3"><i class="fa-brands fa-python"></i></div>
+            <div>
+              <div class="tool-name">Pytest</div>
+              <div class="tool-desc">Pythonic, powerful, and extensible. My favourite for backend API and integration test suites.</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon tool-icon-4"><i class="fa-solid fa-satellite-dish"></i></div>
+            <div>
+              <div class="tool-name">Postman</div>
+              <div class="tool-desc">API testing made visual. Collections double as automated regression suites in CI pipelines.</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="strategy">Building a Smart Automation Strategy</h2>
+        <p>Not everything should be automated. The classic Testing Pyramid offers a mental model: write lots of unit tests (fast, cheap), fewer integration tests, and a lean suite of end-to-end tests. Inverting this pyramid leads to brittle, slow, expensive suites.</p>
+        <p>Start automation with your highest-value regression paths — the flows that break most often and cost the most when they do. Build coverage incrementally as confidence and tooling maturity grows.</p>
+
+        <div class="article-conclusion">
+          <h2>The Bottom Line</h2>
+          <p>Automated testing is no longer a nice-to-have — it's the foundation of every reliable, modern software delivery process. Teams that invest in it ship faster, sleep better, and build more trust with their users.</p>
+          <p>That said, automation doesn't replace manual testing — it frees manual testers to focus on exploratory, creative, and usability testing where human judgment is irreplaceable. The best QA strategies use both.</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">In this article</div>
+        <ul class="toc-list">
+          <li><a href="#what">What is Automated Testing?</a></li>
+          <li><a href="#benefits">Key Benefits</a></li>
+          <li><a href="#tools">Popular Tools</a></li>
+          <li><a href="#strategy">Building a Strategy</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card author-card">
+        <div class="author-avatar-lg">BK</div>
+        <div class="author-name-lg">Bishal Khatri</div>
+        <div class="author-role-lg">QA Engineer · Nepal</div>
+        <div class="author-bio-lg">2+ years shipping quality software. Passionate about automation, data-driven testing, and building QA cultures from the ground up.</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Share this article</div>
+        <div class="share-btns">
+          <a href="https://www.linkedin.com/in/qa-bishal-khatri" target="_blank" class="share-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+          <a href="https://twitter.com/ProjectCraftman" target="_blank" class="share-btn"><i class="fab fa-x-twitter"></i> X</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Related Reading</div>
+        <div class="related-post">
+          <div class="related-thumb related-thumb-1">📋</div>
+          <div>
+            <div class="related-title"><a href="blog-post-2.html">Tips for Writing Effective Test Cases</a></div>
+            <div class="related-date">March 3, 2024</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>© 2024 <a href="index.html">Bishal Khatri</a> · QA Professional · All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Reading progress
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+      document.getElementById('progress-bar').style.width = (scrolled * 100) + '%';
+      const btn = document.getElementById('back-top');
+      if (doc.scrollTop > 400) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    });
+    document.getElementById('back-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
 </body>
 </html>
