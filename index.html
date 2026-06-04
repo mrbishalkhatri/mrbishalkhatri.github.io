@@ -9,6 +9,58 @@
   <meta property="og:title" content="Bishal Khatri — QA Engineer">
   <meta property="og:description" content="Quality Assurance Engineer specializing in test automation, performance testing, and agile methodologies.">
   <meta property="og:type" content="website">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVEKWHN62S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BVEKWHN62S', { send_page_view: true });
+
+    // ── Custom event helpers ──────────────────────────────────
+    function trackEvent(name, params) {
+      if (typeof gtag !== 'undefined') gtag('event', name, params);
+    }
+
+    // Track CTA button clicks
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Nav & hero CTA clicks
+      document.querySelectorAll('a[href="#contact"]').forEach(el => {
+        el.addEventListener('click', () => trackEvent('cta_click', { label: el.textContent.trim() }));
+      });
+
+      // Blog card clicks
+      document.querySelectorAll('.blog-link').forEach(el => {
+        el.addEventListener('click', () => trackEvent('blog_click', { post: el.closest('.blog-card')?.querySelector('.blog-title')?.textContent.trim() }));
+      });
+
+      // Social link clicks
+      document.querySelectorAll('.social-btn').forEach(el => {
+        el.addEventListener('click', () => trackEvent('social_click', { platform: el.getAttribute('aria-label') }));
+      });
+
+      // Section visibility tracking (how far visitors scroll)
+      const sections = ['about','achievements','services','testimonials','blog','contact'];
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            trackEvent('section_view', { section: e.target.id });
+            sectionObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+      });
+
+      // Time on page — fire at 30s, 60s, 120s
+      [30, 60, 120].forEach(sec => {
+        setTimeout(() => trackEvent('time_on_page', { seconds: sec }), sec * 1000);
+      });
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -604,7 +656,7 @@
       <div class="skill-chip chip-3">⚡ Agile / Scrum</div>
       <div class="hero-img-wrap">
         <img
-          src="https://raw.githubusercontent.com/mrbishalkhatri/mrbishalkhatri.github.io/main/bishalkhartri.jpeg"
+          src="https://media.licdn.com/dms/image/D4D03AQHuHsDRqUlwiQ/profile-displayphoto-shrink_200_200/0/1703133947680?e=1714608000&v=beta&t=OK-SMwSK8Amo9fAAxNP2oBZeWWu1N9BqA8CpiNWL1Zg"
           alt="Bishal Khatri — QA Engineer"
           onerror="this.parentElement.style.background='linear-gradient(135deg,#2a7c6f,#4ba898)';this.style.display='none';"
         >

@@ -10,6 +10,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVEKWHN62S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BVEKWHN62S', { send_page_view: true });
+    function trackEvent(name, params) {
+      if (typeof gtag !== 'undefined') gtag('event', name, params);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track scroll depth at 25%, 50%, 75%, 100%
+      const depths = [25, 50, 75, 100]; const fired = new Set();
+      window.addEventListener('scroll', () => {
+        const pct = Math.round((document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+        depths.forEach(d => { if (pct >= d && !fired.has(d)) { fired.add(d); trackEvent('scroll_depth', { post: 'test_cases', depth: d }); }});
+      });
+      // Track sidebar TOC clicks
+      document.querySelectorAll('.toc-list a').forEach(a => {
+        a.addEventListener('click', () => trackEvent('toc_click', { section: a.textContent.trim(), post: 'test_cases' }));
+      });
+      // Track share button clicks
+      document.querySelectorAll('.share-btn').forEach(a => {
+        a.addEventListener('click', () => trackEvent('share_click', { platform: a.textContent.trim(), post: 'test_cases' }));
+      });
+      // Time on page
+      [30, 60, 120].forEach(sec => setTimeout(() => trackEvent('time_on_page', { seconds: sec, post: 'test_cases' }), sec * 1000));
+    });
+  </script>
   <style>
     :root {
       --ink:    #0d0d0d;
