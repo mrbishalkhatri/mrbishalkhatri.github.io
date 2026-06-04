@@ -3,71 +3,474 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tips for Writing Effective Test Cases — Bishal Khatri</title>
   <meta name="description" content="Learn tips for writing effective test cases to ensure software quality and reliability.">
-  <meta name="keywords" content="test cases, software testing, quality assurance, writing test cases">
-  <meta name="author" content="Jane Smith">
-  
-  <title>Tips for Writing Effective Test Cases</title>
-  
-  <!-- Stylesheets (you can link your own stylesheets here) -->
+  <meta name="author" content="Bishal Khatri">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+    :root {
+      --ink:    #0d0d0d;
+      --paper:  #f5f2ed;
+      --cream:  #ede9e1;
+      --teal:   #2a7c6f;
+      --teal2:  #1f5c52;
+      --gold:   #c8963e;
+      --gold2:  #6d4a1e;
+      --mid:    #7a7068;
+      --light:  #ccc8c0;
+      --white:  #fff;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+      --ease:   cubic-bezier(.25,.46,.45,.94);
+      --accent: #c8963e;
+      --accent-bg: rgba(200,150,62,.08);
     }
-    .blog-title {
-      color: #333;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 128px;
     }
-    .blog-meta {
-      color: #666;
-      font-style: italic;
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      backdrop-filter: blur(14px) saturate(1.4);
+      background: rgba(245,242,237,.88);
+      border-bottom: 1px solid rgba(0,0,0,.06);
     }
-    .blog-content {
-      line-height: 1.6;
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; }
+    .nav-logo span { color: var(--teal); }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .82rem; font-weight: 500; color: var(--mid);
+      border: 1px solid var(--light); border-radius: 999px;
+      padding: .45rem 1rem;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav-back:hover { color: var(--teal); border-color: var(--teal); background: rgba(42,124,111,.06); }
+
+    /* HERO — warm gold theme for post 2 */
+    .post-hero {
+      margin-top: 60px; min-height: 52vh;
+      background: var(--gold2); position: relative; overflow: hidden;
+      display: flex; align-items: flex-end; padding: 4rem 0 3.5rem;
+    }
+    .post-hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #3d2810 0%, #6d4a1e 50%, #3d2810 100%);
+    }
+    .post-hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(200,150,62,.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(200,150,62,.12) 0%, transparent 40%);
+    }
+    /* diagonal lines decoration */
+    .post-hero-bg::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(200,150,62,.06) 0px, rgba(200,150,62,.06) 1px,
+        transparent 1px, transparent 40px
+      );
+    }
+    .post-hero-inner {
+      max-width: 820px; margin: 0 auto; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .post-cat {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: #f5c87a;
+      background: rgba(200,150,62,.2); border: 1px solid rgba(200,150,62,.35);
+      padding: .35rem .9rem; border-radius: 999px; margin-bottom: 1.4rem;
+    }
+    .post-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1; letter-spacing: -.02em;
+      color: #fdf5e8; margin-bottom: 1.5rem;
+    }
+    .post-title em { font-style: italic; color: #f5c87a; }
+    .post-meta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .meta-author { display: flex; align-items: center; gap: .65rem; }
+    .meta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: .75rem; font-weight: 700; flex-shrink: 0;
+    }
+    .meta-name { font-size: .85rem; color: rgba(253,245,232,.9); font-weight: 500; }
+    .meta-date { font-size: .78rem; color: rgba(253,245,232,.45); }
+    .meta-divider { width: 1px; height: 28px; background: rgba(255,255,255,.2); }
+    .meta-pill { display: inline-flex; align-items: center; gap: .35rem; font-size: .75rem; color: rgba(253,245,232,.5); }
+
+    /* PROGRESS */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      width: 0%; z-index: 200; transition: width .1s linear;
+    }
+
+    /* LAYOUT */
+    .post-layout {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 280px;
+      gap: 4rem; padding: 4rem 2rem; align-items: start;
+    }
+
+    /* ARTICLE */
+    .article-lead {
+      font-size: 1.18rem; color: #3a3530; line-height: 1.85; font-weight: 300;
+      margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--light);
+    }
+    .article-body h2 {
+      font-family: var(--serif); font-size: 1.75rem; letter-spacing: -.015em; line-height: 1.2;
+      color: var(--ink); margin: 2.8rem 0 1rem; position: relative;
+    }
+    .article-body h2::before {
+      content: ''; position: absolute; left: -1.5rem; top: .2em;
+      width: 3px; height: 1.4em;
+      background: linear-gradient(180deg, var(--gold), var(--teal));
+      border-radius: 2px;
+    }
+    .article-body p { font-size: 1rem; color: #3a3530; line-height: 1.9; margin-bottom: 1.4rem; }
+    .article-body ul, .article-body ol { margin: 1rem 0 1.8rem 1.5rem; }
+    .article-body li { font-size: 1rem; color: #3a3530; line-height: 1.85; margin-bottom: .75rem; }
+    .article-body li::marker { color: var(--gold); }
+    .article-body strong { color: var(--ink); font-weight: 600; }
+
+    /* tip cards — numbered */
+    .tip-cards { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2rem; }
+    .tip-card {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      background: var(--white); border: 1px solid var(--light);
+      border-radius: 1rem; padding: 1.4rem 1.5rem;
+      transition: transform .25s var(--ease), box-shadow .25s, border-color .25s;
+    }
+    .tip-card:hover { transform: translateX(4px); box-shadow: 0 8px 28px rgba(0,0,0,.06); border-color: var(--gold); }
+    .tip-num {
+      font-family: var(--serif); font-size: 1.8rem; line-height: 1;
+      color: var(--gold); opacity: .35; flex-shrink: 0; width: 2rem; text-align: center;
+      transition: opacity .25s;
+    }
+    .tip-card:hover .tip-num { opacity: 1; }
+    .tip-content {}
+    .tip-title { font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: .45rem; }
+    .tip-body { font-size: .88rem; color: var(--mid); line-height: 1.72; }
+
+    /* callout */
+    .callout {
+      background: var(--accent-bg); border-left: 3px solid var(--gold);
+      border-radius: 0 .75rem .75rem 0; padding: 1.2rem 1.5rem; margin: 2rem 0;
+    }
+    .callout p { margin: 0; color: var(--gold2); font-size: .95rem; }
+
+    /* good/bad example comparison */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.5rem 0; }
+    .compare-card { border-radius: .9rem; padding: 1.1rem 1.2rem; }
+    .compare-card.good { background: #e8f5e9; border: 1px solid #a5d6a7; }
+    .compare-card.bad  { background: #fce4ec; border: 1px solid #f48fb1; }
+    .compare-label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .compare-card.good .compare-label { color: #2e7d32; }
+    .compare-card.bad  .compare-label { color: #c62828; }
+    .compare-text { font-size: .82rem; line-height: 1.6; color: #3a3530; font-family: monospace; }
+
+    /* conclusion */
+    .article-conclusion {
+      background: linear-gradient(135deg, #3d2810, var(--gold2));
+      color: #fdf5e8; border-radius: 1.25rem; padding: 2.2rem 2rem; margin-top: 3rem;
+    }
+    .article-conclusion h2 { font-family: var(--serif); font-size: 1.5rem; color: #fdf5e8; margin-bottom: 1rem; }
+    .article-conclusion h2::before { display: none; }
+    .article-conclusion p { color: rgba(253,245,232,.75); line-height: 1.85; margin-bottom: 1rem; }
+    .article-conclusion p:last-child { margin: 0; }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-card {
+      background: var(--white); border: 1px solid var(--light);
+      border-radius: 1.1rem; padding: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .sidebar-title {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 1.1rem;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: .7rem; }
+    .toc-list a {
+      font-size: .84rem; color: var(--mid); display: flex; align-items: center; gap: .5rem;
+      transition: color .2s; padding: .25rem 0;
+    }
+    .toc-list a::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--light); flex-shrink: 0; transition: background .2s;
+    }
+    .toc-list a:hover { color: var(--gold); }
+    .toc-list a:hover::before { background: var(--gold); }
+
+    .author-card { text-align: center; }
+    .author-avatar-lg {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto .75rem;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem; font-weight: 700;
+    }
+    .author-name-lg { font-weight: 600; font-size: .95rem; margin-bottom: .25rem; }
+    .author-role-lg { font-size: .78rem; color: var(--mid); margin-bottom: 1rem; }
+    .author-bio-lg { font-size: .8rem; color: #4a4540; line-height: 1.65; }
+
+    .share-btns { display: flex; gap: .6rem; }
+    .share-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: .4rem;
+      padding: .6rem; border-radius: .6rem; font-size: .75rem; font-weight: 600;
+      border: 1px solid var(--light); color: var(--mid);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .share-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .related-post {
+      display: flex; gap: .85rem; align-items: flex-start;
+      padding: .85rem 0; border-bottom: 1px solid var(--cream);
+    }
+    .related-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-thumb {
+      width: 48px; height: 48px; border-radius: .6rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .related-thumb-1 { background: linear-gradient(135deg, var(--teal), #4ba898); }
+    .related-title { font-size: .82rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .related-title a:hover { color: var(--teal); }
+    .related-date { font-size: .72rem; color: var(--mid); margin-top: .25rem; }
+
+    /* BACK TOP */
+    #back-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 99;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--ink); color: white; border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; cursor: pointer;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .3s, transform .3s, background .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    }
+    #back-top.visible { opacity: 1; transform: none; }
+    #back-top:hover { background: var(--gold); }
+
+    footer {
+      background: #080808; color: rgba(245,242,237,.4);
+      text-align: center; padding: 2rem; font-size: .78rem;
+    }
+    footer a { color: var(--teal); }
+
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      nav { padding: 1rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .compare-grid { grid-template-columns: 1fr; }
+      .post-hero { padding: 3rem 0 2.5rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1 class="blog-title">Tips for Writing Effective Test Cases</h1>
-      <p class="blog-meta">Posted on March 3, 2024 by Jane Smith</p>
-    </header>
-    
-    <article class="full-blog-post">
-      <div class="blog-content">
-        <p>Writing effective test cases is essential for ensuring the quality and reliability of software. Test cases are detailed steps that are executed to verify whether a specific feature or functionality of the software application is working as expected.</p>
-        
-        <p>Here are some tips to help you write effective test cases:</p>
-        
-        <h2>1. Understand the Requirements</h2>
-        <p>Before writing test cases, it is crucial to have a clear understanding of the requirements. This includes knowing the expected behavior of the software, the different scenarios it should support, and any constraints or limitations.</p>
-        
-        <h2>2. Keep Test Cases Clear and Concise</h2>
-        <p>Each test case should focus on testing a specific functionality or feature. Avoid creating complex test cases that test multiple things at once. Clear and concise test cases make it easier to identify issues and reproduce bugs.</p>
-        
-        <h2>3. Use Descriptive Names and Labels</h2>
-        <p>Give your test cases descriptive names that clearly indicate what is being tested. Use labels and tags to categorize test cases based on their priority, type, or functionality. This makes it easier to manage and organize your test suite.</p>
-        
-        <h2>4. Include Preconditions and Expected Results</h2>
-        <p>For each test case, specify the preconditions required for the test to be executed successfully. Also, clearly define the expected results or outcomes. This helps testers understand the purpose of the test and what to expect when running it.</p>
-        
-        <h2>5. Cover Positive and Negative Scenarios</h2>
-        <p>Make sure to include test cases that cover both positive and negative scenarios. Positive scenarios verify that the software behaves as expected under normal conditions, while negative scenarios test how the software handles unexpected inputs or errors.</p>
-        
-        <h2>6. Review and Refine Test Cases</h2>
-        <p>Test cases should undergo review and refinement to ensure they are accurate and effective. Get feedback from peers or stakeholders to identify any gaps or improvements that can be made. Test cases should also be updated as the software evolves.</p>
-        
-        <h2>Conclusion</h2>
-        <p>Writing effective test cases is a critical aspect of software testing. Well-written test cases not only help in identifying defects early but also contribute to the overall quality and reliability of the software product. By following these tips, you can create test cases that are thorough, clear, and valuable to the testing process.</p>
-        
-        <p>Thank you for reading!</p>
+
+  <div id="progress-bar"></div>
+  <button id="back-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Bishal<span>.</span></a>
+    <a class="nav-back" href="index.html#blog"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="post-hero">
+    <div class="post-hero-bg"></div>
+    <div class="post-hero-inner">
+      <div class="post-cat"><i class="fa-solid fa-list-check"></i> QA Best Practices</div>
+      <h1 class="post-title">Tips for Writing <em>Effective Test Cases</em></h1>
+      <div class="post-meta">
+        <div class="meta-author">
+          <div class="meta-avatar">BK</div>
+          <div>
+            <div class="meta-name">Bishal Khatri</div>
+            <div class="meta-date">March 3, 2024</div>
+          </div>
+        </div>
+        <div class="meta-divider"></div>
+        <span class="meta-pill"><i class="fa-regular fa-clock"></i> 6 min read</span>
+        <span class="meta-pill"><i class="fa-solid fa-eye"></i> Test Design</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="post-layout">
+    <article>
+      <p class="article-lead">Test cases are the backbone of any QA process. Well-written ones save hours of debugging, reduce ambiguity between teams, and make your entire testing suite reproducible. Here's how to write them right.</p>
+
+      <div class="article-body">
+
+        <div class="callout">
+          <p><strong>The rule of thumb:</strong> if two different testers run the same test case and get different results, the test case is broken — not the software.</p>
+        </div>
+
+        <h2 id="requirements">1. Understand the Requirements First</h2>
+        <p>Before writing a single test case, make sure you deeply understand what you're testing. A test case written against a misunderstood requirement is worse than no test at all — it gives false confidence. Read the specs, ask clarifying questions, and map every acceptance criterion to at least one test scenario.</p>
+
+        <h2 id="tips">Six Principles for Effective Test Cases</h2>
+        <p>These principles have shaped how I approach test design across 80+ projects:</p>
+
+        <div class="tip-cards">
+          <div class="tip-card">
+            <div class="tip-num">1</div>
+            <div class="tip-content">
+              <div class="tip-title">Keep each test case atomic</div>
+              <div class="tip-body">Each test case should verify exactly one thing. Complex, multi-purpose test cases become impossible to diagnose when they fail. If a test case needs a long "and also..." — split it.</div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-num">2</div>
+            <div class="tip-content">
+              <div class="tip-title">Use descriptive, specific names</div>
+              <div class="tip-body">Bad: <em>Test_Login_001</em>. Good: <em>Login_InvalidPassword_ShowsErrorMessage</em>. The name should tell any team member exactly what scenario is being validated without opening the case itself.</div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-num">3</div>
+            <div class="tip-content">
+              <div class="tip-title">Define preconditions explicitly</div>
+              <div class="tip-body">State exactly what must be true before the test begins — user account state, test data, environment config. Ambiguous preconditions are the number-one cause of "works on my machine" failures in QA.</div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-num">4</div>
+            <div class="tip-content">
+              <div class="tip-title">Cover positive and negative scenarios</div>
+              <div class="tip-body">For every happy path, write at least one negative test. What happens with empty inputs? Invalid formats? Boundary values? Most production bugs live in the negative paths that developers didn't consider.</div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-num">5</div>
+            <div class="tip-content">
+              <div class="tip-title">Write unambiguous expected results</div>
+              <div class="tip-body">Expected results must be verifiable and objective. "System should work correctly" is not a valid expected result. "Error message 'Invalid email format' is displayed below the email field" is.</div>
+            </div>
+          </div>
+          <div class="tip-card">
+            <div class="tip-num">6</div>
+            <div class="tip-content">
+              <div class="tip-title">Review, refine, and keep them alive</div>
+              <div class="tip-body">Test cases decay. As features evolve, outdated test cases become noise that slows teams down. Build peer review into your process and deprecate stale cases aggressively.</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="naming">Good vs. Bad: Naming Examples</h2>
+        <p>Here's the difference clear naming makes in practice:</p>
+
+        <div class="compare-grid">
+          <div class="compare-card bad">
+            <div class="compare-label">❌ Unclear</div>
+            <div class="compare-text">TC_001<br>TC_Login_Test<br>Check_Form<br>User_Test_3</div>
+          </div>
+          <div class="compare-card good">
+            <div class="compare-label">✅ Descriptive</div>
+            <div class="compare-text">Login_ValidCreds_RedirectsToDashboard<br>Login_EmptyPassword_BlocksSubmit<br>Form_MaxLength_TruncatesInput<br>User_Delete_RemovesFromDB</div>
+          </div>
+        </div>
+
+        <h2 id="structure">Anatomy of a Great Test Case</h2>
+        <p>Every test case I write follows this structure consistently:</p>
+        <ul>
+          <li><strong>ID & Title:</strong> Unique identifier + descriptive name using the convention above.</li>
+          <li><strong>Preconditions:</strong> Environment, data, and state required before execution.</li>
+          <li><strong>Test Steps:</strong> Numbered, granular actions. Each step = one user action.</li>
+          <li><strong>Test Data:</strong> Exact inputs — never vague like "enter a valid email."</li>
+          <li><strong>Expected Result:</strong> Observable, binary outcome. Pass or fail, no grey area.</li>
+          <li><strong>Priority:</strong> Critical / High / Medium / Low — helps triage under time pressure.</li>
+          <li><strong>Tags:</strong> Feature area, regression flag, automation candidate label.</li>
+        </ul>
+
+        <div class="article-conclusion">
+          <h2>The Bottom Line</h2>
+          <p>Well-written test cases aren't just documentation — they're your safety net, your team's shared language, and your first line of defence against regressions. Invest time in getting them right upfront; you'll save tenfold later in debugging and re-runs.</p>
+          <p>The best test suite isn't the biggest one — it's the one every tester can run confidently and every developer can read and trust.</p>
+        </div>
+
       </div>
     </article>
-    
-    <footer>
-      <p>&copy; 2024 Bishal Khatri | QA Professional</p>
-    </footer>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">In this article</div>
+        <ul class="toc-list">
+          <li><a href="#requirements">Understand Requirements</a></li>
+          <li><a href="#tips">Six Principles</a></li>
+          <li><a href="#naming">Good vs Bad Naming</a></li>
+          <li><a href="#structure">Anatomy of a Test Case</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card author-card">
+        <div class="author-avatar-lg">BK</div>
+        <div class="author-name-lg">Bishal Khatri</div>
+        <div class="author-role-lg">QA Engineer · Nepal</div>
+        <div class="author-bio-lg">2+ years shipping quality software. Passionate about automation, data-driven testing, and building QA cultures from the ground up.</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Share this article</div>
+        <div class="share-btns">
+          <a href="https://www.linkedin.com/in/qa-bishal-khatri" target="_blank" class="share-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+          <a href="https://twitter.com/ProjectCraftman" target="_blank" class="share-btn"><i class="fab fa-x-twitter"></i> X</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Related Reading</div>
+        <div class="related-post">
+          <div class="related-thumb related-thumb-1">🤖</div>
+          <div>
+            <div class="related-title"><a href="blog-post-1.html">The Importance of Automated Testing in Software Development</a></div>
+            <div class="related-date">March 1, 2024</div>
+          </div>
+        </div>
+      </div>
+    </aside>
   </div>
+
+  <footer>
+    <p>© 2024 <a href="index.html">Bishal Khatri</a> · QA Professional · All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+      document.getElementById('progress-bar').style.width = (scrolled * 100) + '%';
+      const btn = document.getElementById('back-top');
+      if (doc.scrollTop > 400) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    });
+    document.getElementById('back-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
 </body>
 </html>
