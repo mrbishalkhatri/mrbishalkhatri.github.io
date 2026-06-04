@@ -1,221 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
-  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLd42JERMA2jCVA83XwBgbz_n5lI-nnSAh_A&usqp=CAU" type="image/png">
-  <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLd42JERMA2jCVA83XwBgbz_n5lI-nnSAh_A&usqp=CAU" type="image/png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bishal Khatri - QA Professional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <meta name="description" content="Bishal Khatri - Quality Assurance Specialist. QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
-  <meta name="keywords" content="Bishal Khatri, QA Professional, Quality Assurance Engineer, Software Testing, Test Automation, Agile Methodologies, Project Management, Web Development">
+  <title>Bishal Khatri — QA Engineer</title>
+  <meta name="description" content="Bishal Khatri — Quality Assurance Engineer. 2+ years crafting software quality through testing, automation, and data-driven improvement.">
   <meta name="author" content="Bishal Khatri">
-  <meta name="robots" content="index, follow">
-
-  <!-- Social Media Meta Tags -->
-  <!-- Facebook Meta Tags -->
-  <meta property="og:title" content="Bishal Khatri - Quality Assurance Specialist">
-  <meta property="og:description" content="QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
-  <meta property="og:image" content="https://bishalkhatrichettri.github.io/Blue.png">
-  <meta property="og:url" content="https://bishalkhatrichettri.github.io/">
+  <meta property="og:title" content="Bishal Khatri — QA Engineer">
+  <meta property="og:description" content="Quality Assurance Engineer specializing in test automation, performance testing, and agile methodologies.">
   <meta property="og:type" content="website">
-  
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Bishal Khatri - Quality Assurance Specialist">
-  <meta name="twitter:description" content="QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
-  <meta name="twitter:image" content="https://bishalkhatrichettri.github.io/Blue.png">
-  
-  <!-- LinkedIn Meta Tags -->
-  <meta property="og:title" content="Bishal Khatri - Quality Assurance Specialist">
-  <meta property="og:description" content="QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
-  <meta property="og:image" content="https://bishalkhatrichettri.github.io/Blue.png">
-  <meta property="og:url" content="https://bishalkhatrichettri.github.io">
-  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Viber and WhatsApp Meta Tags -->
-  <meta property="viber:image" content="https://bishalkhatrichettri.github.io/Blue.png">
-  <meta property="viber:msg" content="QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
-  <meta property="whatsapp:site" content="9779810116325">
-  <meta property="whatsapp:message" content="QA professional with 2 years of experience in software testing, test automation, and agile methodologies.">
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ink:    #0d0d0d;
+      --paper:  #f5f2ed;
+      --cream:  #ede9e1;
+      --teal:   #2a7c6f;
+      --teal2:  #1f5c52;
+      --gold:   #c8963e;
+      --mid:    #7a7068;
+      --light:  #ccc8c0;
+      --white:  #fff;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+      --ease:   cubic-bezier(.25,.46,.45,.94);
+    }
 
-  <link href="https://fonts.googleapis.com/css2?family=Golomora&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── NOISE TEXTURE OVERLAY ──────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      background: rgba(245,242,237,.82);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      transition: background .3s var(--ease);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--mid);
+      position: relative;
+      transition: color .25s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1.5px; background: var(--teal);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--ink); color: var(--paper) !important;
+      padding: .55rem 1.3rem; border-radius: 999px;
+      font-size: .82rem !important; font-weight: 500 !important;
+      letter-spacing: .04em; text-transform: uppercase !important;
+      transition: background .25s, transform .2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--teal) !important; transform: translateY(-1px) !important; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--paper); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+    }
+    .mobile-menu a {
+      font-family: var(--serif); font-size: 2.2rem; color: var(--ink);
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--teal); }
+    .mobile-menu.open { display: flex; }
+
+    /* ─── HERO ────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 3rem 4rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      gap: 3rem;
+    }
+    .hero-text { animation: fadeUp .9s var(--ease) both; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--cream); border: 1px solid var(--light);
+      padding: .35rem .9rem; border-radius: 999px;
+      font-size: .78rem; font-weight: 500; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1.6rem;
+    }
+    .hero-eyebrow i { font-size: .7rem; }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--mid); max-width: 440px;
+      margin-bottom: 2.5rem; line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--teal); color: var(--white);
+      padding: .85rem 2rem; border-radius: 999px;
+      font-size: .9rem; font-weight: 500;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 20px rgba(42,124,111,.25);
+    }
+    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(42,124,111,.35); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 1.5px solid var(--light); color: var(--ink);
+      padding: .85rem 2rem; border-radius: 999px;
+      font-size: .9rem; font-weight: 500;
+      transition: border-color .25s, background .25s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); background: var(--ink); color: var(--white); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--light);
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--serif); font-size: 2.4rem;
+      color: var(--ink); line-height: 1;
+    }
+    .stat-num span { color: var(--teal); }
+    .stat-label { font-size: .78rem; color: var(--mid); text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem; }
+
+    /* hero image side */
+    .hero-visual { animation: fadeUp .9s .2s var(--ease) both; position: relative; }
+    .hero-img-wrap {
+      position: relative;
+      background: var(--cream);
+      border-radius: 2rem;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      border: 1px solid var(--light);
+    }
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(42,124,111,.08) 0%, transparent 60%);
+      z-index: 1;
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(15%) contrast(1.05);
+      transition: filter .4s;
+    }
+    .hero-img-wrap:hover img { filter: grayscale(0%) contrast(1.08); }
+    .hero-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+      z-index: 2;
+      background: rgba(13,13,13,.82);
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .badge-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(74,222,128,.2);
+      animation: pulse 2s infinite;
+    }
+    .badge-text { color: var(--white); font-size: .82rem; font-weight: 500; }
+    .badge-text small { display: block; color: rgba(255,255,255,.5); font-size: .72rem; }
+
+    /* floating skill chips */
+    .skill-chip {
+      position: absolute; z-index: 3;
+      background: var(--white);
+      border: 1px solid var(--light);
+      border-radius: 999px;
+      padding: .45rem 1rem;
+      font-size: .75rem; font-weight: 600; color: var(--ink);
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      white-space: nowrap;
+    }
+    .chip-1 { top: 1.5rem; right: -2rem; animation: float 3s ease-in-out infinite; }
+    .chip-2 { top: 45%; left: -2.5rem; animation: float 3.5s ease-in-out infinite .5s; }
+    .chip-3 { bottom: 6rem; right: -2rem; animation: float 4s ease-in-out infinite 1s; }
+
+    /* ─── SECTION BASE ───────────────────────────────────────── */
+    section { padding: 7rem 3rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1.5px; background: var(--teal);
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 1rem; color: var(--mid); max-width: 520px; line-height: 1.75; }
+
+    /* ─── ABOUT ───────────────────────────────────────────────── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-left {}
+    .about-body { font-size: 1rem; color: #3a3530; line-height: 1.85; }
+    .about-body p + p { margin-top: 1.2rem; }
+    .about-body strong { color: var(--teal); font-weight: 600; }
+    .about-right {}
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: .75rem; margin-top: 2rem;
+    }
+    .skill-bar-wrap { background: var(--white); border-radius: .75rem; padding: 1rem 1.2rem; border: 1px solid var(--light); }
+    .skill-label { font-size: .8rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; display: flex; justify-content: space-between; }
+    .skill-label span { color: var(--teal); }
+    .skill-track { height: 4px; background: var(--cream); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #4ba898); border-radius: 2px; transition: width 1.2s var(--ease); width: 0; }
+
+    /* ─── ACHIEVEMENTS ────────────────────────────────────────── */
+    #achievements {}
+    .ach-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 3.5rem;
+    }
+    .ach-card {
+      background: var(--white);
+      border: 1px solid var(--light);
+      border-radius: 1.25rem;
+      padding: 1.8rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s var(--ease), box-shadow .3s, border-color .3s;
+    }
+    .ach-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease);
+    }
+    .ach-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,.08); border-color: transparent; }
+    .ach-card:hover::before { transform: scaleX(1); }
+    .ach-num {
+      font-family: var(--serif); font-size: 3rem; color: var(--cream);
+      line-height: 1; margin-bottom: 1rem;
+      transition: color .3s;
+    }
+    .ach-card:hover .ach-num { color: var(--teal); }
+    .ach-text { font-size: .9rem; color: var(--mid); line-height: 1.7; }
+    .ach-metric {
+      display: inline-block; margin-top: 1rem;
+      font-size: .8rem; font-weight: 700; color: var(--teal);
+      background: rgba(42,124,111,.08); padding: .3rem .75rem; border-radius: 999px;
+    }
+
+    /* ─── SERVICES ────────────────────────────────────────────── */
+    #services { background: var(--ink); color: var(--paper); }
+    #services .section-tag { color: #4ba898; }
+    #services .section-tag::before { background: #4ba898; }
+    #services .section-title { color: var(--paper); }
+    #services .section-sub { color: rgba(245,242,237,.6); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 3.5rem;
+    }
+    .service-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 1.25rem;
+      padding: 2rem 1.8rem;
+      transition: background .3s, transform .3s var(--ease), border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(42,124,111,.12) 0%, transparent 70%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { background: rgba(255,255,255,.07); transform: translateY(-4px); border-color: rgba(42,124,111,.4); }
+    .service-card:hover::after { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: .9rem;
+      background: rgba(42,124,111,.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.4rem;
+      font-size: 1.3rem; color: #4ba898;
+    }
+    .service-name { font-family: var(--serif); font-size: 1.25rem; margin-bottom: .75rem; color: var(--paper); }
+    .service-desc { font-size: .88rem; color: rgba(245,242,237,.55); line-height: 1.75; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.2rem; }
+    .stag {
+      font-size: .7rem; padding: .3rem .7rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12); color: rgba(245,242,237,.6);
+    }
+
+    /* ─── TESTIMONIALS ────────────────────────────────────────── */
+    #testimonials { background: var(--cream); }
+    .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--light);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      position: relative;
+      transition: transform .3s var(--ease), box-shadow .3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.07); }
+    .testi-quote {
+      font-size: 4rem; line-height: .8;
+      font-family: var(--serif); color: var(--teal);
+      opacity: .25; margin-bottom: .5rem;
+    }
+    .testi-body { font-size: .95rem; color: #3a3530; line-height: 1.8; font-style: italic; }
+    .testi-author { margin-top: 1.5rem; display: flex; align-items: center; gap: .8rem; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: .85rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; font-size: .88rem; color: var(--ink); }
+    .testi-role { font-size: .75rem; color: var(--mid); margin-top: .1rem; }
+    .testi-stars { color: var(--gold); font-size: .85rem; margin-bottom: .75rem; }
+
+    /* ─── BLOG ────────────────────────────────────────────────── */
+    #blog {}
+    .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    .blog-card {
+      background: var(--white); border: 1px solid var(--light);
+      border-radius: 1.25rem; overflow: hidden;
+      transition: transform .3s var(--ease), box-shadow .3s;
+      display: flex; flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,.09); }
+    .blog-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, var(--teal), #4ba898);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blog-thumb-icon { font-size: 3.5rem; opacity: .25; color: var(--white); }
+    .blog-thumb-2 { background: linear-gradient(135deg, #6d4a1e, var(--gold)); }
+    .blog-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-cat {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: .75rem;
+    }
+    .blog-title { font-family: var(--serif); font-size: 1.2rem; line-height: 1.3; margin-bottom: .75rem; }
+    .blog-excerpt { font-size: .87rem; color: var(--mid); line-height: 1.7; flex: 1; }
+    .blog-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: 1.2rem; font-size: .83rem; font-weight: 600; color: var(--teal);
+      transition: gap .2s;
+    }
+    .blog-link:hover { gap: .7rem; }
+
+    /* ─── CONTACT ─────────────────────────────────────────────── */
+    #contact { background: var(--ink); color: var(--paper); }
+    #contact .section-tag { color: #4ba898; }
+    #contact .section-tag::before { background: #4ba898; }
+    #contact .section-title { color: var(--paper); }
+    #contact .section-sub { color: rgba(245,242,237,.6); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; margin-top: 3.5rem; align-items: start; }
+    .contact-info {}
+    .contact-detail {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: .75rem;
+      background: rgba(42,124,111,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: #4ba898; flex-shrink: 0; font-size: .95rem;
+    }
+    .contact-detail-text {}
+    .contact-detail-label { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(245,242,237,.4); margin-bottom: .25rem; }
+    .contact-detail-val { font-size: .95rem; color: var(--paper); }
+    .social-row { display: flex; gap: .75rem; margin-top: 2.5rem; }
+    .social-btn {
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(245,242,237,.7); font-size: 1rem;
+      transition: background .25s, color .25s, border-color .25s, transform .2s;
+    }
+    .social-btn:hover { background: var(--teal); border-color: var(--teal); color: var(--white); transform: translateY(-3px); }
+    /* form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label { font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(245,242,237,.5); }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: .65rem;
+      padding: .85rem 1rem;
+      color: var(--paper);
+      font-family: var(--sans); font-size: .9rem;
+      outline: none;
+      transition: border-color .25s, background .25s;
+      resize: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(245,242,237,.3); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--teal); background: rgba(255,255,255,.09); }
+    .form-group textarea { height: 130px; }
+    .form-submit {
+      background: var(--teal); color: var(--white);
+      border: none; border-radius: 999px;
+      padding: 1rem 2.5rem;
+      font-family: var(--sans); font-size: .92rem; font-weight: 600;
+      cursor: pointer; align-self: flex-start;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 20px rgba(42,124,111,.3);
+    }
+    .form-submit:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(42,124,111,.4); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: #080808; color: rgba(245,242,237,.45);
+      text-align: center; padding: 2rem 3rem;
+      font-size: .8rem; letter-spacing: .04em;
+    }
+    footer a { color: var(--teal); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(74,222,128,.2); }
+      50%       { box-shadow: 0 0 0 8px rgba(74,222,128,.08); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+    .reveal-delay-5 { transition-delay: .5s; }
+
+    /* ─── DIVIDER ─────────────────────────────────────────────── */
+    .divider-line {
+      width: 100%; max-width: 1200px; margin: 0 auto;
+      height: 1px; background: var(--light);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; padding-top: 6rem; }
+      .hero-visual { display: none; }
+      .hero-title { font-size: clamp(2.5rem, 7vw, 4rem); }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ach-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4.5rem 1.5rem; }
+      #hero { padding: 6rem 1.5rem 3rem; }
+      .ach-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
-<header class="header">
-  <div class="photo-wrapper">
-    <img src="https://media.licdn.com/dms/image/D4D03AQHuHsDRqUlwiQ/profile-displayphoto-shrink_200_200/0/1703133947680?e=1714608000&v=beta&t=OK-SMwSK8Amo9fAAxNP2oBZeWWu1N9BqA8CpiNWL1Zg" alt="Bishal Khatri Photo">
-    <div class="overlay"></div>
-  </div>
-  <div class="banner">
-    <img src="https://bishalkhatrichettri.github.io/Blue.png" height="600px" width="1338px" alt="Banner Image">
-    
-  </div>
-</header>
 
-
-  
-
- 
- <header class="header1">
-    <div class="container">
-      <h1 class="logo">Bishal Khatri</h1>
-      <nav class="nav-menu">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#achievements">Achievements</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a class="nav-logo" href="#hero">Bishal<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#achievements">Wins</a>
+      <a href="#services">Services</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact" class="nav-cta">Hire Me</a>
     </div>
-
- </header>  
- 
-
-
-  
-  <!-- Main Content -->
-  <div class="container">
-
-    <!-- About Me Section -->
-    <section id="about" class="section about-me">
-      <div class="section-content">
-
-
-
-
-        <h2 class="section-title">About Me</h2>
-        <p>Hello, I'm Bishal Khatri, a dedicated Quality Assurance Specialist with a passion for ensuring product excellence and improving efficiency. I have a strong background in crafting efficient digital solutions from scratch, focusing on quality and client satisfaction.</p>
-    <p>With 2 years of experience in the field, I specialize in comprehensive QA testing, including functional, performance, and regression testing. My expertise lies in utilizing data analysis for continuous improvement, collaborating with cross-functional teams, and driving targeted improvements to reduce defect rates and enhance user satisfaction.</p>
-    <p>If you're looking for a skilled professional to elevate your web projects, I'm here to help. Let's collaborate to create exceptional digital experiences!</p>
-        <p>Welcome to my expertise! Looking for a skilled professional to create your web project? Message me to discuss how I can help! As a versatile Project Manager and QA, I thrive in working together crafting digital wonders while cultivating a positive work environment and achieving exceptional results.</p>
-<p>Having successfully completed and delivered numerous web projects under my personal brand, I'm also actively taking on new projects from clients. To date, I've professionally managed and delivered over 80 web projects and 2 apps, each committed to quality craftsmanship and unwavering client satisfaction.</p>
-      </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements" class="section achievements">
-      <div class="section-content">
-        <h2 class="section-title">Achievements</h2>
-        <ul>
-          <li>Developed and implemented a streamlined QA process that resulted in a 25% reduction in testing cycle time while maintaining quality standards.</li>
-          <li>Led a team in achieving a 98% customer satisfaction rate by improving product quality and addressing user feedback.</li>
-          <li>Spearheaded the adoption of agile methodologies, leading to a 20% increase in project completion efficiency and on-time deliveries.</li>
-          <li>Successfully collaborated with cross-functional teams to identify and resolve a critical performance bottleneck, leading to a 40% improvement in application response times.</li>
-          <li>Acted as a bridge between development and testing teams, facilitating better communication and reducing misunderstandings, resulting in a 30% decrease in rework.</li>
-          <li>Transformed a previously manual testing process into an automated one, reducing human error and improving testing accuracy by 15%.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section services">
-      <div class="section-content">
-        <h2 class="section-title">Services</h2>
-        <ul>
-          <li>Consulting: Offerings for QA consultation</li>
-          <li>Training: QA training programs or workshops offered</li>
-          <li>QA Process Improvement: Details on improving QA processes for businesses</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section testimonials">
-      <div class="section-content">
-        <h2 class="section-title">Testimonials</h2>
-        <div class="testimonial">
-          <p>"Bishal is a true expert in QA, his attention to detail and commitment to quality is unmatched. Our project benefitted greatly from his insights and suggestions."</p>
-      <p><strong>राजनीति गुरुङ (Rajniti Gurung)</strong></p>
-        </div>
-        <div class="testimonial">
-          <p>"मैले यस्तो ठाउँमा काम गर्न उत्सुक रहेछु जसमा व्यापक शोध, परीक्षण र सुझावहरू रहेको छ। उहाँले मेरो वेब विकास प्रकल्पलाई ठीक गर्नका लागि निरन्तर गरिरहेका छन्।"</p>
-      <p><strong>अयेश सिंह (Ayesh Singh)</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Blog/Articles Section -->
-    <section id="blog" class="section blog">
-       <div class="section-content">
-          <h2 class="section-title">Blog/Articles</h2>
-    
-    <!-- First Blog Post -->
-    <article class="blog-post">
-      <h3 class="blog-title">The Importance of Automated Testing in Software Development</h3>
-      <p class="blog-excerpt">Automated testing is a crucial aspect of modern software development...</p>
-      <a href="blog-post-1.html" class="read-more">Read More</a>
-    </article>
-
-    <!-- Second Blog Post -->
-    <article class="blog-post">
-      <h3 class="blog-title">Tips for Writing Effective Test Cases</h3>
-      <p class="blog-excerpt">Test cases are the backbone of any QA process, ensuring that...</p>
-      <a href="blog-post-2.html" class="read-more">Read More</a>
-    </article>
-
-  </div>
-</section>
-
-    <!-- Contact Me Section -->
-    <section id="contact" class="section contact">
-  <div class="section-content">
-    <h2 class="section-title">Contact Me</h2>
-    <div class="contact-form">
-      <form action="https://formspree.io/f/xwkgbywr" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+    <div class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
     </div>
-  </div>
-</section>
+  </nav>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#about" class="mm-link">About</a>
+    <a href="#achievements" class="mm-link">Wins</a>
+    <a href="#services" class="mm-link">Services</a>
+    <a href="#testimonials" class="mm-link">Reviews</a>
+    <a href="#blog" class="mm-link">Blog</a>
+    <a href="#contact" class="mm-link">Hire Me</a>
   </div>
 
-  <!-- Footer -->
-<footer class="footer" style="background-color: #262624; color: #E5E9E6;">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-column">
-        <h3>About Me</h3>
-        <p>Hello, I'm Bishal Khatri, a dedicated Quality Assurance Specialist with a passion for ensuring product excellence and improving efficiency. With 2 years of experience, I specialize in comprehensive QA testing, data analysis for continuous improvement, and collaborative project management.</p>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><i class="fa-solid fa-circle-check"></i> Open to new opportunities</div>
+      <h1 class="hero-title">Crafting <em>Quality</em> Into Every Build.</h1>
+      <p class="hero-sub">Hi, I'm Bishal Khatri — a QA Engineer who finds the bugs before your users do. 2+ years breaking software so yours can be unbreakable.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Work With Me</a>
+        <a href="#about" class="btn-outline"><i class="fa-solid fa-arrow-down"></i> Explore</a>
       </div>
-      <div class="footer-column">
-        <h3>Services</h3>
-        <ul>
-          <li>Comprehensive QA Testing (Functional, Performance, Regression)</li>
-          <li>Data Analysis for Continuous QA Improvement</li>
-          <li>QA Process Improvement and Consulting</li>
-          <li>Project Management and Collaboration</li>
-          <li>Training Programs for QA Teams</li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h3>Contact</h3>
-        <p>Bishal Khatri</p>
-        <p>Email: bishalkhatrichettri1@gmail.com</p>
-        <p>Phone: 9810116325</p>
-        <div class="social-icons">
-          <a href="https://www.linkedin.com/in/qa-bishal-khatri" class="icon-link"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/BishalKhatriChettri" class="icon-link"><i class="fab fa-github"></i></a>
-          <a href="https://twitter.com/ProjectCraftman" class="icon-link"><i class="fab fa-twitter"></i></a>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">80<span>+</span></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98<span>%</span></div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">2<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 Bishal Khatri | QA Professional</p>
+
+    <div class="hero-visual">
+      <div class="skill-chip chip-1">🛡️ QA Automation</div>
+      <div class="skill-chip chip-2">📊 Data Analysis</div>
+      <div class="skill-chip chip-3">⚡ Agile / Scrum</div>
+      <div class="hero-img-wrap">
+        <img
+          src="https://media.licdn.com/dms/image/D4D03AQHuHsDRqUlwiQ/profile-displayphoto-shrink_200_200/0/1703133947680?e=1714608000&v=beta&t=OK-SMwSK8Amo9fAAxNP2oBZeWWu1N9BqA8CpiNWL1Zg"
+          alt="Bishal Khatri — QA Engineer"
+          onerror="this.parentElement.style.background='linear-gradient(135deg,#2a7c6f,#4ba898)';this.style.display='none';"
+        >
+        <div class="hero-badge">
+          <div class="badge-dot"></div>
+          <div class="badge-text">
+            Available for freelance
+            <small>Based in Nepal · Remote friendly</small>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-left reveal">
+          <div class="section-tag">About Me</div>
+          <h2 class="section-title">Quality isn't an act, it's a habit.</h2>
+          <div class="about-body" style="margin-top:1.5rem;">
+            <p>I'm <strong>Bishal Khatri</strong>, a QA Specialist who believes flawless software is a craft, not a checkbox. I bring a meticulous eye for edge cases, a data-driven approach to continuous improvement, and the communication skills to bridge dev and business teams seamlessly.</p>
+            <p>With <strong>2 years of hands-on experience</strong>, I've led QA processes across 80+ web projects and 2 mobile apps — each delivered with zero tolerance for production defects. My specialty lies in transforming manual, error-prone workflows into <strong>efficient, automated pipelines</strong> that give teams confidence to ship fast.</p>
+            <p>When I'm not hunting bugs, I write about QA best practices and mentor aspiring engineers on building quality-first mindsets.</p>
+          </div>
+        </div>
+        <div class="about-right reveal reveal-delay-2">
+          <div class="section-tag">Core Skills</div>
+          <div class="skills-grid" id="skills-container">
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Manual Testing <span>92%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Test Automation <span>78%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Regression Testing <span>88%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Performance Testing <span>72%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="72"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Agile / Scrum <span>90%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-label">Data Analysis <span>80%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Key Wins</div>
+        <h2 class="section-title">Numbers that speak.</h2>
+        <p class="section-sub">Every metric below is a real outcome delivered for real teams — not estimates.</p>
+      </div>
+      <div class="ach-grid">
+        <div class="ach-card reveal reveal-delay-1">
+          <div class="ach-num">01</div>
+          <div class="ach-text">Engineered a streamlined QA process that slashed testing cycle time while maintaining zero compromise on quality standards.</div>
+          <div class="ach-metric">⬇ 25% Cycle Time</div>
+        </div>
+        <div class="ach-card reveal reveal-delay-2">
+          <div class="ach-num">02</div>
+          <div class="ach-text">Led a product quality overhaul in response to user feedback, driving satisfaction to near-perfect levels across the user base.</div>
+          <div class="ach-metric">98% Satisfaction Rate</div>
+        </div>
+        <div class="ach-card reveal reveal-delay-3">
+          <div class="ach-num">03</div>
+          <div class="ach-text">Championed agile adoption across a cross-functional team, yielding measurable gains in on-time project delivery.</div>
+          <div class="ach-metric">⬆ 20% Efficiency</div>
+        </div>
+        <div class="ach-card reveal reveal-delay-1">
+          <div class="ach-num">04</div>
+          <div class="ach-text">Identified and resolved a critical performance bottleneck in a high-traffic application, dramatically improving end-user experience.</div>
+          <div class="ach-metric">⬆ 40% Response Speed</div>
+        </div>
+        <div class="ach-card reveal reveal-delay-2">
+          <div class="ach-num">05</div>
+          <div class="ach-text">Facilitated tighter dev-QA collaboration by introducing structured communication protocols that minimized costly rework cycles.</div>
+          <div class="ach-metric">⬇ 30% Rework</div>
+        </div>
+        <div class="ach-card reveal reveal-delay-3">
+          <div class="ach-num">06</div>
+          <div class="ach-text">Converted a fully manual testing suite into an automated pipeline, reducing human error and increasing accuracy consistency.</div>
+          <div class="ach-metric">⬆ 15% Accuracy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">What I Do</div>
+        <h2 class="section-title">Services I offer.</h2>
+        <p class="section-sub">Comprehensive quality engineering services — from strategic consulting to hands-on test execution.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <div class="service-name">QA Consulting</div>
+          <div class="service-desc">Strategic quality consulting to identify gaps in your current QA workflow and design a roadmap for measurable improvement.</div>
+          <div class="service-tags">
+            <span class="stag">Process Audit</span>
+            <span class="stag">Roadmap</span>
+            <span class="stag">Strategy</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon"><i class="fa-solid fa-robot"></i></div>
+          <div class="service-name">Test Automation</div>
+          <div class="service-desc">Building scalable automated test suites that run on every commit — catching regressions before they reach production.</div>
+          <div class="service-tags">
+            <span class="stag">Regression</span>
+            <span class="stag">CI/CD</span>
+            <span class="stag">Scripting</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon"><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="service-name">Performance Testing</div>
+          <div class="service-desc">Load and stress testing to reveal how your system behaves under real-world pressure — before launch day surprises you.</div>
+          <div class="service-tags">
+            <span class="stag">Load Testing</span>
+            <span class="stag">Stress Test</span>
+            <span class="stag">Benchmarks</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <div class="service-name">QA Training</div>
+          <div class="service-desc">Hands-on workshops and training programs designed to upskill your QA team and embed quality thinking across your org.</div>
+          <div class="service-tags">
+            <span class="stag">Workshops</span>
+            <span class="stag">Mentoring</span>
+            <span class="stag">Best Practices</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon"><i class="fa-solid fa-sitemap"></i></div>
+          <div class="service-name">Process Improvement</div>
+          <div class="service-desc">Redesigning testing workflows using agile principles to reduce cycle times and increase team velocity without sacrificing coverage.</div>
+          <div class="service-tags">
+            <span class="stag">Agile</span>
+            <span class="stag">Workflow</span>
+            <span class="stag">Efficiency</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="service-name">Data-Driven QA</div>
+          <div class="service-desc">Leveraging analytics and bug trend data to prioritize testing efforts intelligently — so the highest-risk areas get the most attention.</div>
+          <div class="service-tags">
+            <span class="stag">Analytics</span>
+            <span class="stag">Bug Trends</span>
+            <span class="stag">Reporting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Testimonials</div>
+        <h2 class="section-title">What clients say.</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal reveal-delay-1">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <div class="testi-body">Bishal is a true expert in QA. His attention to detail and commitment to quality is unmatched. Our project benefitted greatly from his insights and suggestions — he caught issues we would never have noticed.</div>
+          <div class="testi-author">
+            <div class="testi-avatar">RG</div>
+            <div>
+              <div class="testi-name">Rajniti Gurung</div>
+              <div class="testi-role">Project Stakeholder</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-2">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <div class="testi-body">Bishal went above and beyond with deep research, thorough testing, and actionable suggestions. His continuous dedication to fixing and improving our web development project was genuinely impressive.</div>
+          <div class="testi-author">
+            <div class="testi-avatar">AS</div>
+            <div>
+              <div class="testi-name">Ayesh Singh</div>
+              <div class="testi-role">Web Development Client</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Blog</div>
+        <h2 class="section-title">Thoughts on quality.</h2>
+        <p class="section-sub">Practical guides and insights from the trenches of software QA.</p>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card reveal reveal-delay-1">
+          <div class="blog-thumb">
+            <div class="blog-thumb-icon"><i class="fa-solid fa-robot"></i></div>
+          </div>
+          <div class="blog-body">
+            <div class="blog-cat">Test Automation</div>
+            <h3 class="blog-title">The Importance of Automated Testing in Software Development</h3>
+            <p class="blog-excerpt">Automated testing is no longer a luxury — it's the foundation of every reliable CI/CD pipeline. Here's why every team should prioritize it from day one.</p>
+            <a href="blog-post-1.html" class="blog-link">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="blog-card reveal reveal-delay-2">
+          <div class="blog-thumb blog-thumb-2">
+            <div class="blog-thumb-icon"><i class="fa-solid fa-list-check"></i></div>
+          </div>
+          <div class="blog-body">
+            <div class="blog-cat">QA Best Practices</div>
+            <h3 class="blog-title">Tips for Writing Effective Test Cases</h3>
+            <p class="blog-excerpt">Test cases are the backbone of any QA process. Well-written test cases save time, reduce ambiguity, and make your entire testing process reproducible and reliable.</p>
+            <a href="blog-post-2.html" class="blog-link">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Let's build something great.</h2>
+        <p class="section-sub">Have a project? Want to talk QA strategy? Or just say hi — my inbox is always open.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal reveal-delay-1">
+          <div class="contact-detail">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-val">bishalkhatrichettri1@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Phone</div>
+              <div class="contact-detail-val">+977 9810116325</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-detail-text">
+              <div class="contact-detail-label">Location</div>
+              <div class="contact-detail-val">Nepal · Remote Worldwide</div>
+            </div>
+          </div>
+          <div class="social-row">
+            <a href="https://www.linkedin.com/in/qa-bishal-khatri" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/BishalKhatriChettri" target="_blank" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://twitter.com/ProjectCraftman" target="_blank" class="social-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <form class="contact-form" action="https://formspree.io/f/xwkgbywr" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What's this about?">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Bishal Khatri · QA Engineer · Built with precision &amp; care. <a href="mailto:bishalkhatrichettri1@gmail.com">Say hello →</a></p>
+  </footer>
+
+  <script>
+    // ── HAMBURGER ──────────────────────────────────────────────
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobile-menu');
+    ham.addEventListener('click', () => mob.classList.toggle('open'));
+    document.querySelectorAll('.mm-link').forEach(l => {
+      l.addEventListener('click', () => mob.classList.remove('open'));
+    });
+
+    // ── SCROLL REVEAL ──────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── SKILL BARS ─────────────────────────────────────────────
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skill-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          barObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const skillsContainer = document.getElementById('skills-container');
+    if (skillsContainer) barObserver.observe(skillsContainer);
+
+    // ── NAV SCROLL SHADOW ──────────────────────────────────────
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('main-nav');
+      nav.style.boxShadow = window.scrollY > 40
+        ? '0 2px 24px rgba(0,0,0,.08)'
+        : 'none';
+    });
+  </script>
 </body>
 </html>
