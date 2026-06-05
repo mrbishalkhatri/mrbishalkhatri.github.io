@@ -134,6 +134,50 @@
       --mid:    #7a7068;
       --light:  #ccc8c0;
       --white:  #fff;
+
+    /* ── DARK MODE TOKENS ──────────────────────────────────── */
+    [data-theme="dark"] {
+      --ink:   #f0ede8;
+      --paper: #141412;
+      --cream: #1e1c1a;
+      --mid:   #9a9288;
+      --light: #3a3730;
+      --white: #1e1c1a;
+    }
+
+    /* dark nav */
+    [data-theme="dark"] nav {
+      background: rgba(20,20,18,.88);
+      border-bottom-color: rgba(255,255,255,.07);
+    }
+    [data-theme="dark"] .mobile-menu { background: #141412; }
+
+    /* dark sections */
+    [data-theme="dark"] #about   { background: #1e1c1a; }
+    [data-theme="dark"] #services { background: #0a0a09; }
+    [data-theme="dark"] #contact  { background: #0a0a09; }
+    [data-theme="dark"] footer    { background: #060605; }
+
+    /* dark cards */
+    [data-theme="dark"] .ach-card,
+    [data-theme="dark"] .blog-card,
+    [data-theme="dark"] .testi-card { background: #1e1c1a; border-color: #2e2c28; }
+    [data-theme="dark"] .skill-bar-wrap { background: #1e1c1a; border-color: #2e2c28; }
+    [data-theme="dark"] .hero-img-wrap { background: #1e1c1a; border-color: #2e2c28; }
+    [data-theme="dark"] .btn-outline { border-color: #3a3730; }
+    [data-theme="dark"] .btn-outline:hover { background: #f0ede8; color: #141412; }
+
+    /* toggle button */
+    .dark-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--light);
+      background: transparent;
+      color: var(--mid); font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .2s, color .2s, background .2s, transform .2s;
+      flex-shrink: 0;
+    }
+    .dark-toggle:hover { border-color: var(--teal); color: var(--teal); transform: rotate(20deg); }
       --serif:  'DM Serif Display', Georgia, serif;
       --sans:   'DM Sans', system-ui, sans-serif;
       --ease:   cubic-bezier(.25,.46,.45,.94);
@@ -664,8 +708,10 @@
       <a href="#testimonials">Reviews</a>
       <a href="#blog">Blog</a>
       <a href="cv-builder.html" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-file-arrow-down"></i> CV Builder</a>
+      <a href="templates.html" style="color:var(--gold);font-weight:600;"><i class="fa-solid fa-store"></i> QA Store</a>
       <a href="#contact" class="nav-cta">Hire Me</a>
     </div>
+    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
     <div class="hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </div>
@@ -689,6 +735,7 @@
       <p class="hero-sub">Hi, I'm Bishal Khatri — a QA Engineer who finds the bugs before your users do. 2+ years breaking software so yours can be unbreakable.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Work With Me</a>
+        <a href="templates.html" class="btn-outline" style="border-color:var(--gold);color:var(--gold)"><i class="fa-solid fa-store"></i> QA Template Store</a>
         <a href="cv-builder.html" class="btn-outline"><i class="fa-solid fa-file-arrow-down"></i> Build Your CV Free</a>
       </div>
       <div class="hero-stats">
@@ -1031,6 +1078,22 @@
   </footer>
 
   <script>
+    // ── DARK MODE ──────────────────────────────────────────────
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById('dark-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(dark) {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      themeIcon.className = dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    applyTheme(saved ? saved === 'dark' : prefersDark);
+    toggleBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') !== 'dark'));
+
     // ── HAMBURGER ──────────────────────────────────────────────
     const ham = document.getElementById('hamburger');
     const mob = document.getElementById('mobile-menu');

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Template Store — Bishal Khatri</title>
+  <meta name="description" content="Professional QA templates by a real QA engineer. HRMS test cases, Selenium kits, Jira dashboards, documentation bundles & more. Free and premium.">
+  <meta name="keywords" content="QA templates, HRMS testing, test case template, Selenium starter kit, Jira dashboard, QA interview kit, bug report template, payroll testing">
+  <meta property="og:title" content="QA Template Store — Bishal Khatri">
+  <meta property="og:description" content="25 professional QA templates built from real engineering experience. HRMS test packs, automation kits, Jira dashboards & more.">
+  <meta property="og:image" content="https://mrbishalkhatri.github.io/og-image.png">
+  <link rel="canonical" href="https://mrbishalkhatri.github.io/templates.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVEKWHN62S"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());gtag('config','G-BVEKWHN62S');
+    function trackEvent(n,p){if(typeof gtag!=='undefined')gtag('event',n,p);}
+  </script>
+  <style>
+    :root{
+      --ink:#0d0d0d;--paper:#f5f2ed;--cream:#ede9e1;
+      --teal:#2a7c6f;--teal2:#1f5c52;--gold:#c8963e;--gold2:#6d4a1e;
+      --mid:#7a7068;--light:#ccc8c0;--white:#fff;
+      --serif:'DM Serif Display',Georgia,serif;
+      --sans:'DM Sans',system-ui,sans-serif;
+      --ease:cubic-bezier(.25,.46,.45,.94);
+    }
+    [data-theme="dark"]{--ink:#f0ede8;--paper:#141412;--cream:#1e1c1a;--mid:#9a9288;--light:#3a3730;--white:#1e1c1a;}
+    [data-theme="dark"] nav{background:rgba(20,20,18,.92);border-bottom-color:rgba(255,255,255,.07);}
+    [data-theme="dark"] .tcard{background:#1e1c1a;border-color:#2e2c28;}
+    [data-theme="dark"] .filter-btn{background:#1e1c1a;border-color:#2e2c28;}
+    [data-theme="dark"] .filter-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+    [data-theme="dark"] .search-wrap input{background:rgba(255,255,255,.07);color:var(--ink);}
+    [data-theme="dark"] footer{background:#060605;}
+    [data-theme="dark"] .bundle-card{background:#0e1f1c;}
+    [data-theme="dark"] .mega-card{background:#1a1208;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.022;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat:repeat;background-size:128px;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;
+      background:rgba(245,242,237,.92);backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(0,0,0,.07);}
+    .nav-logo{font-family:var(--serif);font-size:1.15rem;}
+    .nav-logo span{color:var(--teal);}
+    .nav-right{display:flex;align-items:center;gap:.65rem;}
+    .nav-back{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:500;
+      color:var(--mid);border:1px solid var(--light);border-radius:999px;padding:.4rem .9rem;
+      transition:color .2s,border-color .2s;}
+    .nav-back:hover{color:var(--teal);border-color:var(--teal);}
+    .dark-toggle{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--light);
+      background:transparent;color:var(--mid);font-size:.85rem;display:flex;align-items:center;
+      justify-content:center;cursor:pointer;transition:border-color .2s,color .2s,transform .2s;}
+    .dark-toggle:hover{border-color:var(--teal);color:var(--teal);transform:rotate(20deg);}
+
+    /* HERO */
+    .hero{margin-top:58px;background:var(--ink);position:relative;overflow:hidden;
+      padding:5rem 2rem 4rem;text-align:center;}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0d0d0d 0%,#1a3530 50%,#0d0d0d 100%);}
+    .hero-bg::after{content:'';position:absolute;inset:0;
+      background-image:linear-gradient(rgba(42,124,111,.1) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(42,124,111,.1) 1px,transparent 1px);
+      background-size:50px 50px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
+    .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4ba898;
+      background:rgba(42,124,111,.15);border:1px solid rgba(42,124,111,.3);
+      padding:.35rem .9rem;border-radius:999px;margin-bottom:1.4rem;}
+    .hero-title{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.8rem);
+      line-height:1.08;letter-spacing:-.02em;color:#f5f2ed;margin-bottom:1rem;}
+    .hero-title em{font-style:italic;color:#4ba898;}
+    .hero-sub{font-size:1rem;color:rgba(245,242,237,.6);max-width:560px;margin:0 auto 2rem;line-height:1.8;}
+    .hero-stats{display:inline-flex;align-items:center;gap:1.8rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+      border-radius:999px;padding:.75rem 2rem;margin-bottom:2rem;}
+    .stat-num{font-family:var(--serif);font-size:1.5rem;color:#4ba898;line-height:1;}
+    .stat-lbl{font-size:.65rem;color:rgba(245,242,237,.4);text-transform:uppercase;letter-spacing:.06em;}
+    .stat-sep{width:1px;height:32px;background:rgba(255,255,255,.12);}
+    .search-wrap{max-width:460px;margin:0 auto;position:relative;}
+    .search-wrap i{position:absolute;left:1rem;top:50%;transform:translateY(-50%);
+      color:rgba(245,242,237,.35);font-size:.9rem;}
+    .search-wrap input{width:100%;padding:.82rem 1rem .82rem 2.8rem;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+      border-radius:999px;color:#f5f2ed;font-family:var(--sans);font-size:.9rem;outline:none;
+      transition:border-color .2s,background .2s;}
+    .search-wrap input::placeholder{color:rgba(245,242,237,.3);}
+    .search-wrap input:focus{border-color:rgba(42,124,111,.7);background:rgba(255,255,255,.11);}
+
+    /* MAIN */
+    .main{max-width:1260px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+    /* FILTERS */
+    .filter-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+    .filter-label{font-size:.72rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.06em;margin-right:.2rem;}
+    .filter-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.42rem 1rem;border-radius:999px;
+      font-size:.78rem;font-weight:500;cursor:pointer;border:1.5px solid var(--light);
+      background:var(--white);color:var(--mid);transition:all .2s;font-family:var(--sans);}
+    .filter-btn:hover{border-color:var(--teal);color:var(--teal);}
+    .filter-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+    .filter-sep{width:1px;height:22px;background:var(--light);margin:0 .2rem;}
+    .results-count{margin-left:auto;font-size:.78rem;color:var(--mid);}
+
+    /* SECTION DIVIDER */
+    .sdiv{display:flex;align-items:center;gap:1rem;margin:2.8rem 0 1.5rem;}
+    .sdiv-title{font-family:var(--serif);font-size:1.5rem;white-space:nowrap;}
+    .sdiv-line{flex:1;height:1px;background:var(--light);}
+    .sdiv-count{font-size:.73rem;color:var(--mid);white-space:nowrap;}
+
+    /* TEMPLATE GRID */
+    .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.2rem;}
+
+    /* TEMPLATE CARD */
+    .tcard{background:var(--white);border:1px solid var(--light);border-radius:1.25rem;
+      overflow:hidden;display:flex;flex-direction:column;
+      transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;position:relative;}
+    .tcard:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.1);border-color:transparent;}
+    .tcard-thumb{height:130px;position:relative;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;}
+    .tcard-thumb-icon{font-size:2.8rem;opacity:.2;color:#fff;}
+    .tcard-badges{position:absolute;top:.8rem;left:.8rem;display:flex;gap:.35rem;flex-wrap:wrap;}
+    .badge{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      padding:.25rem .6rem;border-radius:999px;}
+    .b-free{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.4);}
+    .b-paid{background:var(--gold);color:#3d2810;}
+    .b-hot{background:#ef4444;color:#fff;}
+    .b-new{background:#8b5cf6;color:#fff;}
+    .b-moat{background:#0d0d0d;color:#4ba898;border:1px solid rgba(75,168,152,.4);}
+    .fmt-badges{position:absolute;bottom:.8rem;right:.8rem;display:flex;gap:.28rem;}
+    .fmt{font-size:.6rem;font-weight:700;padding:.2rem .5rem;border-radius:4px;
+      background:rgba(0,0,0,.38);color:rgba(255,255,255,.9);backdrop-filter:blur(4px);}
+    .tcard-body{padding:1.2rem 1.3rem;flex:1;display:flex;flex-direction:column;}
+    .tcard-cat{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.45rem;}
+    .tcard-title{font-family:var(--serif);font-size:1.05rem;line-height:1.25;margin-bottom:.55rem;}
+    .tcard-desc{font-size:.81rem;color:var(--mid);line-height:1.72;flex:1;}
+    .tcard-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.75rem;}
+    .tcard-tag{font-size:.65rem;padding:.18rem .52rem;border-radius:999px;background:var(--cream);color:var(--mid);}
+    .tcard-footer{padding:.9rem 1.3rem;border-top:1px solid var(--cream);
+      display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+    .tcard-price{font-family:var(--serif);font-size:1.4rem;line-height:1;}
+    .tcard-price.free{color:var(--teal);}
+    .tcard-orig{font-size:.75rem;color:var(--light);text-decoration:line-through;font-family:var(--sans);margin-right:.2rem;}
+    .tcard-sub{font-size:.67rem;color:var(--mid);font-family:var(--sans);}
+    .tbtn{display:inline-flex;align-items:center;gap:.38rem;padding:.58rem 1.1rem;
+      border-radius:999px;font-size:.78rem;font-weight:600;border:none;cursor:pointer;
+      font-family:var(--sans);transition:background .2s,transform .2s,box-shadow .2s;white-space:nowrap;}
+    .tbtn-free{background:rgba(42,124,111,.1);color:var(--teal);}
+    .tbtn-free:hover{background:var(--teal);color:#fff;}
+    .tbtn-paid{background:var(--ink);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12);}
+    .tbtn-paid:hover{background:var(--teal);transform:translateY(-1px);box-shadow:0 6px 18px rgba(42,124,111,.3);}
+    .tbtn-bundle{background:var(--gold);color:#3d2810;}
+    .tbtn-bundle:hover{background:#b8862e;transform:translateY(-1px);}
+
+    /* MEGA BUNDLE CARD */
+    .mega-card{background:var(--ink);border-radius:1.5rem;overflow:hidden;
+      position:relative;padding:2.5rem;margin-bottom:1.5rem;}
+    .mega-bg{position:absolute;inset:0;
+      background:linear-gradient(135deg,#0d0d0d 0%,#1a3530 60%,#0d0d0d 100%);}
+    .mega-bg::after{content:'';position:absolute;inset:0;
+      background-image:repeating-linear-gradient(45deg,rgba(42,124,111,.05) 0px,rgba(42,124,111,.05) 1px,transparent 1px,transparent 32px);}
+    .mega-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;}
+    .mega-eyebrow{display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--gold);background:rgba(200,150,62,.15);border:1px solid rgba(200,150,62,.3);
+      padding:.28rem .75rem;border-radius:999px;margin-bottom:1rem;}
+    .mega-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);
+      color:#f5f2ed;line-height:1.15;margin-bottom:.8rem;}
+    .mega-desc{font-size:.88rem;color:rgba(245,242,237,.6);line-height:1.8;margin-bottom:1.4rem;max-width:520px;}
+    .mega-includes{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:1.6rem;}
+    .mega-tag{font-size:.7rem;padding:.25rem .65rem;border-radius:999px;
+      background:rgba(255,255,255,.07);color:rgba(245,242,237,.7);border:1px solid rgba(255,255,255,.1);}
+    .mega-price-block{text-align:center;min-width:160px;}
+    .mega-price{font-family:var(--serif);font-size:3.5rem;color:var(--gold);line-height:1;}
+    .mega-orig{font-size:.9rem;color:rgba(245,242,237,.3);text-decoration:line-through;}
+    .mega-save{font-size:.78rem;font-weight:700;color:#4ade80;margin:.3rem 0 1rem;}
+    .mega-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      background:var(--gold);color:#3d2810;padding:1rem 2rem;border-radius:999px;
+      font-size:.92rem;font-weight:700;font-family:var(--sans);border:none;cursor:pointer;
+      width:100%;transition:background .2s,transform .2s;}
+    .mega-btn:hover{background:#b8862e;transform:translateY(-2px);}
+    .mega-sub{font-size:.7rem;color:rgba(245,242,237,.3);margin-top:.5rem;text-align:center;}
+
+    /* HRMS FEATURED ROW */
+    .hrms-banner{background:linear-gradient(135deg,#0f3d35,#1a3530);
+      border-radius:1.25rem;padding:1.6rem 2rem;margin-bottom:1.5rem;
+      display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+      border:1px solid rgba(42,124,111,.3);}
+    .hrms-left{}
+    .hrms-title{font-family:var(--serif);font-size:1.4rem;color:#f5f2ed;margin-bottom:.4rem;}
+    .hrms-sub{font-size:.82rem;color:rgba(245,242,237,.55);max-width:480px;line-height:1.7;}
+    .hrms-right{display:flex;align-items:center;gap:1rem;flex-shrink:0;}
+    .hrms-price{font-family:var(--serif);font-size:2rem;color:var(--gold);}
+    .hrms-orig{font-size:.8rem;color:rgba(245,242,237,.3);text-decoration:line-through;}
+    .hrms-save{font-size:.7rem;font-weight:700;color:#4ade80;}
+
+    /* CTA STRIP */
+    .cta-strip{background:linear-gradient(135deg,rgba(42,124,111,.08),rgba(200,150,62,.05));
+      border:1px solid rgba(42,124,111,.2);border-radius:1.25rem;padding:2rem 2.5rem;
+      display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3.5rem;}
+    .cta-strip h3{font-family:var(--serif);font-size:1.5rem;margin-bottom:.35rem;}
+    .cta-strip p{font-size:.85rem;color:var(--mid);}
+    .cta-btn{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+      background:var(--teal);color:#fff;padding:.85rem 1.8rem;border-radius:999px;
+      font-size:.88rem;font-weight:600;font-family:var(--sans);border:none;cursor:pointer;
+      transition:background .2s,transform .2s;box-shadow:0 4px 20px rgba(42,124,111,.25);}
+    .cta-btn:hover{background:var(--teal2);transform:translateY(-2px);}
+
+    /* EMPTY */
+    .empty{text-align:center;padding:4rem 2rem;color:var(--mid);grid-column:1/-1;}
+    .empty i{font-size:2.5rem;margin-bottom:1rem;opacity:.3;display:block;}
+
+    footer{background:#080808;color:rgba(245,242,237,.4);text-align:center;padding:2rem;font-size:.78rem;}
+    footer a{color:var(--teal);}
+
+    @media(max-width:900px){
+      .mega-inner{grid-template-columns:1fr;}
+      .mega-price-block{text-align:left;}
+      .hrms-banner{flex-direction:column;}
+      .cta-strip{flex-direction:column;text-align:center;}
+    }
+    @media(max-width:600px){
+      nav{padding:0 1.2rem;}
+      .hero{padding:3rem 1.2rem 2.5rem;}
+      .main{padding:2rem 1rem 4rem;}
+      .hero-stats{gap:1rem;padding:.6rem 1.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Bishal<span>.</span> <span style="font-family:var(--sans);font-size:.72rem;color:var(--mid);font-weight:400;">QA Store</span></a>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html"><i class="fa-solid fa-arrow-left"></i> Portfolio</a>
+    <a class="nav-back" href="cv-builder.html" style="border-color:var(--teal);color:var(--teal)"><i class="fa-solid fa-file-arrow-down"></i> CV Builder</a>
+    <button class="dark-toggle" id="dark-toggle"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><i class="fa-solid fa-shield-halved"></i> Built by a Real QA Engineer · Not a Designer Guessing</div>
+    <h1 class="hero-title">QA Templates That Come From <em>Real Experience</em></h1>
+    <p class="hero-sub">25 free and premium templates born from 2+ years of real QA work — HRMS testing, automation frameworks, Jira dashboards, interview prep, and more. No fluff. No theory. Just tools that work.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num">25</div><div class="stat-lbl">Templates</div></div>
+      <div class="stat-sep"></div>
+      <div><div class="stat-num">5</div><div class="stat-lbl">Free</div></div>
+      <div class="stat-sep"></div>
+      <div><div class="stat-num">6</div><div class="stat-lbl">Categories</div></div>
+      <div class="stat-sep"></div>
+      <div><div class="stat-num">3</div><div class="stat-lbl">Formats</div></div>
+    </div>
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="Search — payroll, Selenium, Jira, interview..." oninput="filterAll()">
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FILTERS -->
+  <div class="filter-row">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-f="all" onclick="setFilter('all',this)"><i class="fa-solid fa-border-all"></i> All</button>
+    <button class="filter-btn" data-f="free" onclick="setFilter('free',this)"><i class="fa-solid fa-gift"></i> Free</button>
+    <button class="filter-btn" data-f="paid" onclick="setFilter('paid',this)"><i class="fa-solid fa-star"></i> Paid</button>
+    <div class="filter-sep"></div>
+    <button class="filter-btn" data-f="hrms" onclick="setFilter('hrms',this)">🏆 HRMS</button>
+    <button class="filter-btn" data-f="automation" onclick="setFilter('automation',this)">⚙️ Automation</button>
+    <button class="filter-btn" data-f="jira" onclick="setFilter('jira',this)">📊 Jira</button>
+    <button class="filter-btn" data-f="docs" onclick="setFilter('docs',this)">📄 Docs</button>
+    <button class="filter-btn" data-f="career" onclick="setFilter('career',this)">🎓 Career</button>
+    <button class="filter-btn" data-f="general" onclick="setFilter('general',this)">📋 General QA</button>
+    <div class="filter-sep"></div>
+    <span class="results-count" id="results-count">25 templates</span>
+  </div>
+
+  <!-- MEGA BUNDLE -->
+  <div id="mega-section">
+    <div class="sdiv"><span class="sdiv-title">⭐ Flagship Bundle</span><div class="sdiv-line"></div></div>
+    <div class="mega-card">
+      <div class="mega-bg"></div>
+      <div class="mega-inner">
+        <div>
+          <div class="mega-eyebrow"><i class="fa-solid fa-fire"></i> Best Value · Save 65%</div>
+          <div class="mega-title">The Complete QA<br>Professional Bundle</div>
+          <div class="mega-desc">Every single template in the store. HRMS test packs, Selenium kit, Jira dashboards, documentation bundle, HR formula library, interview prep kit, automation tools — all 20 paid products in one download.</div>
+          <div class="mega-includes">
+            <span class="mega-tag">✓ All 5 HRMS Packs</span>
+            <span class="mega-tag">✓ Selenium Starter Kit</span>
+            <span class="mega-tag">✓ Permission Testing Tool</span>
+            <span class="mega-tag">✓ Release Notes Generator</span>
+            <span class="mega-tag">✓ All 4 Jira Dashboards</span>
+            <span class="mega-tag">✓ QA Docs Bundle</span>
+            <span class="mega-tag">✓ HR Formula Library</span>
+            <span class="mega-tag">✓ Migration Validator</span>
+            <span class="mega-tag">✓ ZKTeco Utilities</span>
+            <span class="mega-tag">✓ Interview Prep Kit 500Q</span>
+          </div>
+        </div>
+        <div class="mega-price-block">
+          <div class="mega-price">$99</div>
+          <div class="mega-orig">$280+ separately</div>
+          <div class="mega-save">You save $181+</div>
+          <a href="https://gumroad.com/bishal-khatri" target="_blank" onclick="trackEvent('mega_bundle_click',{})">
+            <button class="mega-btn"><i class="fa-solid fa-bag-shopping"></i> Get Everything</button>
+          </a>
+          <div class="mega-sub">Instant download · All formats included</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HRMS BUNDLE BANNER -->
+  <div id="hrms-section">
+    <div class="sdiv"><span class="sdiv-title">🏆 HRMS QA Packs</span><div class="sdiv-line"></div><span class="sdiv-count">Your biggest moat — nobody else sells these</span></div>
+    <div class="hrms-banner" id="hrms-bundle-banner">
+      <div class="hrms-left">
+        <div class="hrms-title">Complete HRMS QA Bundle — All 5 Packs</div>
+        <div class="hrms-sub">Leave · Payroll · Attendance · Recruitment · Performance Appraisal. 750+ real test cases written from hands-on HRMS implementation experience. The most comprehensive HRMS testing resource available anywhere.</div>
+      </div>
+      <div class="hrms-right">
+        <div style="text-align:right">
+          <div class="hrms-price">$69</div>
+          <div class="hrms-orig">$94 separately</div>
+          <div class="hrms-save">Save $25</div>
+        </div>
+        <a href="https://gumroad.com/bishal-khatri" target="_blank" onclick="trackEvent('hrms_bundle_click',{})">
+          <button class="tbtn tbtn-bundle" style="padding:.75rem 1.5rem;font-size:.88rem"><i class="fa-solid fa-bag-shopping"></i> Buy Bundle</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE GRID -->
+  <div class="tgrid" id="tgrid"></div>
+
+  <!-- CTA -->
+  <div class="cta-strip" id="cta-strip">
+    <div>
+      <h3>Need something custom?</h3>
+      <p>I build bespoke QA templates, automation scripts, and Jira dashboards tailored to your team's exact workflow.</p>
+    </div>
+    <a href="index.html#contact"><button class="cta-btn"><i class="fa-solid fa-paper-plane"></i> Get in Touch</button></a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <a href="index.html">Bishal Khatri</a> · QA Template Store · All templates built from real engineering experience.</p>
+</footer>
+
+<script>
+/* ── DARK MODE ── */
+const root=document.documentElement;
+const toggleBtn=document.getElementById('dark-toggle');
+const themeIcon=document.getElementById('theme-icon');
+function applyTheme(dark){
+  root.setAttribute('data-theme',dark?'dark':'light');
+  themeIcon.className=dark?'fa-solid fa-sun':'fa-solid fa-moon';
+  localStorage.setItem('theme',dark?'dark':'light');
+}
+const saved=localStorage.getItem('theme');
+applyTheme(saved?saved==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches);
+toggleBtn.addEventListener('click',()=>applyTheme(root.getAttribute('data-theme')!=='dark'));
+
+/* ── DATA ── */
+const T=[
+  // FREE — GENERAL QA
+  {id:1,tier:'free',cat:'general',title:'Basic Test Case Template',
+    desc:'Clean, ready-to-use test case template with all essential fields — ID, steps, expected results, status and priority. Perfect starting point for any project.',
+    tags:['Manual Testing','Excel','CSV','Beginner'],formats:['Excel','CSV'],
+    thumb:'#2a7c6f',icon:'fa-table-list',price:null,orig:null,badge:null},
+  {id:2,tier:'free',cat:'general',title:'Simple Bug Report Form',
+    desc:'Professional bug report capturing severity, steps to reproduce, environment details, and expected vs actual results. Word and PDF formats included.',
+    tags:['Bug Tracking','Word','PDF'],formats:['Word','PDF'],
+    thumb:'#c8963e',icon:'fa-bug',price:null,orig:null,badge:null},
+  {id:3,tier:'free',cat:'general',title:'Web App QA Checklist — 50 Points',
+    desc:'50-point checklist covering UI, functionality, performance, security, and accessibility testing for web apps. Print-ready PDF.',
+    tags:['Checklist','Web Testing','PDF'],formats:['PDF','Word'],
+    thumb:'#1f5c52',icon:'fa-list-check',price:null,orig:null,badge:'hot'},
+  {id:4,tier:'free',cat:'general',title:'QA Test Plan — 1-Pager',
+    desc:'Concise one-page test plan for small to medium projects. Covers scope, approach, resources, and schedule without the corporate bloat.',
+    tags:['Test Plan','Agile','Word'],formats:['Word','PDF'],
+    thumb:'#7a7068',icon:'fa-file-lines',price:null,orig:null,badge:null},
+  {id:5,tier:'free',cat:'career',title:'QA Interview Quick Guide — Top 30 Q&A',
+    desc:'30 most-asked QA interview questions with model answers. A free taste of the full 500-question Interview Prep Kit — great for freshers.',
+    tags:['Interview','Fresher','PDF'],formats:['PDF'],
+    thumb:'#2a7c6f',icon:'fa-graduation-cap',price:null,orig:null,badge:'new'},
+
+  // HRMS PACKS
+  {id:6,tier:'paid',cat:'hrms',title:'Leave Management Testing Pack',
+    desc:'150+ test cases covering leave application, approval workflows, carry-forward rules, encashment, and leave balance calculations. Built from real HRMS implementation.',
+    tags:['HRMS','150+ Cases','Excel','Leave'],formats:['Excel','CSV'],
+    thumb:'#0f6e56',icon:'fa-calendar-days',price:'$19',orig:'$35',badge:'moat'},
+  {id:7,tier:'paid',cat:'hrms',title:'Payroll Testing Pack',
+    desc:'200+ test cases for gross/net salary, tax deductions, overtime, bonuses, PF/ESI, and payslip generation. Covers edge cases most QA engineers miss.',
+    tags:['HRMS','200+ Cases','Payroll','Tax'],formats:['Excel','CSV'],
+    thumb:'#1565c0',icon:'fa-money-bill-wave',price:'$22',orig:'$40',badge:'hot'},
+  {id:8,tier:'paid',cat:'hrms',title:'Attendance & Device Testing Pack',
+    desc:'Test cases for ZKTeco biometric devices, manual attendance, shift management, overtime detection, and HRMS sync. Niche with almost zero competition.',
+    tags:['ZKTeco','Biometric','Attendance','HRMS'],formats:['Excel','CSV'],
+    thumb:'#7b1fa2',icon:'fa-fingerprint',price:'$19',orig:'$35',badge:'moat'},
+  {id:9,tier:'paid',cat:'hrms',title:'Recruitment & Onboarding Testing Pack',
+    desc:'Test cases for job posting, applicant tracking, interview scheduling, offer letters, onboarding checklists, and document management workflows.',
+    tags:['Recruitment','ATS','Onboarding','HRMS'],formats:['Excel','CSV'],
+    thumb:'#00695c',icon:'fa-user-plus',price:'$17',orig:'$30',badge:null},
+  {id:10,tier:'paid',cat:'hrms',title:'Performance Appraisal Testing Pack',
+    desc:'Test cases for KPI setup, 360-degree feedback, rating workflows, appraisal cycles, bell curve normalization, and increment calculations.',
+    tags:['Appraisal','KPI','360 Feedback'],formats:['Excel','CSV'],
+    thumb:'#4a148c',icon:'fa-chart-bar',price:'$17',orig:'$30',badge:null},
+
+  // AUTOMATION
+  {id:11,tier:'paid',cat:'automation',title:'Selenium Automation Starter Kit',
+    desc:'Complete Python framework with Page Object Model, logging, screenshots on failure, Excel/CSV data-driven testing, and HTML reporting. Saves junior QAs 2–3 days of setup.',
+    tags:['Python','POM','Data-Driven','Reports'],formats:['Python','ZIP'],
+    thumb:'#1565c0',icon:'fa-robot',price:'$25',orig:'$45',badge:'hot'},
+  {id:12,tier:'paid',cat:'automation',title:'Permission Testing Automation Tool',
+    desc:'Reads role-permission matrix, logs in automatically, checks menu/button visibility per role, and generates a pass/fail report. Built for HRMS with 100+ permissions.',
+    tags:['Permissions','RBAC','Python','Report'],formats:['Python','Excel'],
+    thumb:'#b71c1c',icon:'fa-lock',price:'$29',orig:'$55',badge:'moat'},
+  {id:13,tier:'paid',cat:'automation',title:'Release Notes Generator',
+    desc:'Feed Jira tickets, Excel sheet, or CSV export — get professionally formatted release notes with bug fix summary, feature summary, and known issues. Saves 2hrs every sprint.',
+    tags:['Jira','CSV','Sprint','Word'],formats:['Python','Word'],
+    thumb:'#2e7d32',icon:'fa-file-circle-plus',price:'$22',orig:'$40',badge:'new'},
+  {id:14,tier:'paid',cat:'automation',title:'Employee Data Migration Validator',
+    desc:'Validates CSV structure, checks required fields, flags duplicate records, verifies data types, and generates an error report. Essential before any HRMS bulk import.',
+    tags:['CSV','Migration','HRMS','Validator'],formats:['Python','Excel'],
+    thumb:'#e65100',icon:'fa-database',price:'$19',orig:'$35',badge:null},
+  {id:15,tier:'paid',cat:'automation',title:'ZKTeco Attendance Utilities Pack',
+    desc:'Three utilities: user backup tool, attendance log export formatter, and device health checker. HR companies using ZKTeco devices need these daily but rarely have technical staff.',
+    tags:['ZKTeco','Biometric','HR Utilities','Python'],formats:['Python','ZIP'],
+    thumb:'#37474f',icon:'fa-microchip',price:'$24',orig:'$45',badge:'moat'},
+
+  // JIRA DASHBOARDS
+  {id:16,tier:'paid',cat:'jira',title:'Bug Trend Dashboard Template',
+    desc:'Excel dashboard showing daily/weekly bug discovery and closure rates, defect aging, and severity breakdown. Perfect for weekly QA status reports.',
+    tags:['Jira','Excel','Charts','Dashboard'],formats:['Excel','PDF'],
+    thumb:'#c62828',icon:'fa-chart-line',price:'$15',orig:'$28',badge:null},
+  {id:17,tier:'paid',cat:'jira',title:'Sprint Quality Dashboard',
+    desc:'Track test coverage, pass/fail rates, defect injection rate, and sprint burndown across multiple sprints. Automated charts update as you paste data.',
+    tags:['Sprint','Agile','Excel','Charts'],formats:['Excel'],
+    thumb:'#1565c0',icon:'fa-gauge-high',price:'$15',orig:'$28',badge:'hot'},
+  {id:18,tier:'paid',cat:'jira',title:'Defect Leakage Dashboard',
+    desc:'Measures how many defects escaped QA and reached production. Broken down by sprint, tester, and module. Essential metric for QA teams reporting to management.',
+    tags:['Defect Leakage','KPI','Excel'],formats:['Excel'],
+    thumb:'#4a148c',icon:'fa-droplet',price:'$15',orig:'$28',badge:null},
+  {id:19,tier:'paid',cat:'jira',title:'Release Readiness Dashboard',
+    desc:'Go/no-go checklist + metrics dashboard for release decisions. Covers test coverage %, blocker count, sign-off status, and risk score. Managers love this.',
+    tags:['Release','Go/No-Go','Manager-ready'],formats:['Excel','PDF'],
+    thumb:'#00695c',icon:'fa-rocket',price:'$15',orig:'$28',badge:'new'},
+
+  // DOCS & HR FORMULAS
+  {id:20,tier:'paid',cat:'docs',title:'QA Documentation Bundle',
+    desc:'Five professionally formatted documents: Test Plan, Test Strategy, Requirements Traceability Matrix, Bug Report Template, and UAT Sign-off. Client-ready out of the box.',
+    tags:['Test Plan','RTM','UAT','Word','PDF'],formats:['Word','PDF'],
+    thumb:'#1f5c52',icon:'fa-folder-open',price:'$29',orig:'$55',badge:'hot'},
+  {id:21,tier:'paid',cat:'docs',title:'HR Formula Library (Excel)',
+    desc:'50+ Excel formulas for payroll, leave accrual, tax calculations, overtime, gratuity, and PF. Annotated with real use-case examples. HR software implementers use these daily.',
+    tags:['Excel','Payroll','Tax','HR Formulas'],formats:['Excel'],
+    thumb:'#6d4a1e',icon:'fa-square-root-variable',price:'$22',orig:'$40',badge:'moat'},
+
+  // CAREER
+  {id:22,tier:'paid',cat:'career',title:'QA Interview Prep Kit — 500 Q&A',
+    desc:'500 QA interview questions with detailed answers across manual testing, automation, API, performance, and behavioral. Plus sample bug reports and Selenium practice projects.',
+    tags:['500 Questions','Fresher','Automation','PDF'],formats:['PDF','Excel'],
+    thumb:'#0d3b2e',icon:'fa-briefcase',price:'$19',orig:'$35',badge:'hot'},
+];
+
+/* ── RENDER ── */
+let currentFilter='all';
+let searchQ='';
+
+function catColor(c){
+  return{hrms:'#0f6e56',automation:'#1565c0',jira:'#7b1fa2',docs:'#6d4a1e',career:'#c8963e',general:'#2a7c6f'}[c]||'#7a7068';
+}
+function catLabel(c){
+  return{hrms:'HRMS Testing',automation:'Automation & Tools',jira:'Jira Dashboards',
+    docs:'QA Docs & HR',career:'Career & Interview',general:'General QA'}[c]||c;
+}
+function lighten(hex){
+  try{
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return`rgb(${Math.round(r+(255-r)*.88)},${Math.round(g+(255-g)*.88)},${Math.round(b+(255-b)*.88)})`;
+  }catch(e){return'#eee';}
+}
+
+function renderCard(t){
+  const free=t.tier==='free';
+  const fmts=t.formats.map(f=>`<span class="fmt">${f}</span>`).join('');
+  const tags=t.tags.map(g=>`<span class="tcard-tag">${g}</span>`).join('');
+  const badgeHtml=`<span class="badge ${free?'b-free':'b-paid'}">${free?'Free':'Premium'}</span>`
+    +(t.badge==='hot'?'<span class="badge b-hot">🔥 Hot</span>':'')
+    +(t.badge==='new'?'<span class="badge b-new">New</span>':'')
+    +(t.badge==='moat'?'<span class="badge b-moat">Exclusive</span>':'');
+
+  const priceHtml=free
+    ?`<div><div class="tcard-price free">Free</div><div class="tcard-sub">Instant download</div></div>`
+    :`<div><div style="display:flex;align-items:baseline;gap:.25rem"><span class="tcard-orig">${t.orig}</span><span class="tcard-price">${t.price}</span></div><div class="tcard-sub">One-time · Instant</div></div>`;
+
+  const btnHtml=free
+    ?`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download</button></a>`
+    :`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
+
+  return`<div class="tcard" data-tier="${t.tier}" data-cat="${t.cat}" data-title="${t.title.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ').toLowerCase()}">
+    <div class="tcard-thumb" style="background:linear-gradient(135deg,${t.thumb},${t.thumb}cc)">
+      <i class="fa-solid ${t.icon} tcard-thumb-icon"></i>
+      <div class="tcard-badges">${badgeHtml}</div>
+      <div class="fmt-badges">${fmts}</div>
+    </div>
+    <div class="tcard-body">
+      <div class="tcard-cat" style="color:${catColor(t.cat)}">${catLabel(t.cat)}</div>
+      <div class="tcard-title">${t.title}</div>
+      <div class="tcard-desc">${t.desc}</div>
+      <div class="tcard-tags">${tags}</div>
+    </div>
+    <div class="tcard-footer">${priceHtml}${btnHtml}</div>
+  </div>`;
+}
+
+function filterAll(){
+  searchQ=document.getElementById('search-input').value.toLowerCase();
+  const filtered=T.filter(t=>{
+    const matchF=currentFilter==='all'?true
+      :currentFilter==='free'?t.tier==='free'
+      :currentFilter==='paid'?t.tier==='paid'
+      :t.cat===currentFilter;
+    const matchS=!searchQ||`${t.title} ${t.desc} ${t.tags.join(' ')}`.toLowerCase().includes(searchQ);
+    return matchF&&matchS;
+  });
+
+  document.getElementById('results-count').textContent=`${filtered.length} template${filtered.length!==1?'s':''}`;
+
+  const showMega=(currentFilter==='all'||currentFilter==='paid')&&!searchQ;
+  document.getElementById('mega-section').style.display=showMega?'':'none';
+  const showHrms=(currentFilter==='all'||currentFilter==='hrms'||currentFilter==='paid')&&!searchQ;
+  document.getElementById('hrms-section').style.display=showHrms?'':'none';
+  document.getElementById('hrms-bundle-banner').style.display=showHrms&&filtered.some(t=>t.cat==='hrms')?'':'none';
+
+  const grid=document.getElementById('tgrid');
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty"><i class="fa-solid fa-magnifying-glass"></i><p>No templates match. Try different keywords.</p></div>`;
+    return;
+  }
+
+  // Group by tier then category order
+  const catOrder=['general','hrms','automation','jira','docs','career'];
+  const free=filtered.filter(t=>t.tier==='free');
+  const paid=filtered.filter(t=>t.tier==='paid');
+  paid.sort((a,b)=>catOrder.indexOf(a.cat)-catOrder.indexOf(b.cat));
+
+  let html='';
+  if(free.length&&(currentFilter==='all'||currentFilter==='free')){
+    html+=`<div style="grid-column:1/-1"><div class="sdiv" style="margin-top:0"><span class="sdiv-title">🎁 Free Templates</span><div class="sdiv-line"></div><span class="sdiv-count">${free.length} templates · No signup needed</span></div></div>`;
+    html+=free.map(renderCard).join('');
+  }
+  if(paid.length&&(currentFilter==='all'||currentFilter==='paid'||['hrms','automation','jira','docs','career','general'].includes(currentFilter))){
+    if(free.length&&currentFilter==='all')
+      html+=`<div style="grid-column:1/-1"><div class="sdiv"><span class="sdiv-title">💎 Premium Templates</span><div class="sdiv-line"></div><span class="sdiv-count">${paid.length} templates</span></div></div>`;
+    html+=paid.map(renderCard).join('');
+  }
+  grid.innerHTML=html;
+}
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filterAll();
+  trackEvent('store_filter',{filter:f});
+}
+
+filterAll();
+</script>
+</body>
+</html>
