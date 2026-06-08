@@ -515,7 +515,7 @@ function renderCard(t){
     :`<div><div style="display:flex;align-items:baseline;gap:.25rem"><span class="tcard-orig">${t.orig}</span><span class="tcard-price">${t.price}</span></div><div class="tcard-sub">One-time · Instant</div></div>`;
 
   const btnHtml=free
-    ?`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download</button></a>`
+    ?`<a href="/templates.html" target="_blank"><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download</button></a>`
     :`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
 
   return`<div class="tcard" data-tier="${t.tier}" data-cat="${t.cat}" data-title="${t.title.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ').toLowerCase()}">
