@@ -384,25 +384,30 @@ toggleBtn.addEventListener('click',()=>applyTheme(root.getAttribute('data-theme'
 const T=[
   // FREE — GENERAL QA
   {id:1,tier:'free',cat:'general',title:'Basic Test Case Template',
-    desc:'Clean, ready-to-use test case template with all essential fields — ID, steps, expected results, status and priority. Perfect starting point for any project.',
-    tags:['Manual Testing','Excel','CSV','Beginner'],formats:['Excel','CSV'],
-    thumb:'#2a7c6f',icon:'fa-table-list',price:null,orig:null,badge:null},
+    desc:'Clean, ready-to-use test case template with all essential fields — ID, steps, expected results, status and priority. Dashboard, dropdowns, colour coding included.',
+    tags:['Manual Testing','Excel','Beginner','Dashboard'],formats:['Excel'],
+    thumb:'#2a7c6f',icon:'fa-table-list',price:null,orig:null,badge:null,
+    download:'Basic_Test_Case_Template_FREE_BishalKhatri.xlsx'},
   {id:2,tier:'free',cat:'general',title:'Simple Bug Report Form',
-    desc:'Professional bug report capturing severity, steps to reproduce, environment details, and expected vs actual results. Word and PDF formats included.',
-    tags:['Bug Tracking','Word','PDF'],formats:['Word','PDF'],
-    thumb:'#c8963e',icon:'fa-bug',price:null,orig:null,badge:null},
+    desc:'Professional bug report capturing severity, steps to reproduce, environment details, and expected vs actual results. Dropdowns, colour coding, summary dashboard.',
+    tags:['Bug Tracking','Excel','Beginner'],formats:['Excel'],
+    thumb:'#c8963e',icon:'fa-bug',price:null,orig:null,badge:null,
+    download:'Bug_Report_Tracker_FREE_BishalKhatri.xlsx'},
   {id:3,tier:'free',cat:'general',title:'Web App QA Checklist — 50 Points',
-    desc:'50-point checklist covering UI, functionality, performance, security, and accessibility testing for web apps. Print-ready PDF.',
-    tags:['Checklist','Web Testing','PDF'],formats:['PDF','Word'],
-    thumb:'#1f5c52',icon:'fa-list-check',price:null,orig:null,badge:'hot'},
+    desc:'58-point checklist across 7 categories — UI, Navigation, Forms, Security, Performance, Cross-Browser, Accessibility. Priority labels and summary table included.',
+    tags:['Checklist','Web Testing','PDF','Print-ready'],formats:['PDF'],
+    thumb:'#1f5c52',icon:'fa-list-check',price:null,orig:null,badge:'hot',
+    download:'Web_App_QA_Checklist_50pt_FREE_BishalKhatri.pdf'},
   {id:4,tier:'free',cat:'general',title:'QA Test Plan — 1-Pager',
     desc:'Concise one-page test plan for small to medium projects. Covers scope, approach, resources, and schedule without the corporate bloat.',
-    tags:['Test Plan','Agile','Word'],formats:['Word','PDF'],
-    thumb:'#7a7068',icon:'fa-file-lines',price:null,orig:null,badge:null},
+    tags:['Test Plan','Agile','Word'],formats:['Word'],
+    thumb:'#7a7068',icon:'fa-file-lines',price:null,orig:null,badge:null,
+    download:'QA_Test_Plan_1Pager_FREE_BishalKhatri.docx'},
   {id:5,tier:'free',cat:'career',title:'QA Interview Quick Guide — Top 30 Q&A',
     desc:'30 most-asked QA interview questions with model answers. A free taste of the full 500-question Interview Prep Kit — great for freshers.',
     tags:['Interview','Fresher','PDF'],formats:['PDF'],
-    thumb:'#2a7c6f',icon:'fa-graduation-cap',price:null,orig:null,badge:'new'},
+    thumb:'#2a7c6f',icon:'fa-graduation-cap',price:null,orig:null,badge:'new',
+    download:'QA_Interview_Quick_Guide_30QA_FREE_BishalKhatri.pdf'},
 
   // HRMS PACKS
   {id:6,tier:'paid',cat:'hrms',title:'Leave Management Testing Pack',
@@ -511,11 +516,13 @@ function renderCard(t){
     +(t.badge==='moat'?'<span class="badge b-moat">Exclusive</span>':'');
 
   const priceHtml=free
-    ?`<div><div class="tcard-price free">Free</div><div class="tcard-sub">Instant download</div></div>`
+    ?`<div><div class="tcard-price free">Free</div><div class="tcard-sub">No signup · Instant download</div></div>`
     :`<div><div style="display:flex;align-items:baseline;gap:.25rem"><span class="tcard-orig">${t.orig}</span><span class="tcard-price">${t.price}</span></div><div class="tcard-sub">One-time · Instant</div></div>`;
 
   const btnHtml=free
-    ?`<a href="/templates.html" target="_blank"><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download</button></a>`
+    ?(t.download
+        ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
+        :`<button class="tbtn tbtn-free" style="opacity:.55;cursor:not-allowed"><i class="fa-solid fa-clock"></i> Coming Soon</button>`)
     :`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
 
   return`<div class="tcard" data-tier="${t.tier}" data-cat="${t.cat}" data-title="${t.title.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ').toLowerCase()}">
