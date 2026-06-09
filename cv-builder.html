@@ -279,16 +279,49 @@
 
     /* ── PRINT STYLES ─────────────────────────────────────────── */
     @media print {
-      body > *:not(#print-target) { display: none !important; }
-      #print-target { display: block !important; }
-      nav, .form-panel, .preview-label, .preview-panel > *:not(#cv-preview) { display: none !important; }
-      body { background: white; }
-      .preview-panel { padding: 0; background: white; }
-      #cv-preview {
-        box-shadow: none; width: 100%; min-height: auto;
-        border-radius: 0;
+      /* Hide everything except the CV */
+      nav,
+      .form-panel,
+      .preview-label,
+      .preview-panel { display: none !important; }
+
+      /* Reset body */
+      body, html {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
       }
-      @page { margin: 0; size: A4; }
+
+      /* Collapse app layout */
+      .app {
+        display: block !important;
+        padding-top: 0 !important;
+      }
+
+      /* Show only the CV — reset all transforms and sizing */
+      #cv-preview {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        transform: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        overflow: visible !important;
+        z-index: 99999 !important;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
     }
 
     /* ── TOAST ────────────────────────────────────────────────── */
@@ -740,29 +773,64 @@ function render() {
 
 /* ── DOWNLOAD ────────────────────────────────────────────────── */
 function downloadCV() {
-  const toast = document.getElementById('toast');
+  const preview = document.getElementById('cv-preview');
+  const toast   = document.getElementById('toast');
+
+  // 1. Save and clear any CSS transform so print gets full-size CV
+  const savedTransform     = preview.style.transform;
+  const savedMarginBottom  = preview.style.marginBottom;
+  preview.style.transform  = 'none';
+  preview.style.marginBottom = '0';
+
+  // 2. Show toast
   toast.classList.add('show');
+
   setTimeout(() => {
     toast.classList.remove('show');
+
+    // 3. Print
     window.print();
-  }, 800);
+
+    // 4. Restore transform after print dialog closes
+    setTimeout(() => {
+      preview.style.transform    = savedTransform;
+      preview.style.marginBottom = savedMarginBottom;
+    }, 500);
+  }, 600);
 }
 
 /* ── SCALE PREVIEW ───────────────────────────────────────────── */
 function scalePreview() {
+  // Don't scale during print
+  if (window.matchMedia('print').matches) return;
+
   const preview = document.getElementById('cv-preview');
-  const panel = preview.parentElement;
-  const panelW = panel.clientWidth - 64;
-  const cvW = 794; // 210mm @ 96dpi
+  const panel   = preview.parentElement;
+  const panelW  = panel.clientWidth - 64;
+  const cvW     = 794; // 210mm @ 96dpi
+
   if (panelW < cvW) {
     const scale = panelW / cvW;
-    preview.style.transform = `scale(${scale})`;
-    preview.style.marginBottom = `-${cvW * (1 - scale) * 0.5}px`;
+    preview.style.transform     = `scale(${scale})`;
+    preview.style.transformOrigin = 'top center';
+    preview.style.marginBottom  = `-${cvW * (1 - scale) * 0.6}px`;
   } else {
-    preview.style.transform = '';
-    preview.style.marginBottom = '';
+    preview.style.transform     = '';
+    preview.style.marginBottom  = '';
   }
 }
+
+// Prevent scalePreview from interfering with print
+window.addEventListener('beforeprint', () => {
+  const preview = document.getElementById('cv-preview');
+  if (preview) {
+    preview.style.transform    = 'none';
+    preview.style.marginBottom = '0';
+  }
+});
+window.addEventListener('afterprint', () => {
+  scalePreview();
+});
 
 /* ── INIT ───────────────────────────────────────────────────── */
 window.addEventListener('load', () => {
