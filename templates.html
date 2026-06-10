@@ -319,7 +319,7 @@
           <div class="mega-price">$99</div>
           <div class="mega-orig">$280+ separately</div>
           <div class="mega-save">You save $181+</div>
-          <a href="https://gumroad.com/bishal-khatri" target="_blank" onclick="trackEvent('mega_bundle_click',{})">
+          <a href="order.html?product=mega-bundle" onclick="trackEvent('mega_bundle_click',{})">
             <button class="mega-btn"><i class="fa-solid fa-bag-shopping"></i> Get Everything</button>
           </a>
           <div class="mega-sub">Instant download · All formats included</div>
@@ -342,7 +342,7 @@
           <div class="hrms-orig">$94 separately</div>
           <div class="hrms-save">Save $25</div>
         </div>
-        <a href="https://gumroad.com/bishal-khatri" target="_blank" onclick="trackEvent('hrms_bundle_click',{})">
+        <a href="order.html?product=hrms-bundle" onclick="trackEvent('hrms_bundle_click',{})">
           <button class="tbtn tbtn-bundle" style="padding:.75rem 1.5rem;font-size:.88rem"><i class="fa-solid fa-bag-shopping"></i> Buy Bundle</button>
         </a>
       </div>
@@ -523,7 +523,7 @@ function renderCard(t){
     ?(t.download
         ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
         :`<button class="tbtn tbtn-free" style="opacity:.55;cursor:not-allowed"><i class="fa-solid fa-clock"></i> Coming Soon</button>`)
-    :`<a href="https://gumroad.com/bishal-khatri" target="_blank"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
+    :`<a href="order.html?product=${getProductKey(t.id)}" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><button class="tbtn tbtn-paid"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
 
   return`<div class="tcard" data-tier="${t.tier}" data-cat="${t.cat}" data-title="${t.title.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ').toLowerCase()}">
     <div class="tcard-thumb" style="background:linear-gradient(135deg,${t.thumb},${t.thumb}cc)">
@@ -539,6 +539,29 @@ function renderCard(t){
     </div>
     <div class="tcard-footer">${priceHtml}${btnHtml}</div>
   </div>`;
+}
+
+function getProductKey(id) {
+  const map = {
+    6:  'leave-pack',
+    7:  'payroll-pack',
+    8:  'hrms-bundle',   // Mobile pack - use hrms bundle as closest
+    9:  'hrms-bundle',
+    10: 'hrms-bundle',
+    11: 'selenium-kit',
+    12: 'selenium-kit',
+    13: 'selenium-kit',
+    14: 'selenium-kit',
+    15: 'selenium-kit',
+    16: 'qa-docs-bundle',
+    17: 'qa-docs-bundle',
+    18: 'qa-docs-bundle',
+    19: 'qa-docs-bundle',
+    20: 'qa-docs-bundle',
+    21: 'qa-docs-bundle',
+    22: 'interview-kit',
+  };
+  return map[id] || 'mega-bundle';
 }
 
 function filterAll(){

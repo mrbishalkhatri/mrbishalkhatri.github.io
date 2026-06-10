@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order — QA Template Store | Bishal Khatri</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVEKWHN62S"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());gtag('config','G-BVEKWHN62S');
+  </script>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --ink:    #0d0d0d;
+      --paper:  #f5f2ed;
+      --cream:  #ede9e1;
+      --teal:   #2a7c6f;
+      --teal2:  #1f5c52;
+      --gold:   #c8963e;
+      --gold2:  #6d4a1e;
+      --mid:    #7a7068;
+      --light:  #ccc8c0;
+      --white:  #fff;
+      --red:    #dc2626;
+      --green:  #16a34a;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+      --ease:   cubic-bezier(.25,.46,.45,.94);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--paper); color:var(--ink); min-height:100vh; overflow-x:hidden; }
+    a { color:inherit; text-decoration:none; }
+
+    /* noise overlay */
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.022;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat:repeat; background-size:128px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100; height:56px;
+      display:flex; align-items:center; justify-content:space-between; padding:0 2rem;
+      background:rgba(245,242,237,.92); backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(0,0,0,.07);
+    }
+    .nav-logo { font-family:var(--serif); font-size:1.15rem; }
+    .nav-logo span { color:var(--teal); }
+    .nav-back {
+      display:inline-flex; align-items:center; gap:.4rem;
+      font-size:.8rem; font-weight:500; color:var(--mid);
+      border:1px solid var(--light); border-radius:999px; padding:.4rem .9rem;
+      transition:color .2s,border-color .2s;
+    }
+    .nav-back:hover { color:var(--teal); border-color:var(--teal); }
+
+    /* ── LAYOUT ── */
+    .page {
+      min-height:100vh; padding-top:56px;
+      display:grid; grid-template-columns:1fr 420px;
+    }
+
+    /* ── LEFT — ORDER SUMMARY ── */
+    .summary-panel {
+      background:var(--ink);
+      padding:3.5rem 3rem 3rem;
+      position:sticky; top:56px; height:calc(100vh - 56px);
+      overflow-y:auto; display:flex; flex-direction:column;
+    }
+    .summary-panel::-webkit-scrollbar { width:3px; }
+    .summary-panel::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
+
+    /* grid bg */
+    .summary-panel::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(42,124,111,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42,124,111,.08) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(ellipse 100% 100% at 50% 0%, black 40%, transparent 100%);
+    }
+
+    .summary-inner { position:relative; z-index:1; flex:1; }
+
+    .order-eyebrow {
+      display:inline-flex; align-items:center; gap:.4rem;
+      font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:#4ba898; background:rgba(42,124,111,.15);
+      border:1px solid rgba(42,124,111,.3);
+      padding:.3rem .8rem; border-radius:999px; margin-bottom:1.6rem;
+    }
+
+    .order-product-title {
+      font-family:var(--serif);
+      font-size:clamp(1.6rem, 3vw, 2.4rem);
+      line-height:1.1; letter-spacing:-.02em;
+      color:#f5f2ed; margin-bottom:.6rem;
+    }
+    .order-product-title em { font-style:italic; color:#4ba898; }
+
+    .order-desc { font-size:.88rem; color:rgba(245,242,237,.55); line-height:1.75; margin-bottom:2rem; max-width:400px; }
+
+    /* includes list */
+    .includes-list { list-style:none; margin-bottom:2.5rem; }
+    .includes-list li {
+      display:flex; align-items:flex-start; gap:.7rem;
+      font-size:.85rem; color:rgba(245,242,237,.75);
+      padding:.55rem 0; border-bottom:1px solid rgba(255,255,255,.06);
+      line-height:1.5;
+    }
+    .includes-list li:last-child { border-bottom:none; }
+    .include-icon {
+      width:22px; height:22px; border-radius:50%; flex-shrink:0;
+      background:rgba(42,124,111,.2);
+      display:flex; align-items:center; justify-content:center;
+      color:#4ba898; font-size:.65rem; margin-top:.1rem;
+    }
+
+    /* price block */
+    .price-block {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:1rem; padding:1.4rem 1.6rem;
+      margin-bottom:1.5rem;
+    }
+    .price-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:.6rem; }
+    .price-label { font-size:.82rem; color:rgba(245,242,237,.5); }
+    .price-val { font-size:.9rem; color:rgba(245,242,237,.8); font-weight:500; }
+    .price-divider { height:1px; background:rgba(255,255,255,.07); margin:.8rem 0; }
+    .price-total-row { display:flex; justify-content:space-between; align-items:baseline; }
+    .price-total-label { font-size:.9rem; font-weight:600; color:#f5f2ed; }
+    .price-total-val { font-family:var(--serif); font-size:2.2rem; color:#4ba898; line-height:1; }
+    .price-orig { font-size:.8rem; color:rgba(245,242,237,.3); text-decoration:line-through; margin-left:.4rem; }
+    .price-save { font-size:.72rem; font-weight:700; color:#4ade80; margin-top:.2rem; text-align:right; }
+
+    /* guarantee */
+    .guarantee {
+      display:flex; align-items:center; gap:.75rem;
+      padding:.9rem 1rem;
+      background:rgba(42,124,111,.1); border:1px solid rgba(42,124,111,.2);
+      border-radius:.75rem;
+    }
+    .guarantee i { color:#4ba898; font-size:1.1rem; flex-shrink:0; }
+    .guarantee-text { font-size:.78rem; color:rgba(245,242,237,.65); line-height:1.6; }
+    .guarantee-text strong { color:#4ba898; }
+
+    /* ── RIGHT — FORM ── */
+    .form-panel {
+      background:var(--white);
+      padding:3rem 2.5rem;
+      overflow-y:auto;
+    }
+
+    .form-heading {
+      font-family:var(--serif); font-size:1.8rem;
+      letter-spacing:-.02em; margin-bottom:.4rem;
+    }
+    .form-subheading { font-size:.88rem; color:var(--mid); margin-bottom:2rem; line-height:1.7; }
+
+    /* steps indicator */
+    .steps {
+      display:flex; align-items:center; gap:.5rem;
+      margin-bottom:2rem;
+    }
+    .step {
+      display:flex; align-items:center; gap:.4rem;
+      font-size:.75rem; font-weight:600;
+    }
+    .step-num {
+      width:22px; height:22px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.72rem; font-weight:700;
+    }
+    .step.active .step-num { background:var(--teal); color:#fff; }
+    .step.done .step-num { background:var(--green); color:#fff; }
+    .step.inactive .step-num { background:var(--light); color:var(--mid); }
+    .step.active .step-label { color:var(--teal); }
+    .step.done .step-label { color:var(--green); }
+    .step.inactive .step-label { color:var(--light); }
+    .step-connector { flex:1; height:1.5px; background:var(--light); }
+
+    /* field groups */
+    .field-group { margin-bottom:1.2rem; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
+    label {
+      display:block; font-size:.72rem; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase;
+      color:var(--mid); margin-bottom:.4rem;
+    }
+    label .req { color:var(--red); margin-left:2px; }
+    input[type=text], input[type=email], input[type=tel], select, textarea {
+      width:100%; padding:.75rem 1rem;
+      background:var(--paper); border:1.5px solid var(--light);
+      border-radius:.65rem; font-family:var(--sans); font-size:.9rem;
+      color:var(--ink); outline:none;
+      transition:border-color .2s, background .2s, box-shadow .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color:var(--teal);
+      background:var(--white);
+      box-shadow:0 0 0 3px rgba(42,124,111,.1);
+    }
+    input::placeholder, textarea::placeholder { color:var(--light); }
+    textarea { resize:none; height:90px; line-height:1.6; }
+    select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a7068' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; cursor:pointer; }
+
+    /* section dividers inside form */
+    .form-section-title {
+      font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--teal); margin-bottom:1rem; margin-top:1.6rem;
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .form-section-title::after { content:''; flex:1; height:1px; background:var(--light); }
+
+    /* payment method */
+    .payment-methods { display:grid; grid-template-columns:1fr 1fr; gap:.65rem; margin-bottom:1.2rem; }
+    .pay-option {
+      display:flex; align-items:center; gap:.7rem;
+      padding:.85rem 1rem; border-radius:.75rem;
+      border:1.5px solid var(--light); cursor:pointer;
+      transition:border-color .2s, background .2s;
+      position:relative;
+    }
+    .pay-option:hover { border-color:var(--teal); background:rgba(42,124,111,.04); }
+    .pay-option.selected { border-color:var(--teal); background:rgba(42,124,111,.06); }
+    .pay-option input[type=radio] { position:absolute; opacity:0; }
+    .pay-radio {
+      width:16px; height:16px; border-radius:50%;
+      border:2px solid var(--light); flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      transition:border-color .2s;
+    }
+    .pay-option.selected .pay-radio { border-color:var(--teal); }
+    .pay-radio-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--teal); opacity:0; transition:opacity .2s;
+    }
+    .pay-option.selected .pay-radio-dot { opacity:1; }
+    .pay-info { flex:1; }
+    .pay-name { font-size:.85rem; font-weight:600; color:var(--ink); }
+    .pay-sub { font-size:.72rem; color:var(--mid); margin-top:.1rem; }
+    .pay-icon { font-size:1.1rem; color:var(--mid); }
+
+    /* khalti details */
+    .khalti-details {
+      background:var(--cream); border:1px solid var(--light);
+      border-radius:.75rem; padding:1.1rem 1.2rem; margin-bottom:1.2rem;
+      display:none;
+    }
+    .khalti-details.show { display:block; }
+    .khalti-step {
+      display:flex; align-items:flex-start; gap:.75rem;
+      margin-bottom:.75rem; font-size:.85rem; color:var(--ink); line-height:1.6;
+    }
+    .khalti-step:last-child { margin-bottom:0; }
+    .khalti-num {
+      width:22px; height:22px; border-radius:50%; background:var(--teal);
+      color:#fff; font-size:.72rem; font-weight:700; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .khalti-id {
+      display:inline-block; background:var(--ink); color:#4ba898;
+      font-family:monospace; font-size:.9rem; font-weight:700;
+      padding:.2rem .6rem; border-radius:.4rem; margin:0 .2rem;
+      letter-spacing:.05em;
+    }
+
+    /* payoneer details */
+    .payoneer-details {
+      background:var(--cream); border:1px solid var(--light);
+      border-radius:.75rem; padding:1.1rem 1.2rem; margin-bottom:1.2rem;
+      display:none;
+    }
+    .payoneer-details.show { display:block; }
+
+    /* order note */
+    .order-note {
+      background:rgba(42,124,111,.06); border:1px solid rgba(42,124,111,.15);
+      border-radius:.65rem; padding:.9rem 1rem; margin-bottom:1.5rem;
+      font-size:.82rem; color:var(--teal2); line-height:1.65;
+    }
+    .order-note i { margin-right:.4rem; }
+
+    /* submit button */
+    .submit-btn {
+      width:100%; padding:1.1rem;
+      background:var(--teal); color:#fff;
+      border:none; border-radius:999px;
+      font-family:var(--sans); font-size:1rem; font-weight:700;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.5rem;
+      transition:background .25s, transform .2s, box-shadow .25s;
+      box-shadow:0 4px 20px rgba(42,124,111,.3);
+      position:relative; overflow:hidden;
+    }
+    .submit-btn:hover { background:var(--teal2); transform:translateY(-2px); box-shadow:0 8px 28px rgba(42,124,111,.4); }
+    .submit-btn:disabled { background:var(--light); color:var(--mid); cursor:not-allowed; transform:none; box-shadow:none; }
+    .submit-btn .spinner {
+      display:none; width:18px; height:18px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.3); border-top-color:#fff;
+      animation:spin .7s linear infinite;
+    }
+    .submit-btn.loading .btn-text { display:none; }
+    .submit-btn.loading .spinner { display:block; }
+
+    /* trust badges */
+    .trust-row {
+      display:flex; justify-content:center; gap:1.5rem;
+      flex-wrap:wrap; margin-top:1.2rem;
+    }
+    .trust-item { display:flex; align-items:center; gap:.35rem; font-size:.72rem; color:var(--mid); }
+    .trust-item i { color:var(--teal); font-size:.8rem; }
+
+    /* ── SUCCESS STATE ── */
+    .success-overlay {
+      display:none; position:fixed; inset:0; z-index:500;
+      background:rgba(13,13,13,.7); backdrop-filter:blur(8px);
+      align-items:center; justify-content:center;
+    }
+    .success-overlay.show { display:flex; }
+    .success-card {
+      background:var(--white); border-radius:1.5rem; padding:3rem 2.5rem;
+      max-width:480px; width:90%; text-align:center;
+      animation:popIn .4s var(--ease);
+    }
+    .success-icon {
+      width:72px; height:72px; border-radius:50%;
+      background:linear-gradient(135deg, var(--teal), #4ba898);
+      margin:0 auto 1.5rem;
+      display:flex; align-items:center; justify-content:center;
+      font-size:2rem; color:#fff;
+      box-shadow:0 8px 24px rgba(42,124,111,.3);
+    }
+    .success-title { font-family:var(--serif); font-size:1.8rem; margin-bottom:.75rem; }
+    .success-body { font-size:.92rem; color:var(--mid); line-height:1.75; margin-bottom:2rem; }
+    .success-body strong { color:var(--teal); }
+    .success-actions { display:flex; flex-direction:column; gap:.75rem; }
+    .success-btn-primary {
+      background:var(--teal); color:#fff; border:none; border-radius:999px;
+      padding:.9rem 2rem; font-family:var(--sans); font-size:.92rem; font-weight:600;
+      cursor:pointer; transition:background .2s;
+    }
+    .success-btn-primary:hover { background:var(--teal2); }
+    .success-btn-secondary {
+      background:transparent; color:var(--mid); border:1px solid var(--light);
+      border-radius:999px; padding:.85rem 2rem;
+      font-family:var(--sans); font-size:.88rem; font-weight:500;
+      cursor:pointer; transition:border-color .2s, color .2s;
+    }
+    .success-btn-secondary:hover { border-color:var(--teal); color:var(--teal); }
+
+    /* animations */
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @keyframes popIn { from { opacity:0; transform:scale(.9) translateY(16px); } to { opacity:1; transform:none; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      .page { grid-template-columns:1fr; }
+      .summary-panel { position:static; height:auto; padding:2.5rem 1.5rem; }
+      .form-panel { padding:2rem 1.5rem; }
+    }
+    @media (max-width:480px) {
+      nav { padding:0 1rem; }
+      .field-row { grid-template-columns:1fr; }
+      .payment-methods { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Bishal<span>.</span> <span style="font-family:var(--sans);font-size:.72rem;color:var(--mid);font-weight:400;">QA Store</span></a>
+  <a class="nav-back" href="templates.html"><i class="fa-solid fa-arrow-left"></i> Back to Store</a>
+</nav>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-card">
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <div class="success-title">Order Received! 🎉</div>
+    <div class="success-body">
+      Thank you for your order. <strong>Bishal will send your download link within 2 hours</strong> to the email you provided.<br><br>
+      Check your inbox (and spam folder). If you don't hear back in 2 hours, email <strong>bishalkhatrichettri1@gmail.com</strong> with your order reference.
+    </div>
+    <div id="order-ref" style="font-family:monospace;font-size:.85rem;background:var(--cream);padding:.5rem 1rem;border-radius:.5rem;margin-bottom:1.5rem;color:var(--teal);font-weight:700;"></div>
+    <div class="success-actions">
+      <button class="success-btn-primary" onclick="window.location.href='templates.html'"><i class="fa-solid fa-store"></i> Back to Store</button>
+      <button class="success-btn-secondary" onclick="window.location.href='index.html'">View Portfolio</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- LEFT: ORDER SUMMARY -->
+  <div class="summary-panel">
+    <div class="summary-inner">
+      <div class="order-eyebrow" id="order-badge"><i class="fa-solid fa-shield-halved"></i> Secure Order</div>
+      <h1 class="order-product-title" id="product-title">Complete QA<br><em>Professional Bundle</em></h1>
+      <p class="order-desc" id="product-desc">Every template in the store. 20 paid products in one instant download. The ultimate QA toolkit built from real engineering experience.</p>
+
+      <ul class="includes-list" id="includes-list">
+        <!-- filled by JS -->
+      </ul>
+
+      <div class="price-block">
+        <div class="price-row">
+          <span class="price-label">Product</span>
+          <span class="price-val" id="summary-product-name">Complete QA Bundle</span>
+        </div>
+        <div class="price-row" id="savings-row" style="display:none">
+          <span class="price-label">You save</span>
+          <span class="price-val" style="color:#4ade80" id="summary-savings"></span>
+        </div>
+        <div class="price-divider"></div>
+        <div class="price-total-row">
+          <span class="price-total-label">Total</span>
+          <div style="text-align:right">
+            <div>
+              <span class="price-orig" id="summary-orig"></span>
+              <span class="price-total-val" id="summary-price">$99</span>
+            </div>
+            <div class="price-save" id="summary-save-note"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guarantee">
+        <i class="fa-solid fa-lock"></i>
+        <div class="guarantee-text">
+          <strong>100% satisfaction guaranteed.</strong> If you don't receive your files within 2 hours or have any issue — email me directly and I'll fix it immediately.
+        </div>
+      </div>
+
+      <!-- Author -->
+      <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:.9rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--gold));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:1rem;flex-shrink:0;">BK</div>
+        <div>
+          <div style="font-size:.85rem;font-weight:600;color:#f5f2ed;">Bishal Khatri</div>
+          <div style="font-size:.75rem;color:rgba(245,242,237,.45);">QA Engineer · Nepal · 2+ years experience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: ORDER FORM -->
+  <div class="form-panel">
+    <h2 class="form-heading">Complete your order</h2>
+    <p class="form-subheading">Fill in your details below. You'll receive your download link via email within 2 hours of payment confirmation.</p>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step active">
+        <div class="step-num">1</div>
+        <div class="step-label" style="font-size:.75rem;font-weight:600;">Your Details</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step active">
+        <div class="step-num">2</div>
+        <div class="step-label" style="font-size:.75rem;font-weight:600;">Payment</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step inactive">
+        <div class="step-num"><i class="fa-solid fa-check" style="font-size:.6rem"></i></div>
+        <div class="step-label" style="font-size:.75rem;font-weight:600;">Get Files</div>
+      </div>
+    </div>
+
+    <form id="order-form" action="https://formspree.io/f/xwkgbywr" method="POST" onsubmit="handleSubmit(event)">
+
+      <!-- Hidden fields — filled by JS -->
+      <input type="hidden" name="_subject" id="email-subject" value="🛒 New Order — QA Template Store">
+      <input type="hidden" name="product" id="hidden-product" value="">
+      <input type="hidden" name="price" id="hidden-price" value="">
+      <input type="hidden" name="order_ref" id="hidden-ref" value="">
+      <input type="hidden" name="payment_method" id="hidden-payment" value="">
+      <input type="hidden" name="_replyto" id="hidden-replyto" value="">
+
+      <!-- SECTION 1: Personal Info -->
+      <div class="form-section-title"><i class="fa-solid fa-user"></i> Your Information</div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" name="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="field-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="jane@email.com" required
+            oninput="document.getElementById('hidden-replyto').value=this.value">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Country</label>
+          <select name="country">
+            <option value="">Select country...</option>
+            <option>Nepal</option><option>India</option><option>United States</option>
+            <option>United Kingdom</option><option>Canada</option><option>Australia</option>
+            <option>Germany</option><option>Singapore</option><option>UAE</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Your Role</label>
+          <select name="role">
+            <option value="">Select role...</option>
+            <option>QA Engineer / Tester</option>
+            <option>QA Lead / Manager</option>
+            <option>Software Developer</option>
+            <option>Student / Fresher</option>
+            <option>HR / Business Professional</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Any special requirements? <span style="color:var(--light);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <textarea name="notes" placeholder="e.g. I need the Notion templates customised for my team, or I have a question about the HRMS pack..."></textarea>
+      </div>
+
+      <!-- SECTION 2: Payment -->
+      <div class="form-section-title"><i class="fa-solid fa-credit-card"></i> Payment Method</div>
+
+      <div class="payment-methods">
+        <div class="pay-option selected" id="pay-khalti" onclick="selectPayment('khalti', this)">
+          <input type="radio" name="payment_choice" value="khalti" checked>
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Khalti</div>
+            <div class="pay-sub">Nepal · Instant</div>
+          </div>
+          <i class="fa-solid fa-mobile-screen pay-icon"></i>
+        </div>
+        <div class="pay-option" id="pay-payoneer" onclick="selectPayment('payoneer', this)">
+          <input type="radio" name="payment_choice" value="payoneer">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Payoneer</div>
+            <div class="pay-sub">Worldwide</div>
+          </div>
+          <i class="fa-solid fa-globe pay-icon"></i>
+        </div>
+        <div class="pay-option" id="pay-bank" onclick="selectPayment('bank', this)">
+          <input type="radio" name="payment_choice" value="bank">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Bank Transfer</div>
+            <div class="pay-sub">Nepal banks</div>
+          </div>
+          <i class="fa-solid fa-building-columns pay-icon"></i>
+        </div>
+        <div class="pay-option" id="pay-other" onclick="selectPayment('other', this)">
+          <input type="radio" name="payment_choice" value="other">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Other / Ask</div>
+            <div class="pay-sub">Discuss with Bishal</div>
+          </div>
+          <i class="fa-solid fa-comment pay-icon"></i>
+        </div>
+      </div>
+
+      <!-- Khalti instructions -->
+      <div class="khalti-details show" id="khalti-details">
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
+          <i class="fa-solid fa-mobile-screen"></i> Khalti Payment Steps
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">1</div>
+          <div>Open <strong>Khalti app</strong> → Send Money or Pay → enter number <span class="khalti-id">9810116325</span> (Bishal Khatri)</div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">2</div>
+          <div>Send exactly <strong id="khalti-amount" style="color:var(--teal)">NPR equivalent of $99</strong> · Add your email in the remarks</div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">3</div>
+          <div>Take a screenshot of the transaction confirmation</div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">4</div>
+          <div>Fill the form and click <strong>"Submit Order"</strong> — attach the screenshot in your email or reply to Bishal's confirmation email</div>
+        </div>
+        <div style="font-size:.75rem;color:var(--mid);margin-top:.5rem;font-style:italic;">
+          💡 You'll receive your files within 2 hours after Bishal confirms payment.
+        </div>
+      </div>
+
+      <!-- Payoneer instructions -->
+      <div class="payoneer-details" id="payoneer-details">
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
+          <i class="fa-solid fa-globe"></i> Payoneer Payment Steps
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">1</div>
+          <div>Go to <strong>payoneer.com</strong> → Make a Payment → enter email <span class="khalti-id" style="font-size:.78rem">bishalkhatrichettri1@gmail.com</span></div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">2</div>
+          <div>Send exactly <strong id="payoneer-amount" style="color:var(--teal)">$99 USD</strong> · Add your order reference in the message</div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">3</div>
+          <div>Submit this form — Bishal will confirm receipt and send your files within 2 hours</div>
+        </div>
+      </div>
+
+      <!-- Bank instructions -->
+      <div class="payoneer-details" id="bank-details">
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
+          <i class="fa-solid fa-building-columns"></i> Bank Transfer Details
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">1</div>
+          <div>Email <strong>bishalkhatrichettri1@gmail.com</strong> to get bank details before transferring</div>
+        </div>
+        <div class="khalti-step">
+          <div class="khalti-num">2</div>
+          <div>Once you have the details, transfer and submit this form with your transaction ID</div>
+        </div>
+      </div>
+
+      <!-- Transaction ID -->
+      <div class="field-group" id="txn-group">
+        <label>Transaction ID / Reference <span class="req">*</span></label>
+        <input type="text" name="transaction_id" id="txn-id"
+          placeholder="e.g. TXN-123456789 or Khalti transaction number" required>
+      </div>
+
+      <!-- Order note -->
+      <div class="order-note">
+        <i class="fa-solid fa-circle-info"></i>
+        <strong>How it works:</strong> Submit this form after making payment. Bishal gets an instant Gmail notification with your details, verifies payment, and emails your download link — all within 2 hours.
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Submit Order</span>
+        <div class="spinner"></div>
+      </button>
+
+      <!-- Trust -->
+      <div class="trust-row">
+        <div class="trust-item"><i class="fa-solid fa-lock"></i> Secure form</div>
+        <div class="trust-item"><i class="fa-solid fa-clock"></i> 2hr delivery</div>
+        <div class="trust-item"><i class="fa-solid fa-envelope"></i> Gmail notification</div>
+        <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Satisfaction guaranteed</div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+// ── PRODUCT CATALOGUE ──────────────────────────────────────────────
+const PRODUCTS = {
+  'mega-bundle': {
+    name: 'Complete QA Professional Bundle',
+    shortName: 'Complete QA Bundle',
+    price: '$99',
+    orig: '$280+',
+    savings: '$181+',
+    desc: 'Every template in the store — 20 paid products in one download. The ultimate QA toolkit built from real engineering experience.',
+    includes: [
+      'All 5 HRMS QA Packs (Leave, Payroll, Attendance, Recruitment, Appraisal)',
+      'Selenium Python Automation Starter Kit',
+      'Permission Testing Automation Tool',
+      'Release Notes Generator (Python)',
+      'Employee Data Migration Validator',
+      'ZKTeco Attendance Utilities Pack',
+      'All 4 Jira Dashboard Templates',
+      'QA Documentation Bundle (5 Word docs)',
+      'HR Formula Library (50+ Excel formulas)',
+      'QA Interview Prep Kit — 500 Q&A',
+    ],
+    khaltiAmt: 'NPR ~13,200 (≈ $99)',
+    payoneerAmt: '$99 USD',
+  },
+  'hrms-bundle': {
+    name: 'Complete HRMS QA Bundle',
+    shortName: 'HRMS QA Bundle',
+    price: '$69',
+    orig: '$94',
+    savings: '$25',
+    desc: 'All 5 HRMS test case packs — Leave, Payroll, Attendance, Recruitment & Performance Appraisal. 750+ real test cases from hands-on HRMS experience.',
+    includes: [
+      'Leave Management Testing Pack (150+ cases)',
+      'Payroll Testing Pack (200+ cases)',
+      'Attendance & Device Testing Pack (120+ cases)',
+      'Recruitment & Onboarding Pack (130+ cases)',
+      'Performance Appraisal Testing Pack (100+ cases)',
+    ],
+    khaltiAmt: 'NPR ~9,200 (≈ $69)',
+    payoneerAmt: '$69 USD',
+  },
+  'selenium-kit': {
+    name: 'Selenium Python Starter Kit',
+    shortName: 'Selenium Starter Kit',
+    price: '$25',
+    orig: '$45',
+    savings: '$20',
+    desc: 'Complete Python framework with Page Object Model, logging, screenshots on failure, Excel/CSV data-driven testing, HTML reports, and GitHub Actions CI/CD.',
+    includes: [
+      'conftest.py — fixtures, screenshot on fail, CLI options',
+      'BasePage — 20+ reusable Selenium actions',
+      'LoginPage + DashboardPage — real POM examples',
+      'Data-driven testing with Excel & CSV',
+      'Auto HTML report + rotating log files',
+      'GitHub Actions CI/CD workflow (.yml)',
+      'Comprehensive README with examples',
+    ],
+    khaltiAmt: 'NPR ~3,340 (≈ $25)',
+    payoneerAmt: '$25 USD',
+  },
+  'payroll-pack': {
+    name: 'Payroll Testing Pack',
+    shortName: 'Payroll Testing Pack',
+    price: '$22',
+    orig: '$40',
+    savings: '$18',
+    desc: '200+ test cases for gross/net salary, tax deductions, overtime, bonuses, PF/ESI, and payslip generation. Built from real HRMS implementation experience.',
+    includes: [
+      '200+ test cases across 3 sheets',
+      'Salary Calculation (52 cases)',
+      'Tax & Deductions — PF, ESI, TDS, PT (38 cases)',
+      'Overtime & Allowances (34 cases)',
+      'Edge cases, boundary, security scenarios',
+      'Dropdown validations + colour coding',
+    ],
+    khaltiAmt: 'NPR ~2,940 (≈ $22)',
+    payoneerAmt: '$22 USD',
+  },
+  'leave-pack': {
+    name: 'Leave Management Testing Pack',
+    shortName: 'Leave Testing Pack',
+    price: '$19',
+    orig: '$35',
+    savings: '$16',
+    desc: '150+ test cases covering leave application, approval workflows, carry-forward rules, encashment, and leave balance calculations.',
+    includes: [
+      '150+ test cases across 2 sheets',
+      'Leave Application (40 cases)',
+      'Leave Approval workflows (30 cases)',
+      'Balance, carry-forward, encashment, calendar',
+      'Edge cases and negative scenarios',
+    ],
+    khaltiAmt: 'NPR ~2,540 (≈ $19)',
+    payoneerAmt: '$19 USD',
+  },
+  'qa-docs-bundle': {
+    name: 'QA Documentation Bundle',
+    shortName: 'QA Docs Bundle',
+    price: '$29',
+    orig: '$55',
+    savings: '$26',
+    desc: '5 professionally formatted Word documents — Test Plan, Test Strategy, RTM, Bug Report Template, and UAT Sign-off. Client-ready out of the box.',
+    includes: [
+      '01 — Full Test Plan Template (Word)',
+      '02 — Bug Report Template (Word)',
+      '03 — Test Strategy Template (Word)',
+      '04 — Requirements Traceability Matrix (Word)',
+      '05 — UAT Sign-Off Template (Word)',
+    ],
+    khaltiAmt: 'NPR ~3,880 (≈ $29)',
+    payoneerAmt: '$29 USD',
+  },
+  'interview-kit': {
+    name: 'QA Interview Prep Kit — 500 Q&A',
+    shortName: 'Interview Prep Kit',
+    price: '$19',
+    orig: '$35',
+    savings: '$16',
+    desc: '500 QA interview questions with detailed answers across manual testing, automation, API, HRMS domain, performance, mobile, SQL, and behavioural.',
+    includes: [
+      'Chapter 1 — Manual Testing (50 Q)',
+      'Chapter 2 — Test Automation & Selenium (50 Q)',
+      'Chapter 3 — API Testing (50 Q)',
+      'Chapter 4 — HRMS Domain Knowledge (50 Q)',
+      'Chapters 5–10 — Agile, Jira, Performance, Mobile, SQL, Behavioural',
+      'Interview tips on every question',
+    ],
+    khaltiAmt: 'NPR ~2,540 (≈ $19)',
+    payoneerAmt: '$19 USD',
+  },
+};
+
+// ── INIT ──────────────────────────────────────────────────────────
+let currentProduct = 'mega-bundle';
+let currentPayment = 'khalti';
+
+function init() {
+  // Read product from URL param
+  const params = new URLSearchParams(window.location.search);
+  const productKey = params.get('product') || 'mega-bundle';
+  currentProduct = PRODUCTS[productKey] ? productKey : 'mega-bundle';
+  loadProduct(currentProduct);
+
+  // Generate order reference
+  const ref = 'ORD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+  document.getElementById('hidden-ref').value = ref;
+
+  // Set default payment
+  selectPayment('khalti', document.getElementById('pay-khalti'));
+}
+
+function loadProduct(key) {
+  const p = PRODUCTS[key];
+  if (!p) return;
+
+  // Left panel
+  document.getElementById('product-title').innerHTML =
+    p.name.replace(' QA ', ' <em>QA</em> ')
+           .replace('Complete', 'Complete')
+           .replace('Bundle', '<em>Bundle</em>');
+  document.getElementById('product-desc').textContent = p.desc;
+  document.getElementById('summary-product-name').textContent = p.shortName;
+  document.getElementById('summary-price').textContent = p.price;
+
+  if (p.orig) {
+    document.getElementById('summary-orig').textContent = p.orig;
+    document.getElementById('savings-row').style.display = 'flex';
+    document.getElementById('summary-savings').textContent = p.savings;
+    document.getElementById('summary-save-note').textContent = `You save ${p.savings}`;
+  } else {
+    document.getElementById('summary-orig').textContent = '';
+    document.getElementById('savings-row').style.display = 'none';
+  }
+
+  // Includes list
+  const list = document.getElementById('includes-list');
+  list.innerHTML = p.includes.map(item => `
+    <li>
+      <div class="include-icon"><i class="fa-solid fa-check"></i></div>
+      <span>${item}</span>
+    </li>`).join('');
+
+  // Hidden form fields
+  document.getElementById('hidden-product').value = p.name + ' (' + p.price + ')';
+  document.getElementById('hidden-price').value = p.price;
+  document.getElementById('email-subject').value = `🛒 New Order — ${p.shortName} (${p.price})`;
+
+  // Update payment amounts
+  document.getElementById('khalti-amount').textContent = p.khaltiAmt;
+  document.getElementById('payoneer-amount').textContent = p.payoneerAmt;
+}
+
+// ── PAYMENT SELECTION ─────────────────────────────────────────────
+function selectPayment(method, el) {
+  currentPayment = method;
+  document.getElementById('hidden-payment').value = method;
+
+  // Update radio UI
+  document.querySelectorAll('.pay-option').forEach(opt => opt.classList.remove('selected'));
+  el.classList.add('selected');
+
+  // Show/hide instructions
+  document.getElementById('khalti-details').classList.toggle('show', method === 'khalti');
+  document.getElementById('payoneer-details').classList.toggle('show', method === 'payoneer');
+  document.getElementById('bank-details').classList.toggle('show', method === 'bank');
+
+  // Update txn placeholder
+  const txn = document.getElementById('txn-id');
+  const placeholders = {
+    khalti: 'Khalti transaction number or screenshot reference',
+    payoneer: 'Payoneer payment confirmation number',
+    bank: 'Bank transfer reference / transaction ID',
+    other: 'Any payment reference or leave blank to discuss',
+  };
+  txn.placeholder = placeholders[method] || 'Transaction reference';
+  if (method === 'other') txn.removeAttribute('required');
+  else txn.setAttribute('required', '');
+}
+
+// ── FORM SUBMIT ───────────────────────────────────────────────────
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const form = document.getElementById('order-form');
+  const data = new FormData(form);
+
+  // Add order summary to message
+  const p = PRODUCTS[currentProduct];
+  data.append('order_summary',
+    `Product: ${p.name}\nPrice: ${p.price}\nPayment: ${currentPayment}\nRef: ${document.getElementById('hidden-ref').value}`);
+
+  try {
+    const res = await fetch('https://formspree.io/f/xwkgbywr', {
+      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      // Track in GA
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'purchase', {
+          product: p.name, value: parseFloat(p.price.replace('$','')),
+          currency: 'USD', payment_method: currentPayment,
+        });
+      }
+      // Show success
+      const ref = document.getElementById('hidden-ref').value;
+      document.getElementById('order-ref').textContent = `Order Reference: ${ref}`;
+      document.getElementById('success-overlay').classList.add('show');
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch (err) {
+    alert('Something went wrong. Please email bishalkhatrichettri1@gmail.com directly with your order.');
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ── START ─────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
