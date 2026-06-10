@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mrbishalkhatri.github.io/sitemap.xml
+
+# Block junk crawling (optional but pro)
+Disallow: /private/
+Disallow: /temp/
