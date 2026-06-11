@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TKL43289');</script>
-  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QA Template Store — Bishal Khatri</title>
@@ -245,10 +238,6 @@
   </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKL43289"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <!-- NAV -->
 <nav>
@@ -554,24 +543,31 @@ function renderCard(t){
 
 function getProductKey(id) {
   const map = {
+    // HRMS Packs
     6:  'leave-pack',
     7:  'payroll-pack',
-    8:  'hrms-bundle',   // Mobile pack - use hrms bundle as closest
-    9:  'hrms-bundle',
-    10: 'hrms-bundle',
+    8:  'attendance-pack',
+    9:  'recruitment-pack',
+    10: 'appraisal-pack',
+    // Automation Tools
     11: 'selenium-kit',
-    12: 'selenium-kit',
-    13: 'selenium-kit',
-    14: 'selenium-kit',
-    15: 'selenium-kit',
-    16: 'qa-docs-bundle',
-    17: 'qa-docs-bundle',
-    18: 'qa-docs-bundle',
-    19: 'qa-docs-bundle',
+    12: 'permission-tool',
+    13: 'release-notes',
+    14: 'migration-validator',
+    15: 'zkteco-pack',
+    // Jira Dashboards
+    16: 'bug-trend',
+    17: 'sprint-dashboard',
+    18: 'defect-leakage',
+    19: 'release-readiness',
+    // Docs & HR
     20: 'qa-docs-bundle',
-    21: 'qa-docs-bundle',
+    21: 'hr-formula',
+    // Career
     22: 'interview-kit',
   };
+  return map[id] || 'mega-bundle';
+};
   return map[id] || 'mega-bundle';
 }
 

@@ -886,6 +886,110 @@ const PRODUCTS = {
     khaltiAmt: 'NPR ~2,540 (≈ $19)',
     payoneerAmt: '$19 USD',
   },
+
+  // ── HRMS Individual Packs ──────────────────────────────────────
+  'attendance-pack': {
+    name: 'Attendance & Device Testing Pack',
+    shortName: 'Attendance Testing Pack',
+    price: '$19', orig: '$35', savings: '$16',
+    desc: 'Test cases for ZKTeco biometric devices, manual attendance, shift management, overtime detection, and HRMS sync. Niche with almost zero competition.',
+    includes: ['ZKTeco device sync test cases','Manual attendance scenarios','Shift management & OT detection','HRMS integration testing','120+ test cases total'],
+    khaltiAmt: 'NPR ~2,540 (≈ $19)', payoneerAmt: '$19 USD',
+  },
+  'recruitment-pack': {
+    name: 'Recruitment & Onboarding Testing Pack',
+    shortName: 'Recruitment Testing Pack',
+    price: '$17', orig: '$30', savings: '$13',
+    desc: 'Test cases for job posting, applicant tracking, interview scheduling, offer letters, onboarding checklists, and document management workflows.',
+    includes: ['Job posting & applicant tracking','Interview scheduling scenarios','Offer letter generation tests','Onboarding workflow test cases','130+ test cases total'],
+    khaltiAmt: 'NPR ~2,275 (≈ $17)', payoneerAmt: '$17 USD',
+  },
+  'appraisal-pack': {
+    name: 'Performance Appraisal Testing Pack',
+    shortName: 'Appraisal Testing Pack',
+    price: '$17', orig: '$30', savings: '$13',
+    desc: 'Test cases for KPI setup, 360-degree feedback, rating workflows, appraisal cycles, bell curve normalization, and increment calculations.',
+    includes: ['KPI setup & target management','360-degree feedback scenarios','Rating workflow test cases','Appraisal cycle & increment tests','100+ test cases total'],
+    khaltiAmt: 'NPR ~2,275 (≈ $17)', payoneerAmt: '$17 USD',
+  },
+
+  // ── Automation Tools ───────────────────────────────────────────
+  'permission-tool': {
+    name: 'Permission Testing Automation Tool',
+    shortName: 'Permission Testing Tool',
+    price: '$29', orig: '$55', savings: '$26',
+    desc: 'Reads role-permission matrix, logs in automatically, checks menu/button visibility per role, and generates a pass/fail report. Built for HRMS with 100+ permissions.',
+    includes: ['Automated role-based access testing','Menu & button visibility checker','Permission matrix reader','Pass/fail report generator','5 Python files + Excel template'],
+    khaltiAmt: 'NPR ~3,880 (≈ $29)', payoneerAmt: '$29 USD',
+  },
+  'release-notes': {
+    name: 'Release Notes Generator',
+    shortName: 'Release Notes Generator',
+    price: '$22', orig: '$40', savings: '$18',
+    desc: 'Feed Jira tickets, Excel sheet, or CSV export — get professionally formatted release notes with bug fix summary, feature summary, and known issues.',
+    includes: ['Jira/Excel/CSV input support','Automated release notes formatting','Bug fix & feature summary','Known issues section','3 Python files + Word template'],
+    khaltiAmt: 'NPR ~2,940 (≈ $22)', payoneerAmt: '$22 USD',
+  },
+  'migration-validator': {
+    name: 'Employee Data Migration Validator',
+    shortName: 'Data Migration Validator',
+    price: '$19', orig: '$35', savings: '$16',
+    desc: 'Validates CSV structure, checks required fields, flags duplicate records, verifies data types, and generates an error report before any HRMS bulk import.',
+    includes: ['CSV structure validation','Required field checker','Duplicate record detection','Data type verification','Error report generator'],
+    khaltiAmt: 'NPR ~2,540 (≈ $19)', payoneerAmt: '$19 USD',
+  },
+  'zkteco-pack': {
+    name: 'ZKTeco Attendance Utilities Pack',
+    shortName: 'ZKTeco Utilities Pack',
+    price: '$24', orig: '$45', savings: '$21',
+    desc: 'Three utilities: user backup tool, attendance log export formatter, and device health checker. HR companies using ZKTeco devices need these daily.',
+    includes: ['ZKTeco user backup tool','Attendance log export formatter','Device health checker utility','3 Python scripts + README','Works with ZKTeco F18, K40, and more'],
+    khaltiAmt: 'NPR ~3,210 (≈ $24)', payoneerAmt: '$24 USD',
+  },
+
+  // ── Jira Dashboards ────────────────────────────────────────────
+  'bug-trend': {
+    name: 'Bug Trend Dashboard Template',
+    shortName: 'Bug Trend Dashboard',
+    price: '$15', orig: '$28', savings: '$13',
+    desc: 'Excel dashboard showing daily/weekly bug discovery and closure rates, defect aging, and severity breakdown. Perfect for weekly QA status reports.',
+    includes: ['Weekly bug trend charts','Defect aging analysis','Severity breakdown view','Paste data → charts auto-update','Excel + PDF formats'],
+    khaltiAmt: 'NPR ~2,005 (≈ $15)', payoneerAmt: '$15 USD',
+  },
+  'sprint-dashboard': {
+    name: 'Sprint Quality Dashboard',
+    shortName: 'Sprint Quality Dashboard',
+    price: '$15', orig: '$28', savings: '$13',
+    desc: 'Track test coverage, pass/fail rates, defect injection rate, and sprint burndown across multiple sprints. Automated charts update as you paste data.',
+    includes: ['Sprint pass/fail rate charts','Test coverage tracking','Defect injection metrics','Sprint velocity tracking','Excel with auto-updating charts'],
+    khaltiAmt: 'NPR ~2,005 (≈ $15)', payoneerAmt: '$15 USD',
+  },
+  'defect-leakage': {
+    name: 'Defect Leakage Dashboard',
+    shortName: 'Defect Leakage Dashboard',
+    price: '$15', orig: '$28', savings: '$13',
+    desc: 'Measures how many defects escaped QA and reached production. Broken down by sprint, tester, and module. Essential metric for QA teams reporting to management.',
+    includes: ['Defect leakage rate by sprint','Tester-wise leakage analysis','Module-wise breakdown','Production escape metrics','Manager-ready charts'],
+    khaltiAmt: 'NPR ~2,005 (≈ $15)', payoneerAmt: '$15 USD',
+  },
+  'release-readiness': {
+    name: 'Release Readiness Dashboard',
+    shortName: 'Release Readiness Dashboard',
+    price: '$15', orig: '$28', savings: '$13',
+    desc: 'Go/no-go checklist + metrics dashboard for release decisions. Covers test coverage %, blocker count, sign-off status, and risk score.',
+    includes: ['Go/No-Go decision checklist','Test coverage % tracker','Blocker count monitor','Risk score calculator','Sign-off status tracker'],
+    khaltiAmt: 'NPR ~2,005 (≈ $15)', payoneerAmt: '$15 USD',
+  },
+
+  // ── Docs & HR Formulas ─────────────────────────────────────────
+  'hr-formula': {
+    name: 'HR Formula Library (Excel)',
+    shortName: 'HR Formula Library',
+    price: '$22', orig: '$40', savings: '$18',
+    desc: '50+ Excel formulas for payroll, leave accrual, tax calculations, overtime, gratuity, and PF. Annotated with real use-case examples.',
+    includes: ['50+ HR Excel formulas','Payroll calculation formulas','Leave accrual & encashment','Tax, PF, ESI calculations','Overtime & gratuity formulas'],
+    khaltiAmt: 'NPR ~2,940 (≈ $22)', payoneerAmt: '$22 USD',
+  },
 };
 
 // ── INIT ──────────────────────────────────────────────────────────
