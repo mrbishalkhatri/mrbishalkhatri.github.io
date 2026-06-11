@@ -224,6 +224,7 @@
 
     /* payment method */
     .payment-methods { display:grid; grid-template-columns:1fr 1fr; gap:.65rem; margin-bottom:1.2rem; }
+    .payment-methods .pay-option:last-child { grid-column:1/-1; }
     .pay-option {
       display:flex; align-items:center; gap:.7rem;
       padding:.85rem 1rem; border-radius:.75rem;
@@ -258,6 +259,10 @@
       display:none;
     }
     .khalti-details.show { display:block; }
+    /* card security badges */
+    .card-brands { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-top:.75rem; padding:.65rem .9rem; background:var(--paper); border-radius:.6rem; border:1px solid var(--light); }
+    .card-brands-label { font-size:.72rem; color:var(--mid); margin-right:.25rem; }
+    .stripe-badge { display:inline-flex; align-items:center; gap:.35rem; font-size:.72rem; color:var(--mid); margin-left:auto; }
     .khalti-step {
       display:flex; align-items:flex-start; gap:.75rem;
       margin-bottom:.75rem; font-size:.85rem; color:var(--ink); line-height:1.6;
@@ -389,8 +394,8 @@
     <div class="success-icon"><i class="fa-solid fa-check"></i></div>
     <div class="success-title">Order Received! 🎉</div>
     <div class="success-body">
-      Thank you for your order. <strong>Bishal will send your download link within 2 hours</strong> to the email you provided.<br><br>
-      Check your inbox (and spam folder). If you don't hear back in 2 hours, email <strong>bishalkhatrichettri1@gmail.com</strong> with your order reference.
+      Your order is in! 🙌 <strong>Check your inbox</strong> — Bishal will email you a secure payment link within <strong>30 minutes</strong>.<br><br>
+      Once you complete payment, your download files arrive <strong>right away</strong>. Can't find the email? Check your spam folder or reach out at <strong>bishalkhatrichettri1@gmail.com</strong> with your order reference below.
     </div>
     <div id="order-ref" style="font-family:monospace;font-size:.85rem;background:var(--cream);padding:.5rem 1rem;border-radius:.5rem;margin-bottom:1.5rem;color:var(--teal);font-weight:700;"></div>
     <div class="success-actions">
@@ -439,7 +444,7 @@
       <div class="guarantee">
         <i class="fa-solid fa-lock"></i>
         <div class="guarantee-text">
-          <strong>100% satisfaction guaranteed.</strong> If you don't receive your files within 2 hours or have any issue — email me directly and I'll fix it immediately.
+          <strong>You're in safe hands.</strong> If anything goes wrong — wrong files, missing download, any issue at all — email Bishal directly and it gets fixed immediately. No questions asked.
         </div>
       </div>
 
@@ -457,7 +462,7 @@
   <!-- RIGHT: ORDER FORM -->
   <div class="form-panel">
     <h2 class="form-heading">Complete your order</h2>
-    <p class="form-subheading">Fill in your details below. You'll receive your download link via email within 2 hours of payment confirmation.</p>
+    <p class="form-subheading">Just your name and email is enough to get started. After you submit, Bishal sends you a secure payment link within 30 minutes — then your files follow right after payment. Simple, fast, and safe.</p>
 
     <!-- Steps -->
     <div class="steps">
@@ -480,7 +485,8 @@
     <form id="order-form" action="https://formspree.io/f/xwkgbywr" method="POST" onsubmit="handleSubmit(event)">
 
       <!-- Hidden fields — filled by JS -->
-      <input type="hidden" name="_subject" id="email-subject" value="🛒 New Order — QA Template Store">
+      <input type="hidden" name="_format" value="plain">
+      <input type="hidden" name="_subject" id="email-subject" value="🛒 New Order — QA Template Store | Bishal Khatri">
       <input type="hidden" name="product" id="hidden-product" value="">
       <input type="hidden" name="price" id="hidden-price" value="">
       <input type="hidden" name="order_ref" id="hidden-ref" value="">
@@ -536,129 +542,213 @@
       <div class="form-section-title"><i class="fa-solid fa-credit-card"></i> Payment Method</div>
 
       <div class="payment-methods">
-        <!-- <div class="pay-option selected" id="pay-khalti" onclick="selectPayment('khalti', this)">
-          <input type="radio" name="payment_choice" value="khalti" checked>
+        <!-- Visa -->
+        <div class="pay-option selected" id="pay-visa" onclick="selectPayment('visa', this)">
+          <input type="radio" name="payment_choice" value="Visa Card" checked>
           <div class="pay-radio"><div class="pay-radio-dot"></div></div>
           <div class="pay-info">
-            <div class="pay-name">Khalti</div>
-            <div class="pay-sub">Nepal · Instant</div>
+            <div class="pay-name">Visa Card</div>
+            <div class="pay-sub">Pay securely online</div>
+          </div>
+          <svg class="pay-icon" width="32" height="20" viewBox="0 0 48 16" fill="none">
+            <rect width="48" height="16" rx="3" fill="#1A1F71"/>
+            <text x="8" y="12" font-family="Arial" font-weight="bold" font-size="11" fill="white">VISA</text>
+          </svg>
+        </div>
+        <!-- Mastercard -->
+        <div class="pay-option" id="pay-mastercard" onclick="selectPayment('mastercard', this)">
+          <input type="radio" name="payment_choice" value="Mastercard">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Mastercard</div>
+            <div class="pay-sub">Pay securely online</div>
+          </div>
+          <div class="pay-icon" style="display:flex;align-items:center">
+            <div style="width:18px;height:18px;border-radius:50%;background:#EB001B;margin-right:-7px;z-index:1"></div>
+            <div style="width:18px;height:18px;border-radius:50%;background:#F79E1B;opacity:.9"></div>
+          </div>
+        </div>
+        <!-- Apple Pay -->
+        <div class="pay-option" id="pay-apple" onclick="selectPayment('apple', this)">
+          <input type="radio" name="payment_choice" value="Apple Pay">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Apple Pay</div>
+            <div class="pay-sub">One tap on iPhone / Mac</div>
+          </div>
+          <i class="fa-brands fa-apple pay-icon" style="font-size:1.3rem"></i>
+        </div>
+        <!-- Google Pay -->
+        <div class="pay-option" id="pay-google" onclick="selectPayment('google', this)">
+          <input type="radio" name="payment_choice" value="Google Pay">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Google Pay</div>
+            <div class="pay-sub">One tap on Android</div>
+          </div>
+          <i class="fa-brands fa-google-pay pay-icon" style="font-size:1.2rem;color:#4285F4"></i>
+        </div>
+        <!-- Khalti -->
+        <div class="pay-option" id="pay-khalti" onclick="selectPayment('khalti', this)" style="grid-column:1/-1">
+          <input type="radio" name="payment_choice" value="Khalti">
+          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+          <div class="pay-info">
+            <div class="pay-name">Khalti Wallet <span style="font-size:.72rem;font-weight:400;color:var(--teal)">Nepal only</span></div>
+            <div class="pay-sub">Pay in NPR · Instant settlement</div>
           </div>
           <i class="fa-solid fa-mobile-screen pay-icon"></i>
-        </div>
-        <div class="pay-option" id="pay-payoneer" onclick="selectPayment('payoneer', this)">
-          <input type="radio" name="payment_choice" value="payoneer">
-          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-          <div class="pay-info">
-            <div class="pay-name">Payoneer</div>
-            <div class="pay-sub">Worldwide</div>
-          </div>
-          <i class="fa-solid fa-globe pay-icon"></i>
-        </div>
-        <div class="pay-option" id="pay-bank" onclick="selectPayment('bank', this)">
-          <input type="radio" name="payment_choice" value="bank">
-          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-          <div class="pay-info">
-            <div class="pay-name">Bank Transfer</div>
-            <div class="pay-sub">Nepal banks</div>
-          </div>
-          <i class="fa-solid fa-building-columns pay-icon"></i>
-        </div> -->
-        <div class="pay-option" id="pay-other" onclick="selectPayment('other', this)">
-          <input type="radio" name="payment_choice" value="other">
-          <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-          <div class="pay-info">
-            <div class="pay-name">Other / Ask</div>
-            <div class="pay-sub">Discuss with Bishal</div>
-          </div>
-          <i class="fa-solid fa-comment pay-icon"></i>
         </div>
       </div>
 
       <!-- Khalti instructions -->
-      <div class="khalti-details show" id="khalti-details">
-        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
-          <i class="fa-solid fa-mobile-screen"></i> Khalti Payment Steps
+      <div class="khalti-details" id="khalti-details">
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.9rem;">
+          <i class="fa-solid fa-mobile-screen"></i> &nbsp;How Khalti payment works
         </div>
+
         <div class="khalti-step">
           <div class="khalti-num">1</div>
-          <div>Open <strong>Khalti app</strong> → Send Money or Pay → enter number <span class="khalti-id">9810116325</span> (Bishal Khatri)</div>
+          <div>Open <strong>Khalti app</strong> → Send Money → enter number
+            <span class="khalti-id">9810116325</span> (Bishal Khatri)
+          </div>
         </div>
         <div class="khalti-step">
           <div class="khalti-num">2</div>
-          <div>Send exactly <strong id="khalti-amount" style="color:var(--teal)">NPR equivalent of $99</strong> · Add your email in the remarks</div>
+          <div>Send exactly <strong id="khalti-amount" style="color:var(--teal)">NPR equivalent</strong>
+            · Add your email in the <strong>Remarks</strong> field
+          </div>
         </div>
         <div class="khalti-step">
           <div class="khalti-num">3</div>
-          <div>Take a screenshot of the transaction confirmation</div>
+          <div>Take a <strong>screenshot</strong> of the transaction confirmation</div>
         </div>
         <div class="khalti-step">
           <div class="khalti-num">4</div>
-          <div>Fill the form and click <strong>"Submit Order"</strong> — attach the screenshot in your email or reply to Bishal's confirmation email</div>
+          <div>Enter your <strong>Transaction ID</strong> in the field below, then click
+            <strong style="color:var(--teal)">"Place My Order"</strong>
+          </div>
         </div>
-        <div style="font-size:.75rem;color:var(--mid);margin-top:.5rem;font-style:italic;">
-          💡 You'll receive your files within 2 hours after Bishal confirms payment.
+        <div class="khalti-step">
+          <div class="khalti-num">5</div>
+          <div>Bishal verifies payment and emails your
+            <strong style="color:var(--teal)">Google Drive download link</strong>
+            within <strong>2 hours</strong>
+          </div>
+        </div>
+
+        <div style="background:rgba(42,124,111,.07);border-radius:.6rem;padding:.75rem 1rem;margin-top:.9rem;display:flex;align-items:flex-start;gap:.6rem;">
+          <i class="fa-solid fa-circle-check" style="color:var(--teal);margin-top:.1rem;font-size:.9rem;flex-shrink:0"></i>
+          <div style="font-size:.8rem;color:var(--teal2);line-height:1.65;">
+            <strong>Nepal-friendly.</strong> No international card needed.
+            Pay comfortably in NPR from your Khalti wallet — available 24/7.
+          </div>
+        </div>
+
+        <!-- Transaction ID — Khalti only -->
+        <div class="field-group" style="margin-top:1rem;">
+          <label>Khalti Transaction ID <span class="req">*</span></label>
+          <input type="text" name="transaction_id" id="txn-id"
+            placeholder="e.g. 240115XXXXXXXXX — from your Khalti receipt">
         </div>
       </div>
 
-      <!-- Payoneer instructions -->
-      <div class="payoneer-details" id="payoneer-details">
-        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
-          <i class="fa-solid fa-globe"></i> Payoneer Payment Steps
+      <!-- Card instructions<!-- Card instructions<!-- Card instructions (Visa / Mastercard / Apple Pay / Google Pay) -->
+      <div class="khalti-details show" id="card-details">
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.9rem;">
+          <i class="fa-solid fa-credit-card"></i> &nbsp;How card payment works
         </div>
+
         <div class="khalti-step">
           <div class="khalti-num">1</div>
-          <div>Go to <strong>payoneer.com</strong> → Make a Payment → enter email <span class="khalti-id" style="font-size:.78rem">bishalkhatrichettri1@gmail.com</span></div>
+          <div>
+            <strong>Fill in your name and email</strong> below and click
+            <strong style="color:var(--teal)">"Place My Order"</strong>.<br>
+            <span style="font-size:.8rem;color:var(--mid)">Takes less than 60 seconds. No card details needed here.</span>
+          </div>
         </div>
+
         <div class="khalti-step">
           <div class="khalti-num">2</div>
-          <div>Send exactly <strong id="payoneer-amount" style="color:var(--teal)">$99 USD</strong> · Add your order reference in the message</div>
+          <div>
+            <strong>Bishal gets your order instantly</strong> via Gmail and creates
+            a personalised <strong style="color:#635BFF">Stripe</strong> payment link
+            for your product.<br>
+            <span style="font-size:.8rem;color:var(--mid)">Lands in your inbox within 30 minutes.</span>
+          </div>
         </div>
+
         <div class="khalti-step">
           <div class="khalti-num">3</div>
-          <div>Submit this form — Bishal will confirm receipt and send your files within 2 hours</div>
+          <div>
+            <strong>Open the secure link</strong> → pay with
+            <strong>Visa, Mastercard, Apple Pay, or Google Pay</strong>
+            on a clean Stripe checkout page.<br>
+            <span style="font-size:.8rem;color:var(--mid)">Stripe may do a quick one-time identity check (under 1 min) — this keeps payments safe for everyone.</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Bank instructions -->
-      <div class="payoneer-details" id="bank-details">
-        <div style="font-size:.78rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;">
-          <i class="fa-solid fa-building-columns"></i> Bank Transfer Details
-        </div>
         <div class="khalti-step">
-          <div class="khalti-num">1</div>
-          <div>Email <strong>bishalkhatrichettri1@gmail.com</strong> to get bank details before transferring</div>
+          <div class="khalti-num">4</div>
+          <div>
+            <strong>Done — your files are on their way.</strong>
+            Bishal sends your <strong style="color:var(--teal)">Google Drive download link</strong>
+            as soon as payment clears.<br>
+            <span style="font-size:.8rem;color:var(--mid)">Typically within 1–2 hours of payment.</span>
+          </div>
         </div>
-        <div class="khalti-step">
-          <div class="khalti-num">2</div>
-          <div>Once you have the details, transfer and submit this form with your transaction ID</div>
+
+        <div style="background:rgba(99,91,255,.07);border-radius:.6rem;padding:.75rem 1rem;margin-top:.9rem;display:flex;align-items:flex-start;gap:.6rem;">
+          <i class="fa-solid fa-lock" style="color:#635BFF;margin-top:.1rem;font-size:.9rem;flex-shrink:0"></i>
+          <div style="font-size:.8rem;color:#3d3a6e;line-height:1.65;">
+            <strong>Your card details are never shared with Bishal.</strong>
+            Everything goes through <strong style="color:#635BFF">Stripe</strong> —
+            the same platform trusted by Amazon, Shopify, and Google.
+            256-bit SSL encryption on every transaction.
+          </div>
+        </div>
+
+        <div class="card-brands">
+          <span class="card-brands-label">We accept:</span>
+          <svg width="38" height="13" viewBox="0 0 48 16"><rect width="48" height="16" rx="3" fill="#1A1F71"/><text x="8" y="12" font-family="Arial" font-weight="bold" font-size="11" fill="white">VISA</text></svg>
+          <div style="display:flex;align-items:center">
+            <div style="width:16px;height:16px;border-radius:50%;background:#EB001B;margin-right:-5px;z-index:1"></div>
+            <div style="width:16px;height:16px;border-radius:50%;background:#F79E1B;opacity:.95"></div>
+          </div>
+          <div style="background:#000;color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:.3rem;font-family:-apple-system,sans-serif;letter-spacing:-.01em"> Pay</div>
+          <div style="background:#fff;border:1px solid #ddd;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:.3rem;">
+            <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#34A853">g</span><span style="color:#4285F4">l</span><span style="color:#EA4335">e</span> <span style="color:#5F6368">Pay</span>
+          </div>
+          <div class="stripe-badge">
+            <i class="fa-solid fa-lock" style="font-size:.65rem;color:#635BFF"></i>
+            <span>Powered by <strong style="color:#635BFF">Stripe</strong></span>
+          </div>
         </div>
       </div>
 
-      <!-- Transaction ID -->
-      <div class="field-group" id="txn-group">
-        <label>Transaction ID / Reference <span class="req">*</span></label>
-        <input type="text" name="transaction_id" id="txn-id"
-          placeholder="e.g. TXN-123456789 or Khalti transaction number" required>
-      </div>
-
-      <!-- Order note -->
+      <!-- Order note --><!-- Order note -->
       <div class="order-note">
         <i class="fa-solid fa-circle-info"></i>
-        <strong>How it works:</strong> Submit this form after making payment. Bishal gets an instant Gmail notification with your details, verifies payment, and emails your download link — all within 2 hours.
+        <strong>What happens after you submit?</strong><br>
+        Bishal receives your order via Gmail <strong>instantly</strong>.
+        Within <strong>30 minutes</strong> you'll get a payment link in your inbox.
+        Once paid, your download files arrive within <strong>2 hours</strong> — guaranteed.
+        Questions? Email <strong>bishalkhatrichettri1@gmail.com</strong> anytime.
       </div>
 
-      <!-- Submit -->
+      <!-- Submit --><!-- Submit -->
       <button type="submit" class="submit-btn" id="submit-btn">
-        <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Submit Order</span>
+        <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Place My Order</span>
         <div class="spinner"></div>
       </button>
 
       <!-- Trust -->
       <div class="trust-row">
-        <div class="trust-item"><i class="fa-solid fa-lock"></i> Secure form</div>
-        <div class="trust-item"><i class="fa-solid fa-clock"></i> 2hr delivery</div>
-        <div class="trust-item"><i class="fa-solid fa-envelope"></i> Gmail notification</div>
-        <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Satisfaction guaranteed</div>
+        <div class="trust-item"><i class="fa-solid fa-lock"></i> Stripe secured</div>
+        <div class="trust-item"><i class="fa-solid fa-clock"></i> Files in 2 hrs</div>
+        <div class="trust-item"><i class="fa-solid fa-envelope"></i> Gmail notify</div>
+        <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Guaranteed</div>
+        <div class="trust-item"><i class="fa-brands fa-cc-visa" style="color:#1A1F71"></i> Visa</div>
+        <div class="trust-item"><i class="fa-brands fa-cc-mastercard" style="color:#EB001B"></i> Mastercard</div>
       </div>
 
     </form>
@@ -813,8 +903,9 @@ function init() {
   const ref = 'ORD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
   document.getElementById('hidden-ref').value = ref;
 
-  // Set default payment
-  selectPayment('khalti', document.getElementById('pay-khalti'));
+  // Set default payment — Visa selected by default
+  const visaEl = document.getElementById('pay-visa');
+  if (visaEl) selectPayment('visa', visaEl);
 }
 
 function loadProduct(key) {
@@ -868,21 +959,18 @@ function selectPayment(method, el) {
   el.classList.add('selected');
 
   // Show/hide instructions
-  document.getElementById('khalti-details').classList.toggle('show', method === 'khalti');
-  document.getElementById('payoneer-details').classList.toggle('show', method === 'payoneer');
-  document.getElementById('bank-details').classList.toggle('show', method === 'bank');
+  const isCard = ['visa','mastercard','apple','google'].includes(method);
+  const cardDetails = document.getElementById('card-details');
+  const khaltiDetails = document.getElementById('khalti-details');
+  if (cardDetails) cardDetails.classList.toggle('show', isCard);
+  if (khaltiDetails) khaltiDetails.classList.toggle('show', method === 'khalti');
 
-  // Update txn placeholder
+  // Transaction ID required only for Khalti
   const txn = document.getElementById('txn-id');
-  const placeholders = {
-    khalti: 'Khalti transaction number or screenshot reference',
-    payoneer: 'Payoneer payment confirmation number',
-    bank: 'Bank transfer reference / transaction ID',
-    other: 'Any payment reference or leave blank to discuss',
-  };
-  txn.placeholder = placeholders[method] || 'Transaction reference';
-  if (method === 'other') txn.removeAttribute('required');
-  else txn.setAttribute('required', '');
+  if (txn) {
+    if (method === 'khalti') txn.setAttribute('required', '');
+    else txn.removeAttribute('required');
+  }
 }
 
 // ── FORM SUBMIT ───────────────────────────────────────────────────
