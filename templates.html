@@ -521,9 +521,9 @@ function renderCard(t){
 
   const btnHtml=free
     ?(t.download
-        ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},title:'${t.title}'})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
+        ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id}})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
         :`<button class="tbtn tbtn-free" style="opacity:.55;cursor:not-allowed"><i class="fa-solid fa-clock"></i> Coming Soon</button>`)
-    :`<a href="order.html?product=${getProductKey(t.id)}" onclick="trackEvent('purchase_click',{id:${t.id},title:'${t.title}',price:'${t.price}'})"><button class="tbtn tbtn-paid"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
+    :`<a href="order.html?product=${getProductKey(t.id)}"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id}})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
 
   return`<div class="tcard" data-tier="${t.tier}" data-cat="${t.cat}" data-title="${t.title.toLowerCase()} ${t.desc.toLowerCase()} ${t.tags.join(' ').toLowerCase()}">
     <div class="tcard-thumb" style="background:linear-gradient(135deg,${t.thumb},${t.thumb}cc)">
@@ -543,32 +543,15 @@ function renderCard(t){
 
 function getProductKey(id) {
   const map = {
-    // HRMS Packs
-    6:  'leave-pack',
-    7:  'payroll-pack',
-    8:  'attendance-pack',
-    9:  'recruitment-pack',
-    10: 'appraisal-pack',
-    // Automation Tools
-    11: 'selenium-kit',
-    12: 'permission-tool',
-    13: 'release-notes',
-    14: 'migration-validator',
-    15: 'zkteco-pack',
-    // Jira Dashboards
-    16: 'bug-trend',
-    17: 'sprint-dashboard',
-    18: 'defect-leakage',
-    19: 'release-readiness',
-    // Docs & HR
-    20: 'qa-docs-bundle',
-    21: 'hr-formula',
-    // Career
-    22: 'interview-kit',
+    6:'leave-pack', 7:'payroll-pack', 8:'attendance-pack',
+    9:'recruitment-pack', 10:'appraisal-pack',
+    11:'selenium-kit', 12:'permission-tool', 13:'release-notes',
+    14:'migration-validator', 15:'zkteco-pack',
+    16:'bug-trend', 17:'sprint-dashboard', 18:'defect-leakage',
+    19:'release-readiness', 20:'qa-docs-bundle',
+    21:'hr-formula', 22:'interview-kit',
   };
   return map[id] || 'mega-bundle';
-};
-  // return map[id] || 'mega-bundle';
 }
 
 function filterAll(){
