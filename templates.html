@@ -27,7 +27,17 @@
     window.dataLayer=window.dataLayer||[];
     function gtag(){dataLayer.push(arguments);}
     gtag('js',new Date());gtag('config','G-BVEKWHN62S');
-    function trackEvent(n,p){if(typeof gtag!=='undefined')gtag('event',n,p);}
+    function trackEvent(n,p){
+      if(typeof gtag!=='undefined')gtag('event',n,p);
+      if(n==='download_free'&&p&&p.id){
+        try{
+          const key='bk_dl_log';
+          const log=JSON.parse(localStorage.getItem(key)||'[]');
+          log.push({id:p.id,ts:Date.now()});
+          localStorage.setItem(key,JSON.stringify(log));
+        }catch(e){}
+      }
+    }
   </script>
   <style>
     :root{

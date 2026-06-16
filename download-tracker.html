@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Tracker — Bishal Khatri</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f0e;
+      --surface: #141714;
+      --border: #1f221f;
+      --teal: #2a7c6f;
+      --teal-bright: #3ecfb8;
+      --gold: #c8963e;
+      --ink: #e8ede9;
+      --mid: #7a8c7d;
+      --danger: #e05252;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .header-left { display: flex; flex-direction: column; gap: .25rem; }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--teal-bright);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .last-updated {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--mid);
+      margin-top: .1rem;
+    }
+    .btn-reset {
+      font-family: var(--mono);
+      font-size: .72rem;
+      padding: .5rem 1rem;
+      border: 1px solid var(--danger);
+      background: transparent;
+      color: var(--danger);
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: background .15s;
+    }
+    .btn-reset:hover { background: rgba(224,82,82,.1); }
+
+    /* ── Stat cards ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--mid);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--teal-bright);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: .72rem;
+      color: var(--mid);
+      margin-top: .35rem;
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--mid);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Leaderboard ── */
+    .leaderboard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .lb-row {
+      display: grid;
+      grid-template-columns: 2rem 1fr auto auto;
+      align-items: center;
+      gap: 1rem;
+      padding: .85rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      transition: background .1s;
+    }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-row:hover { background: rgba(255,255,255,.02); }
+    .lb-rank {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--mid);
+      text-align: center;
+    }
+    .lb-rank.top { color: var(--gold); font-weight: 600; }
+    .lb-info { min-width: 0; }
+    .lb-name {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lb-tag {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--mid);
+      margin-top: .15rem;
+    }
+    .lb-bar-wrap {
+      width: 120px;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .lb-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--teal-bright));
+      border-radius: 99px;
+      transition: width .5s ease;
+    }
+    .lb-count {
+      font-family: var(--mono);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--teal-bright);
+      min-width: 2.5rem;
+      text-align: right;
+    }
+
+    /* ── Timeline ── */
+    .timeline-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .chart-area {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+      margin-top: .5rem;
+    }
+    .chart-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .chart-bar {
+      width: 100%;
+      background: linear-gradient(180deg, var(--teal-bright), var(--teal));
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+      transition: height .4s ease;
+    }
+    .chart-label {
+      font-family: var(--mono);
+      font-size: .55rem;
+      color: var(--mid);
+      white-space: nowrap;
+    }
+
+    /* ── Recent log ── */
+    .log-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .log-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1rem;
+      padding: .7rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+      align-items: center;
+    }
+    .log-row:last-child { border-bottom: none; }
+    .log-row.header-row {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--mid);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.02);
+    }
+    .log-name { color: var(--ink); font-weight: 500; }
+    .log-time { color: var(--mid); font-family: var(--mono); font-size: .72rem; }
+    .log-badge {
+      font-family: var(--mono);
+      font-size: .6rem;
+      padding: .18rem .5rem;
+      border-radius: 4px;
+      background: rgba(62,207,184,.1);
+      color: var(--teal-bright);
+      border: 1px solid rgba(62,207,184,.2);
+    }
+
+    /* ── Empty state ── */
+    .empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      color: var(--mid);
+      text-align: center;
+      gap: .75rem;
+    }
+    .empty-icon { font-size: 2.5rem; opacity: .3; }
+    .empty-text { font-size: .85rem; line-height: 1.6; }
+    .empty-link {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--teal-bright);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--teal);
+    }
+    .empty-link:hover { color: var(--ink); }
+
+    /* ── Bottom nav ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--mid);
+      text-decoration: none;
+      margin-top: 2rem;
+      letter-spacing: .05em;
+    }
+    .back-link:hover { color: var(--teal-bright); }
+
+    /* ── Grid layout ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+
+    @media (max-width: 700px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .lb-bar-wrap { display: none; }
+      .lb-row { grid-template-columns: 2rem 1fr auto; }
+      .log-row { grid-template-columns: 1fr auto; }
+      .log-time { display: none; }
+    }
+    @media (max-width: 420px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-value { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <span class="eyebrow">mrbishalkhatri.github.io</span>
+      <h1>Download Tracker</h1>
+      <div class="last-updated" id="last-updated">Checking storage…</div>
+    </div>
+    <button class="btn-reset" onclick="confirmReset()">⚠ Reset Data</button>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Downloads</div>
+      <div class="stat-value" id="stat-total">—</div>
+      <div class="stat-sub" id="stat-sub-total">across all resources</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">This Week</div>
+      <div class="stat-value" id="stat-week">—</div>
+      <div class="stat-sub">last 7 days</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Today</div>
+      <div class="stat-value" id="stat-today">—</div>
+      <div class="stat-sub" id="stat-date">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Top Resource</div>
+      <div class="stat-value" id="stat-top" style="font-size:1rem;line-height:1.3;padding-top:.3rem">—</div>
+      <div class="stat-sub" id="stat-top-count">—</div>
+    </div>
+  </div>
+
+  <!-- Leaderboard + Timeline -->
+  <div class="two-col">
+    <!-- Leaderboard -->
+    <div>
+      <div class="section-title">↓ downloads by resource</div>
+      <div class="leaderboard" id="leaderboard">
+        <div class="empty">
+          <div class="empty-icon">📊</div>
+          <div class="empty-text">No downloads recorded yet.<br>Downloads are tracked when visitors click the free resource buttons.</div>
+          <a class="empty-link" href="templates.html">→ Go to Templates page</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline chart -->
+    <div>
+      <div class="section-title">↓ downloads last 14 days</div>
+      <div class="timeline-wrap">
+        <div class="chart-area" id="chart-area">
+          <div class="empty" style="width:100%;padding:1rem">
+            <div class="empty-icon" style="font-size:1.5rem">📈</div>
+            <div class="empty-text" style="font-size:.75rem">Activity will appear here after first downloads.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick breakdown by format -->
+      <div class="section-title" style="margin-top:1.5rem">↓ by format</div>
+      <div class="log-table" id="format-table">
+        <div class="empty" style="padding:1.5rem">
+          <div class="empty-text" style="font-size:.75rem">Format data will populate after downloads.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent log -->
+  <div class="section-title">↓ recent download log (last 50)</div>
+  <div class="log-table" id="log-table">
+    <div class="empty">
+      <div class="empty-icon">🗒</div>
+      <div class="empty-text">No events logged yet.</div>
+      <a class="empty-link" href="templates.html">→ Visit your templates store</a>
+    </div>
+  </div>
+
+  <a href="templates.html" class="back-link">← back to templates store</a>
+  <a href="index.html" class="back-link" style="margin-left:1.5rem">← portfolio home</a>
+
+<script>
+  const RESOURCES = {
+    1: { name: 'Basic Test Case Template',       format: 'Excel',  tag: 'general' },
+    2: { name: 'Simple Bug Report Form',          format: 'Excel',  tag: 'general' },
+    3: { name: 'Web App QA Checklist — 50pt',     format: 'PDF',    tag: 'general' },
+    4: { name: 'QA Test Plan — 1-Pager',          format: 'Word',   tag: 'general' },
+    5: { name: 'QA Interview Quick Guide (30 Q)', format: 'PDF',    tag: 'career'  },
+  };
+
+  const LOG_KEY = 'bk_dl_log';
+
+  function getLog() {
+    try { return JSON.parse(localStorage.getItem(LOG_KEY) || '[]'); }
+    catch(e) { return []; }
+  }
+
+  function formatRelTime(ts) {
+    const diff = Date.now() - ts;
+    const m = Math.floor(diff / 60000);
+    const h = Math.floor(diff / 3600000);
+    const d = Math.floor(diff / 86400000);
+    if (m < 1)  return 'just now';
+    if (m < 60) return `${m}m ago`;
+    if (h < 24) return `${h}h ago`;
+    if (d < 7)  return `${d}d ago`;
+    return new Date(ts).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+  }
+
+  function formatDate(ts) {
+    return new Date(ts).toLocaleString('en-GB', {
+      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+  function dayKey(ts) {
+    const d = new Date(ts);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function isToday(ts) {
+    return dayKey(ts) === dayKey(Date.now());
+  }
+
+  function isThisWeek(ts) {
+    return (Date.now() - ts) < 7 * 86400000;
+  }
+
+  function render() {
+    const log = getLog();
+    const now = Date.now();
+
+    // Last updated
+    document.getElementById('last-updated').textContent =
+      log.length ? `Last updated: ${formatRelTime(Math.max(...log.map(e=>e.ts)))}` : 'No data yet';
+
+    // Stat cards
+    const total = log.length;
+    const week  = log.filter(e => isThisWeek(e.ts)).length;
+    const today = log.filter(e => isToday(e.ts)).length;
+
+    document.getElementById('stat-total').textContent = total || '0';
+    document.getElementById('stat-week').textContent  = week  || '0';
+    document.getElementById('stat-today').textContent = today || '0';
+    document.getElementById('stat-date').textContent  =
+      new Date().toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' });
+    document.getElementById('stat-sub-total').textContent =
+      total ? `${Object.keys(RESOURCES).length} resources tracked` : 'across all resources';
+
+    // Counts per resource
+    const counts = {};
+    log.forEach(e => { counts[e.id] = (counts[e.id] || 0) + 1; });
+
+    // Top resource
+    if (total > 0) {
+      const topId = Object.keys(counts).sort((a,b) => counts[b]-counts[a])[0];
+      const res   = RESOURCES[topId];
+      document.getElementById('stat-top').textContent       = res ? res.name : `Resource #${topId}`;
+      document.getElementById('stat-top-count').textContent = `${counts[topId]} download${counts[topId]>1?'s':''}`;
+    } else {
+      document.getElementById('stat-top').textContent       = '—';
+      document.getElementById('stat-top-count').textContent = 'no data yet';
+    }
+
+    // Leaderboard
+    const lb = document.getElementById('leaderboard');
+    if (total === 0) {
+      lb.innerHTML = `<div class="empty">
+        <div class="empty-icon">📊</div>
+        <div class="empty-text">No downloads recorded yet.<br>Downloads are tracked when visitors click the free resource buttons.</div>
+        <a class="empty-link" href="templates.html">→ Go to Templates page</a>
+      </div>`;
+    } else {
+      const sorted = Object.keys(RESOURCES).map(id => ({
+        id, name: RESOURCES[id].name, format: RESOURCES[id].format,
+        count: counts[id] || 0
+      })).sort((a,b) => b.count - a.count);
+      const maxCount = sorted[0].count || 1;
+
+      lb.innerHTML = sorted.map((r, i) => `
+        <div class="lb-row">
+          <div class="lb-rank ${i===0?'top':''}">
+            ${i===0?'🥇':i===1?'🥈':i===2?'🥉':`#${i+1}`}
+          </div>
+          <div class="lb-info">
+            <div class="lb-name">${r.name}</div>
+            <div class="lb-tag">${r.format}</div>
+          </div>
+          <div class="lb-bar-wrap">
+            <div class="lb-bar" style="width:${Math.round((r.count/maxCount)*100)}%"></div>
+          </div>
+          <div class="lb-count">${r.count}</div>
+        </div>
+      `).join('');
+    }
+
+    // 14-day chart
+    const chartArea = document.getElementById('chart-area');
+    const days = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now - i * 86400000);
+      days.push({
+        key:   dayKey(d.getTime()),
+        label: d.toLocaleDateString('en-GB', { day:'numeric', month:'short' }).replace(' ', '\n')
+      });
+    }
+    const dayCounts = {};
+    log.forEach(e => { const k = dayKey(e.ts); dayCounts[k] = (dayCounts[k]||0)+1; });
+    const maxDay = Math.max(...days.map(d => dayCounts[d.key]||0), 1);
+
+    if (total === 0) {
+      chartArea.innerHTML = `<div class="empty" style="width:100%;padding:1rem">
+        <div class="empty-icon" style="font-size:1.5rem">📈</div>
+        <div class="empty-text" style="font-size:.75rem">Activity will appear here after first downloads.</div>
+      </div>`;
+    } else {
+      chartArea.innerHTML = days.map(d => {
+        const c = dayCounts[d.key] || 0;
+        const h = Math.max(4, Math.round((c / maxDay) * 72));
+        return `<div class="chart-col">
+          <div class="chart-bar" style="height:${h}px" title="${c} download${c!==1?'s':''} on ${d.label.replace('\n',' ')}"></div>
+          <div class="chart-label">${d.label.split('\n')[0]}</div>
+        </div>`;
+      }).join('');
+    }
+
+    // Format breakdown
+    const fmtTable = document.getElementById('format-table');
+    if (total === 0) {
+      fmtTable.innerHTML = `<div class="empty" style="padding:1.5rem">
+        <div class="empty-text" style="font-size:.75rem">Format data will populate after downloads.</div>
+      </div>`;
+    } else {
+      const fmtCounts = {};
+      log.forEach(e => {
+        const fmt = RESOURCES[e.id]?.format || 'Unknown';
+        fmtCounts[fmt] = (fmtCounts[fmt]||0)+1;
+      });
+      const fmtSorted = Object.entries(fmtCounts).sort((a,b)=>b[1]-a[1]);
+      fmtTable.innerHTML =
+        `<div class="log-row header-row"><div>Format</div><div>Downloads</div><div>Share</div></div>` +
+        fmtSorted.map(([fmt, c]) => `
+          <div class="log-row">
+            <div class="log-name">${fmt}</div>
+            <div class="log-time">${c}</div>
+            <div class="log-badge">${Math.round((c/total)*100)}%</div>
+          </div>`
+        ).join('');
+    }
+
+    // Recent log (last 50, newest first)
+    const logTable = document.getElementById('log-table');
+    const recent = [...log].reverse().slice(0, 50);
+    if (recent.length === 0) {
+      logTable.innerHTML = `<div class="empty">
+        <div class="empty-icon">🗒</div>
+        <div class="empty-text">No events logged yet.</div>
+        <a class="empty-link" href="templates.html">→ Visit your templates store</a>
+      </div>`;
+    } else {
+      logTable.innerHTML =
+        `<div class="log-row header-row"><div>Resource</div><div>Time</div><div>Format</div></div>` +
+        recent.map(e => {
+          const res = RESOURCES[e.id] || { name: `Resource #${e.id}`, format: '?' };
+          return `<div class="log-row">
+            <div class="log-name">${res.name}</div>
+            <div class="log-time">${formatDate(e.ts)}</div>
+            <div class="log-badge">${res.format}</div>
+          </div>`;
+        }).join('');
+    }
+  }
+
+  function confirmReset() {
+    if (confirm('Reset all download data? This cannot be undone.')) {
+      localStorage.removeItem(LOG_KEY);
+      render();
+    }
+  }
+
+  render();
+
+  // Seed with a demo if you want to test the UI — remove this block in production
+  // const demo = [];
+  // for (let i=0; i<30; i++) {
+  //   const id = Math.ceil(Math.random()*5);
+  //   const ts = Date.now() - Math.floor(Math.random()*14*86400000);
+  //   demo.push({id,ts});
+  // }
+  // localStorage.setItem('bk_dl_log', JSON.stringify(demo));
+  // render();
+</script>
+</body>
+</html>
