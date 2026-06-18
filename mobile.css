@@ -1,0 +1,40 @@
+/**
+ * mobile.css — Universal mobile/touch polish, safe to include on ANY page
+ * (including pages with their own dark mode already wired up).
+ * Does NOT touch color variables — only touch targets, safe areas, iOS fixes.
+ */
+
+/* iOS notch / home-indicator safe areas */
+nav, header {
+  padding-top: max(env(safe-area-inset-top), 0px);
+}
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Minimum comfortable tap targets (Apple HIG 44pt / Material 48dp) */
+button, a.btn-primary, a.btn-outline, .nav-back, .filter-btn, .tab-btn,
+input[type="submit"], input[type="button"] {
+  min-height: 44px;
+}
+
+/* iOS auto-zoom fix: inputs must be >=16px to prevent zoom-on-focus */
+input, select, textarea { font-size: 16px; }
+
+/* Remove 300ms tap delay, avoid double-tap zoom on interactive elements */
+a, button, [role="button"], input, select, textarea, label {
+  touch-action: manipulation;
+}
+
+/* Momentum scrolling on iOS for any scrollable panel */
+.form-panel, .sidebar, .summary-panel, [style*="overflow"] {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent accidental horizontal scroll/bleed on small screens */
+html, body { overflow-x: hidden; max-width: 100%; }
+
+/* Tap highlight cleanup (avoid grey flash on Android Chrome) */
+a, button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
