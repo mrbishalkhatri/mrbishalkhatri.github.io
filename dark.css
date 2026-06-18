@@ -1,0 +1,180 @@
+/**
+ * dark.css — Universal dark mode for all pages on mrbishalkhatri.github.io
+ * Include in every page after the page's own styles.
+ * Works via [data-theme="dark"] on <html>.
+ */
+
+/* ── CORE COLOUR OVERRIDES ─────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --ink:    #e8ede9;
+  --paper:  #0d0f0e;
+  --cream:  #141714;
+  --teal:   #3ecfb8;
+  --teal2:  #2a7c6f;
+  --gold:   #e0ab54;
+  --gold2:  #c8963e;
+  --mid:    #8a9e8d;
+  --light:  #2a332b;
+  --white:  #1a1e1a;
+  --red:    #f87171;
+  --green:  #4ade80;
+}
+
+/* ── BODY / PAGE ───────────────────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background-color: #0d0f0e;
+  color: #e8ede9;
+}
+
+/* ── NAVIGATION ─────────────────────────────────────────────────────────── */
+[data-theme="dark"] nav {
+  background: rgba(13,15,14,0.92);
+  border-bottom-color: #1f231f;
+}
+[data-theme="dark"] .nav-logo,
+[data-theme="dark"] .nav-back { color: #e8ede9; }
+[data-theme="dark"] .nav-back:hover { color: #3ecfb8; border-color: #3ecfb8; background: rgba(62,207,184,.08); }
+
+/* ── CARDS, PANELS, SURFACES ─────────────────────────────────────────────── */
+[data-theme="dark"] .ach-card,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .testi-card,
+[data-theme="dark"] .skill-bar-wrap,
+[data-theme="dark"] .hero-img-wrap,
+[data-theme="dark"] .template-card,
+[data-theme="dark"] .resource-card,
+[data-theme="dark"] .order-card,
+[data-theme="dark"] .summary-panel,
+[data-theme="dark"] .form-panel,
+[data-theme="dark"] .tools-card,
+[data-theme="dark"] .sidebar,
+[data-theme="dark"] .sidebar-card,
+[data-theme="dark"] .post-card {
+  background: #141714;
+  border-color: #1f231f;
+  color: #e8ede9;
+}
+
+/* ── SECTIONS ────────────────────────────────────────────────────────────── */
+[data-theme="dark"] #about,
+[data-theme="dark"] .about-section  { background: #111413; }
+[data-theme="dark"] #services,
+[data-theme="dark"] #contact,
+[data-theme="dark"] .section-alt    { background: #0a0c0a; }
+[data-theme="dark"] section         { background: transparent; }
+[data-theme="dark"] footer          { background: #060705; color: #8a9e8d; }
+[data-theme="dark"] footer a        { color: #3ecfb8; }
+
+/* ── POST / ARTICLE LAYOUT ───────────────────────────────────────────────── */
+[data-theme="dark"] .post-hero      { background: #0a0c0a; }
+[data-theme="dark"] .post-hero-bg   { opacity: .05; }
+[data-theme="dark"] .post-body      { background: #0d0f0e; color: #e8ede9; }
+[data-theme="dark"] .post-meta      { color: #8a9e8d; }
+[data-theme="dark"] blockquote      { background: #141714; border-left-color: #3ecfb8; color: #c8d8cb; }
+[data-theme="dark"] code, [data-theme="dark"] pre { background: #1a1e1a; color: #3ecfb8; border-color: #2a332b; }
+[data-theme="dark"] .callout        { background: #141714; border-color: #2a332b; }
+[data-theme="dark"] .tools-grid li  { background: #141714; border-color: #2a332b; }
+
+/* ── FORMS & INPUTS ──────────────────────────────────────────────────────── */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: #141714;
+  color: #e8ede9;
+  border-color: #2a332b;
+}
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder { color: #4a5e4c; }
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus { border-color: #3ecfb8; box-shadow: 0 0 0 3px rgba(62,207,184,.12); }
+[data-theme="dark"] label          { color: #c8d8cb; }
+
+/* ── BUTTONS ──────────────────────────────────────────────────────────────── */
+[data-theme="dark"] .btn-outline   { border-color: #2a332b; color: #e8ede9; }
+[data-theme="dark"] .btn-outline:hover { background: #e8ede9; color: #0d0f0e; }
+
+/* ── CV BUILDER specific ─────────────────────────────────────────────────── */
+[data-theme="dark"] .cv-preview     { background: #141714; border-color: #1f231f; }
+[data-theme="dark"] .cv-section     { border-bottom-color: #2a332b; }
+[data-theme="dark"] .form-group label { color: #c8d8cb; }
+[data-theme="dark"] .tab-btn        { background: #1a1e1a; color: #8a9e8d; border-color: #2a332b; }
+[data-theme="dark"] .tab-btn.active { background: #3ecfb8; color: #0d0f0e; }
+
+/* ── ORDER / CHECKOUT specific ───────────────────────────────────────────── */
+[data-theme="dark"] .order-item     { background: #141714; border-color: #1f231f; }
+[data-theme="dark"] .pay-card       { background: #141714; border-color: #1f231f; }
+[data-theme="dark"] .pay-card:hover { border-color: #3ecfb8; }
+[data-theme="dark"] .total-row      { border-top-color: #2a332b; }
+[data-theme="dark"] .discount-tag   { background: rgba(62,207,184,.1); color: #3ecfb8; }
+
+/* ── TEMPLATES / STORE specific ──────────────────────────────────────────── */
+[data-theme="dark"] .filter-btn     { background: #1a1e1a; color: #8a9e8d; border-color: #2a332b; }
+[data-theme="dark"] .filter-btn.active { background: #3ecfb8; color: #0d0f0e; }
+[data-theme="dark"] .badge-free     { background: rgba(62,207,184,.12); color: #3ecfb8; }
+[data-theme="dark"] .badge-premium  { background: rgba(200,150,62,.12); color: #e0ab54; }
+[data-theme="dark"] .mobile-menu    { background: #141412; }
+
+/* ── PROGRESS BAR ────────────────────────────────────────────────────────── */
+[data-theme="dark"] #progress-bar  { background: linear-gradient(90deg, #3ecfb8, #c8963e); }
+
+/* ── HORIZONTAL RULES & DIVIDERS ─────────────────────────────────────────── */
+[data-theme="dark"] hr             { border-color: #1f231f; }
+[data-theme="dark"] .section-divider { border-color: #1f231f; }
+
+/* ── SCROLLBAR (webkit) ──────────────────────────────────────────────────── */
+[data-theme="dark"] ::-webkit-scrollbar        { background: #0d0f0e; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb  { background: #2a332b; border-radius: 4px; }
+
+/* ── MOBILE ──────────────────────────────────────────────────────────────── */
+/* iOS notch / home bar safe areas */
+nav {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+}
+footer {
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
+
+/* Minimum 44×44pt tap targets (Apple HIG / Android guidance) */
+a, button, [role="button"], input[type="submit"], input[type="button"],
+label[for], .nav-back, .nav-logo, .filter-btn, .tab-btn {
+  min-height: 44px;
+  min-width:  44px;
+  display:    inline-flex;
+  align-items: center;
+}
+
+/* Prevent tiny text on mobile */
+@media (max-width: 480px) {
+  body { font-size: 16px; } /* prevents iOS auto-zoom on focus */
+  input, select, textarea { font-size: 16px !important; } /* iOS zoom fix */
+}
+
+/* Smooth scrolling with momentum on iOS */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll bleed */
+body { overflow-x: hidden; }
+
+/* ── THEME TOGGLE BUTTON (injected into pages missing it) ──────────────── */
+.bk-theme-toggle {
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  padding: .35rem .65rem;
+  cursor: pointer;
+  font-size: .9rem;
+  color: inherit;
+  opacity: .7;
+  transition: opacity .15s;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.bk-theme-toggle:hover { opacity: 1; }
