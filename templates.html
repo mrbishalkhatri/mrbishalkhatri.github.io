@@ -9,18 +9,46 @@
   })(window,document,'script','dataLayer','GTM-TKL43289');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QA Template Store — Bishal Khatri</title>
-  <meta name="description" content="Professional QA templates by a real QA engineer. HRMS test cases, Selenium kits, Jira dashboards, documentation bundles & more. Free and premium.">
-  <meta name="keywords" content="QA templates, HRMS testing, test case template, Selenium starter kit, Jira dashboard, QA interview kit, bug report template, payroll testing">
-  <meta property="og:title" content="QA Template Store — Bishal Khatri">
-  <meta property="og:description" content="25 professional QA templates built from real engineering experience. HRMS test packs, automation kits, Jira dashboards & more.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0f0e" media="(prefers-color-scheme: dark)">
+  <title>QA Template Store — Free & Premium QA Templates | Bishal Khatri</title>
+  <meta name="description" content="Free and premium QA templates by a real QA engineer: test case templates, bug report trackers, Selenium starter kits, Jira dashboards, QA interview guides & more.">
+  <meta name="keywords" content="QA templates, free test case template, HRMS testing, Selenium starter kit, Jira dashboard template, QA interview kit, bug report template, payroll testing, QA checklist download, test plan template">
+  <meta name="author" content="Bishal Khatri">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mrbishalkhatri.github.io/templates.html">
+  <meta property="og:title" content="QA Template Store — Free & Premium QA Templates">
+  <meta property="og:description" content="25 professional QA templates built from real engineering experience. HRMS test packs, automation kits, Jira dashboards & more — free and premium.">
   <meta property="og:image" content="https://mrbishalkhatri.github.io/og-image.png">
+  <meta property="og:site_name" content="Bishal Khatri Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@ProjectCraftman">
+  <meta name="twitter:title" content="QA Template Store — Free & Premium QA Templates">
+  <meta name="twitter:description" content="25 professional QA templates by a real QA engineer — free and premium, ready to download.">
   <link rel="canonical" href="https://mrbishalkhatri.github.io/templates.html">
+
+  <!-- Structured data: store catalog of free resources -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Free QA Resources by Bishal Khatri",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Basic Test Case Template", "description": "Free downloadable Excel test case template for QA engineers.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
+      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Simple Bug Report Form", "description": "Free downloadable Excel bug report tracker template.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
+      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Web App QA Checklist — 50pt", "description": "Free 50-point PDF QA checklist for web applications.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
+      { "@type": "ListItem", "position": 4, "item": { "@type": "Product", "name": "QA Test Plan — 1-Pager", "description": "Free one-page Word test plan template.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } },
+      { "@type": "ListItem", "position": 5, "item": { "@type": "Product", "name": "QA Interview Quick Guide (30 Q)", "description": "Free PDF guide with 30 common QA interview questions.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } } }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="mobile.css">
   <link rel="icon" type="image/svg+xml" href="/bishalkhatri.png">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVEKWHN62S"></script>
   <script>
@@ -36,9 +64,12 @@
           log.push({id:p.id,ts:Date.now()});
           localStorage.setItem(key,JSON.stringify(log));
         }catch(e){}
+        // Cross-device tracking via Supabase
+        if(window.BKTracker) window.BKTracker.track(p.id, p.name || ('Resource #'+p.id));
       }
     }
   </script>
+  <script src="theme.js"></script>
   <style>
     :root{
       --ink:#0d0d0d;--paper:#f5f2ed;--cream:#ede9e1;
@@ -397,6 +428,9 @@ function applyTheme(dark){
   root.setAttribute('data-theme',dark?'dark':'light');
   themeIcon.className=dark?'fa-solid fa-sun':'fa-solid fa-moon';
   localStorage.setItem('theme',dark?'dark':'light');
+  let metaTC=document.querySelector('meta[name="theme-color"]');
+  if(!metaTC){metaTC=document.createElement('meta');metaTC.name='theme-color';document.head.appendChild(metaTC);}
+  metaTC.content=dark?'#0d0f0e':'#f5f2ed';
 }
 const saved=localStorage.getItem('theme');
 applyTheme(saved?saved==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -543,7 +577,7 @@ function renderCard(t){
 
   const btnHtml=free
     ?(t.download
-        ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id}})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
+        ?`<a href="${t.download}" download><button class="tbtn tbtn-free" onclick="trackEvent('download_free',{id:${t.id},name:${JSON.stringify(t.title)}})"><i class="fa-solid fa-download"></i> Download Free</button></a>`
         :`<button class="tbtn tbtn-free" style="opacity:.55;cursor:not-allowed"><i class="fa-solid fa-clock"></i> Coming Soon</button>`)
     :`<a href="order.html?product=${getProductKey(t.id)}"><button class="tbtn tbtn-paid" onclick="trackEvent('purchase_click',{id:${t.id}})"><i class="fa-solid fa-bag-shopping"></i> Buy Now</button></a>`;
 
