@@ -9,9 +9,52 @@
   })(window,document,'script','dataLayer','GTM-TKL43289');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV Builder — Bishal Khatri Portfolio | Professional Resume Tool</title>
-  <meta name="description" content="Build and download your professional CV for free. A free tool by Bishal Khatri.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0f0e" media="(prefers-color-scheme: dark)">
+  <title>Free CV Builder — Build a Professional Resume Online | Bishal Khatri</title>
+  <meta name="description" content="Build and download a professional, ATS-friendly CV in minutes — 100% free, no signup. Live preview, multiple sections, instant PDF export. Created by QA Engineer Bishal Khatri.">
+  <meta name="keywords" content="free CV builder, free resume builder, online CV maker, ATS friendly resume, build resume online, download CV PDF, professional CV template, resume builder no signup">
+  <meta name="author" content="Bishal Khatri">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://mrbishalkhatri.github.io/cv-builder.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mrbishalkhatri.github.io/cv-builder.html">
+  <meta property="og:title" content="Free CV Builder — Build a Professional Resume Online">
+  <meta property="og:description" content="Build and download a professional, ATS-friendly CV in minutes — 100% free, no signup required. Live preview with instant PDF export.">
+  <meta property="og:image" content="https://mrbishalkhatri.github.io/og-image.png">
+  <meta property="og:site_name" content="Bishal Khatri Portfolio">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@ProjectCraftman">
+  <meta name="twitter:title" content="Free CV Builder — Build a Professional Resume Online">
+  <meta name="twitter:description" content="Build and download a professional, ATS-friendly CV in minutes — 100% free, no signup required.">
+
+  <!-- Structured data: this page is a free software tool -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Free CV Builder by Bishal Khatri",
+    "url": "https://mrbishalkhatri.github.io/cv-builder.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any (Web Browser)",
+    "description": "A free online CV builder with live preview and instant PDF export. No signup required.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Person",
+      "name": "Bishal Khatri",
+      "url": "https://mrbishalkhatri.github.io/"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -376,6 +419,16 @@
       #cv-preview { width: 100%; transform: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="dark.css">
+  <script src="theme.js"></script>
+  <style>
+    /* CV paper itself should always be light, even in dark mode UI */
+    [data-theme="dark"] #cv-preview { background: #ffffff !important; }
+    [data-theme="dark"] #cv-preview,
+    [data-theme="dark"] #cv-preview p,
+    [data-theme="dark"] #cv-preview li,
+    [data-theme="dark"] #cv-preview span:not([style*="color"]) { color: #0d0d0d; }
+  </style>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -386,6 +439,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav>
   <a class="nav-logo" href="index.html">Bishal<span>.</span> <span style="font-family:var(--sans);font-size:.75rem;color:var(--mid);font-weight:400;">CV Builder</span></a>
   <div class="nav-right">
+    <button class="bk-theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><i class="fa-solid fa-moon theme-icon-auto"></i></button>
     <a class="nav-back" href="index.html"><i class="fa-solid fa-arrow-left"></i> Portfolio</a>
     <button class="nav-download-btn" id="downloadPdfBtn"><i class="fa-solid fa-download"></i> Download PDF</button>
   </div>
