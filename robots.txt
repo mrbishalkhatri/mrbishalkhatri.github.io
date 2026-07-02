@@ -7,3 +7,7 @@ Sitemap: https://mrbishalkhatri.github.io/sitemap.xml
 # Block junk crawling (optional but pro)
 Disallow: /private/
 Disallow: /temp/
+
+# Legacy/orphan test pages — not linked from the site, kept only for reference
+Disallow: /bicky.html
+Disallow: /welcome.html
