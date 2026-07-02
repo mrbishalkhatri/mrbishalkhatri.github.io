@@ -111,7 +111,7 @@ window.BKTracker = {
       localStorage.setItem(key, JSON.stringify(log));
     } catch(e) {}
 
-    // Send to Supabase (non-blocking)
+    // Send to Supabase (non-blocking, but no longer fails silently)
     if (this.SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
       fetch(`${this.SUPABASE_URL}/rest/v1/${this.TABLE}`, {
         method:  'POST',
@@ -122,7 +122,15 @@ window.BKTracker = {
           'Prefer':        'return=minimal'
         },
         body: JSON.stringify(payload)
-      }).catch(() => {}); // fail silently
+      }).then(res => {
+        if (!res.ok) {
+          res.text().then(body => {
+            console.error(`BKTracker: Supabase insert failed (${res.status} ${res.statusText}):`, body);
+          });
+        }
+      }).catch(err => {
+        console.error('BKTracker: Supabase insert network error:', err);
+      });
     }
   }
 };
