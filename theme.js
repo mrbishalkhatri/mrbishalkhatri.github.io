@@ -67,8 +67,8 @@ window.BKTheme = {
 
 // ── 3. SUPABASE DOWNLOAD TRACKER ──────────────────────────────────────────
 window.BKTracker = {
-  SUPABASE_URL: 'https://vaiicgvsieigopschtxv.supabase.co',
-  SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhaWljZ3ZzaWVpZ29wc2NodHh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NjUwNDYsImV4cCI6MjA5NzM0MTA0Nn0.wG_sKSuO2Binp0oR-GxZms3ELgQDrtsTT5DmL0IQOkw',
+  SUPABASE_URL: 'https://sowldjgtbygbpgguzhcu.supabase.co',
+  SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvd2xkamd0YnlnYnBnZ3V6aGN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODY4OTMsImV4cCI6MjA5ODU2Mjg5M30.5t1a-1kCLd6YSUWqIVbXumCIwcArvQb5rjwvCev3nBA',
   TABLE: 'downloads',
 
   // Stable anonymous device ID (persists across sessions on same device)
