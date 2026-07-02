@@ -58,13 +58,8 @@
     function trackEvent(n,p){
       if(typeof gtag!=='undefined')gtag('event',n,p);
       if(n==='download_free'&&p&&p.id){
-        try{
-          const key='bk_dl_log';
-          const log=JSON.parse(localStorage.getItem(key)||'[]');
-          log.push({id:p.id,ts:Date.now()});
-          localStorage.setItem(key,JSON.stringify(log));
-        }catch(e){}
-        // Cross-device tracking via Supabase
+        // BKTracker.track() (theme.js) already logs locally AND sends to Supabase —
+        // don't also write to localStorage here, or every download gets counted twice.
         if(window.BKTracker) window.BKTracker.track(p.id, p.name || ('Resource #'+p.id));
       }
     }

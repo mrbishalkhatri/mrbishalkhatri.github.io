@@ -422,9 +422,15 @@
   async function getSupabaseLog() {
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/downloads?select=resource_id,created_at,platform,device_id&order=created_at.desc&limit=2000`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+        cache: 'no-store'
+      }
     );
-    if (!res.ok) throw new Error('Supabase fetch failed: ' + res.status);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`Supabase fetch failed: ${res.status} ${res.statusText} ${body}`.trim());
+    }
     const rows = await res.json();
     return rows.map(r => ({
       id: r.resource_id,
@@ -443,6 +449,8 @@
         return rows;
       } catch (e) {
         console.warn('Supabase unavailable, falling back to local data:', e);
+        document.getElementById('data-source').textContent = `⚠ Supabase error — showing this device only: ${e.message}`;
+        return getLocalLog();
       }
     }
     document.getElementById('data-source').textContent = '💻 This device only — connect Supabase for cross-device data';
