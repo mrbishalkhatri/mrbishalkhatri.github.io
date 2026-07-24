@@ -412,11 +412,93 @@
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* ── RESPONSIVE ───────────────────────────────────────────── */
+
+    /* Mobile Edit/Preview tab switcher — hidden on desktop */
+    .mobile-tabs { display: none; }
+
+    /* Fixed bottom download bar — hidden on desktop */
+    .mobile-download-bar { display: none; }
+
     @media (max-width: 900px) {
-      .app { grid-template-columns: 1fr; }
+      .app { grid-template-columns: 1fr; padding-top: 0; }
+
+      /* tab bar sits right under the fixed nav */
+      .mobile-tabs {
+        display: flex;
+        position: sticky; top: 58px; z-index: 150;
+        margin-top: 58px;
+        background: var(--paper);
+        border-bottom: 1px solid var(--light);
+      }
+      .mobile-tab-btn {
+        flex: 1; padding: .85rem; background: none; border: none; cursor: pointer;
+        font-family: var(--sans); font-size: .8rem; font-weight: 700;
+        letter-spacing: .03em; text-transform: uppercase; color: var(--mid);
+        position: relative; transition: color .2s;
+      }
+      .mobile-tab-btn i { margin-right: .4rem; }
+      .mobile-tab-btn.active { color: var(--teal); }
+      .mobile-tab-btn.active::after {
+        content: ''; position: absolute; left: 14%; right: 14%; bottom: 0;
+        height: 2px; background: var(--teal);
+      }
+
+      /* whichever panel isn't the active tab is fully hidden (desktop ignores this) */
+      .mobile-hidden { display: none !important; }
+
       .form-panel { height: auto; position: static; }
-      .preview-panel { padding: 1.5rem 1rem; }
-      #cv-preview { width: 100%; transform: none !important; }
+      .preview-panel { padding: 1.25rem .75rem calc(1.25rem + 76px + env(safe-area-inset-bottom)); }
+      #cv-preview { width: 100%; transform: none !important; margin-bottom: 0 !important; }
+
+      /* declutter nav: icons stay, labels go, download button moves to the bottom bar */
+      .nav-download-btn { display: none; }
+      .nav-back-label { display: none; }
+      .nav-logo span:last-child { display: none; }
+
+      /* bottom action bar, thumb-reachable */
+      .mobile-download-bar {
+        display: block;
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 190;
+        background: var(--paper);
+        border-top: 1px solid var(--light);
+        padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom));
+        box-shadow: 0 -6px 20px rgba(0,0,0,.1);
+      }
+      .mobile-download-bar button {
+        width: 100%; padding: .9rem; border: none; border-radius: .7rem;
+        background: var(--teal); color: #fff; font-family: var(--sans);
+        font-size: .92rem; font-weight: 700;
+        display: flex; align-items: center; justify-content: center; gap: .5rem;
+        cursor: pointer; transition: background .2s, transform .1s;
+      }
+      .mobile-download-bar button:active { transform: scale(.98); background: var(--teal2); }
+
+      .toast { bottom: calc(84px + env(safe-area-inset-bottom)); }
+
+      /* bigger, easier-to-tap colour swatches */
+      .color-swatch { width: 38px; height: 38px; }
+      .color-row { gap: .65rem; }
+    }
+
+    /* Below this width the live preview itself goes single-column and readable —
+       the printed/PDF output is unaffected since it's governed separately by @media print. */
+    @media (max-width: 640px) {
+      .cv-body { grid-template-columns: 1fr !important; }
+      .cv-body:not(.layout-single) .cv-col-left  { order: 2; }
+      .cv-body:not(.layout-single) .cv-col-right { order: 1; }
+      .cv-col-left, .cv-col-right {
+        padding: 1.2rem 1.3rem !important;
+        border-left: none !important;
+      }
+      .cv-header { padding: 1.6rem 1.3rem 1.2rem; }
+      .cv-avatar { width: 56px; height: 56px; font-size: 1.25rem; }
+      .cv-name { font-size: 1.5rem; }
+      .cv-entry-header { flex-wrap: wrap; gap: .15rem .5rem; }
+
+      .field-row { grid-template-columns: 1fr; }
+      .form-header, .template-row, .section-header, .section-body {
+        padding-left: 1.2rem; padding-right: 1.2rem;
+      }
     }
   </style>
   <link rel="stylesheet" href="dark.css">
@@ -440,10 +522,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="nav-logo" href="index.html">Bishal<span>.</span> <span style="font-family:var(--sans);font-size:.75rem;color:var(--mid);font-weight:400;">CV Builder</span></a>
   <div class="nav-right">
     <button class="bk-theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><i class="fa-solid fa-moon theme-icon-auto"></i></button>
-    <a class="nav-back" href="index.html"><i class="fa-solid fa-arrow-left"></i> Portfolio</a>
+    <a class="nav-back" href="index.html"><i class="fa-solid fa-arrow-left"></i> <span class="nav-back-label">Portfolio</span></a>
     <button class="nav-download-btn" id="downloadPdfBtn"><i class="fa-solid fa-download"></i> Download PDF</button>
   </div>
 </nav>
+
+<div class="mobile-tabs" role="tablist" aria-label="CV builder view">
+  <button type="button" class="mobile-tab-btn active" role="tab" aria-selected="true" data-tab="edit" onclick="switchTab('edit')"><i class="fa-solid fa-pen"></i> Edit</button>
+  <button type="button" class="mobile-tab-btn" role="tab" aria-selected="false" data-tab="preview" onclick="switchTab('preview')"><i class="fa-solid fa-eye"></i> Preview</button>
+</div>
 
 <div class="app">
 
@@ -557,7 +644,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <!-- ── PREVIEW PANEL ───────────────────────────────────────── -->
-  <div class="preview-panel">
+  <div class="preview-panel mobile-hidden">
     <div class="preview-label" style="width:210mm; max-width:100%;">Live Preview</div>
     <div id="cv-preview">
       <!-- rendered by JS -->
@@ -566,6 +653,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <div class="toast" id="toast">📄 Opening print dialog — your CV is ready for PDF!</div>
+
+<div class="mobile-download-bar">
+  <button type="button" id="mobileDownloadBtn"><i class="fa-solid fa-download"></i> Download PDF</button>
+</div>
 
 <script>
 /* ── STATE & GLOBALS ───────────────────────────────────────── */
@@ -580,6 +671,21 @@ function toggleSection(header) {
   const isOpen = header.classList.contains('open');
   header.classList.toggle('open', !isOpen);
   body.classList.toggle('open', !isOpen);
+}
+
+/* ── MOBILE EDIT/PREVIEW TABS ──────────────────────────────── */
+function switchTab(tab) {
+  const formPanel = document.querySelector('.form-panel');
+  const previewPanel = document.querySelector('.preview-panel');
+  formPanel.classList.toggle('mobile-hidden', tab === 'preview');
+  previewPanel.classList.toggle('mobile-hidden', tab === 'edit');
+  document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+    const active = btn.dataset.tab === tab;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  if (tab === 'preview') requestAnimationFrame(scalePreview);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function setTemplate(t, btn) {
@@ -673,6 +779,13 @@ function scalePreview() {
   const preview = document.getElementById('cv-preview');
   const panel = document.querySelector('.preview-panel');
   if(!preview || !panel) return;
+  if (panel.classList.contains('mobile-hidden')) return; // panel not visible right now, nothing to measure
+  if (window.innerWidth <= 900) {
+    // mobile: the CV reflows to a fluid single-column layout instead of a scaled facsimile
+    preview.style.transform = '';
+    preview.style.marginBottom = '';
+    return;
+  }
   const containerWidth = panel.clientWidth - 48;
   const cvIdealWidth = 794;
   if (containerWidth < cvIdealWidth) {
@@ -706,6 +819,8 @@ window.addEventListener('load', () => {
   render();
   scalePreview();
   document.getElementById('downloadPdfBtn').addEventListener('click', downloadCV);
+  const mobileDownloadBtn = document.getElementById('mobileDownloadBtn');
+  if (mobileDownloadBtn) mobileDownloadBtn.addEventListener('click', downloadCV);
   window.addEventListener('resize', () => setTimeout(scalePreview, 50));
   window.addEventListener('beforeprint', () => { const p = document.getElementById('cv-preview'); if(p){ p.style.transform = 'none'; p.style.marginBottom = '0'; } });
   window.addEventListener('afterprint', () => scalePreview());
