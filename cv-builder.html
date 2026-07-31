@@ -235,7 +235,7 @@
     .preview-panel {
       background: #d8d4cc;
       display: flex; flex-direction: column; align-items: center;
-      padding: 2.5rem 2rem;
+      padding: 1.8rem 2rem 2.5rem;
       min-height: calc(100vh - 58px);
     }
     .preview-label {
@@ -357,8 +357,11 @@
         background: white !important;
       }
 
-      /* The preview container should be block, no transforms, fixed size */
-      .preview-panel {
+      /* The preview container should be block, no transforms, fixed size.
+         Also covers .mobile-hidden explicitly: print rendering width often
+         matches the mobile breakpoint, so this must out-rank that rule. */
+      .preview-panel,
+      .preview-panel.mobile-hidden {
         display: block !important;
         padding: 0 !important;
         margin: 0 !important;
