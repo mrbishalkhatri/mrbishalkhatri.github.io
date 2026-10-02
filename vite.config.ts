@@ -14,7 +14,7 @@ export default defineConfig({
     // GitHub Pages is static hosting, so prerender the routes into HTML at build time.
     prerender: {
       enabled: true,
-      crawlLinks: true,
+      crawlLinks: false,
       autoStaticPathsDiscovery: true,
       autoSubfolderIndex: true,
       failOnError: true,
