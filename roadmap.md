@@ -1,0 +1,11 @@
+- [x] Blend the previous scrolling QA Lab and home sections into the current gravity-inspired homepage
+- [x] Add portrait cursor depth, denser hero orbits, and 3D click reactions
+- [x] Redesign the complete portfolio theme for a cohesive 3D identity and strengthen the dark sections using #070A0F, #00E5FF, #7C3AED, #A3FF12, #F5F7FA, and #8B95A7
+- [x] Increase QA Lab visibility through black sections and add dimensional click bursts to interactive components
+- [x] Add a custom cyber cursor that follows the mouse with trailing reticle and interactive states
+- [x] Add GitHub Pages deployment workflow
+- [x] Copy the five free QA resources into public downloads
+- [x] Build the /templates store route
+- [x] Build the /order checkout route
+- [x] Build the /cv-builder route
+- [x] Wire header, footer, and homepage buttons to the new pages

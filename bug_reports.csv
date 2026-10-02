@@ -1,8 +1,0 @@
-BugID,Module,Severity,Status,ReportedDate,ClosedDate,Tester
-101,Login,High,Closed,2024-01-03,2024-01-05,Alice
-102,Checkout,Medium,Open,2024-01-04,,Bob
-103,Profile,Low,Closed,2024-01-05,2024-01-07,Alice
-104,Login,High,Closed,2024-01-06,2024-01-10,Charlie
-105,Search,Medium,Closed,2024-01-07,2024-01-08,Alice
-106,Checkout,Critical,Open,2024-01-08,,Bob
-107,Login,Critical,Closed,2024-01-09,2024-01-10,Alice

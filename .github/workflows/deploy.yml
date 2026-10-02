@@ -1,0 +1,54 @@
+# Builds the site and publishes it to GitHub Pages on every push to main.
+# One-time setup: GitHub repo → Settings → Pages → Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile || bun install
+      - name: Build static site
+        run: bun run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+      - name: Locate output
+        id: out
+        run: |
+          for d in .output/public dist/client dist; do
+            if [ -d "$d" ]; then echo "dir=$d" >> "$GITHUB_OUTPUT"; break; fi
+          done
+      - name: SPA fallback
+        run: |
+          D="${{ steps.out.outputs.dir }}"
+          [ -f "$D/index.html" ] && cp "$D/index.html" "$D/404.html" || true
+          touch "$D/.nojekyll"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.out.outputs.dir }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
