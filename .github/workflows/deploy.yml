@@ -1,6 +1,6 @@
 # Builds the site and publishes it to GitHub Pages on every push to main.
 # One-time setup: GitHub repo → Settings → Pages → Source: "GitHub Actions".
-# Fresh deployment trigger: 2026-10-02
+# Fresh deployment trigger: 2026-10-07
 name: Deploy to GitHub Pages
 
 on:
