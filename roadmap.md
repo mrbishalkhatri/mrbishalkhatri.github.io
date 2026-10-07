@@ -9,3 +9,8 @@
 - [x] Build the /order checkout route
 - [x] Build the /cv-builder route
 - [x] Wire header, footer, and homepage buttons to the new pages
+- [x] Upgrade the existing homepage orbit with a cinematic 3D charge, audience launch, impact, and return interaction
+- [x] Replace the hero center circle with a rotating pentagonal prism and smooth its click disappearance and return
+- [ ] Remove stray glyph and dash-like fragments from the hero click sequence
+- [ ] Rebuild the CV builder from the original ZIP with advanced templates and repeatable sections
+- [ ] Migrate both original full blog articles into dedicated portfolio routes
