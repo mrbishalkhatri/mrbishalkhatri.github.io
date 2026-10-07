@@ -11,3 +11,5 @@
 
 - Keep the homepage as a hybrid of the Gravity-inspired orbit design and the persistent scrolling 3D QA Lab, preserving full portfolio content.
 - Homepage component depth interactions use delegated pointer events through `HomeInteractions` so motion stays consistent and lightweight.
+- Keep the hero orbit impact as a finite CSS 3D sequence triggered by lightweight React state; this preserves performance and cleanly restores idle motion.
+- Keep full articles in dedicated `/blog/*` routes and model the advanced CV builder as structured client state; this preserves shareable content and repeatable editing.
