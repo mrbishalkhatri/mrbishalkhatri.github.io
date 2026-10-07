@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CvBuilderRouteImport } from './routes/cv-builder'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as BlogAutomatedTestingRouteImport } from './routes/blog.automated-testing'
+import { Route as BlogEffectiveTestCasesRouteImport } from './routes/blog.effective-test-cases'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +36,32 @@ const TemplatesRoute = TemplatesRouteImport.update({
   path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogAutomatedTestingRoute = BlogAutomatedTestingRouteImport.update({
+  id: '/blog/automated-testing',
+  path: '/blog/automated-testing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogEffectiveTestCasesRoute = BlogEffectiveTestCasesRouteImport.update({
+  id: '/blog/effective-test-cases',
+  path: '/blog/effective-test-cases',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cv-builder': typeof CvBuilderRoute
   '/order': typeof OrderRoute
   '/templates': typeof TemplatesRoute
+  '/blog/automated-testing': typeof BlogAutomatedTestingRoute
+  '/blog/effective-test-cases': typeof BlogEffectiveTestCasesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cv-builder': typeof CvBuilderRoute
   '/order': typeof OrderRoute
   '/templates': typeof TemplatesRoute
+  '/blog/automated-testing': typeof BlogAutomatedTestingRoute
+  '/blog/effective-test-cases': typeof BlogEffectiveTestCasesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,34 @@ export interface FileRoutesById {
   '/cv-builder': typeof CvBuilderRoute
   '/order': typeof OrderRoute
   '/templates': typeof TemplatesRoute
+  '/blog/automated-testing': typeof BlogAutomatedTestingRoute
+  '/blog/effective-test-cases': typeof BlogEffectiveTestCasesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cv-builder' | '/order' | '/templates'
+  fullPaths:
+    | '/'
+    | '/cv-builder'
+    | '/order'
+    | '/templates'
+    | '/blog/automated-testing'
+    | '/blog/effective-test-cases'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cv-builder' | '/order' | '/templates'
-  id: '__root__' | '/' | '/cv-builder' | '/order' | '/templates'
+  to:
+    | '/'
+    | '/cv-builder'
+    | '/order'
+    | '/templates'
+    | '/blog/automated-testing'
+    | '/blog/effective-test-cases'
+  id:
+    | '__root__'
+    | '/'
+    | '/cv-builder'
+    | '/order'
+    | '/templates'
+    | '/blog/automated-testing'
+    | '/blog/effective-test-cases'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +104,8 @@ export interface RootRouteChildren {
   CvBuilderRoute: typeof CvBuilderRoute
   OrderRoute: typeof OrderRoute
   TemplatesRoute: typeof TemplatesRoute
+  BlogAutomatedTestingRoute: typeof BlogAutomatedTestingRoute
+  BlogEffectiveTestCasesRoute: typeof BlogEffectiveTestCasesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +138,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/automated-testing': {
+      id: '/blog/automated-testing'
+      path: '/blog/automated-testing'
+      fullPath: '/blog/automated-testing'
+      preLoaderRoute: typeof BlogAutomatedTestingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/effective-test-cases': {
+      id: '/blog/effective-test-cases'
+      path: '/blog/effective-test-cases'
+      fullPath: '/blog/effective-test-cases'
+      preLoaderRoute: typeof BlogEffectiveTestCasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +160,8 @@ const rootRouteChildren: RootRouteChildren = {
   CvBuilderRoute: CvBuilderRoute,
   OrderRoute: OrderRoute,
   TemplatesRoute: TemplatesRoute,
+  BlogAutomatedTestingRoute: BlogAutomatedTestingRoute,
+  BlogEffectiveTestCasesRoute: BlogEffectiveTestCasesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
